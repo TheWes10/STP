@@ -15,13 +15,14 @@ linkElement.href = extensionCSS;
 const MainHTML = `
 <div id="STP" style="font-family: Arial;">
     <div class="toolbar" id="toolbarMain">
-        <button id="collapse" title="Toggle Toolbar">
-            <img src="${chrome.runtime.getURL("images/collapse.svg")}" draggable = "false">
-            <span class="buttonText">Toggle Toolbar</span>
+        <button id="openSidebar" title="Open Sidebar">
+            <img src="${chrome.runtime.getURL("images/openSidebar.svg")}" draggable = "false">
         </button>
-        <div id="menu">
-
-        </div>
+    </div>
+    <div id="sidebar">
+        <button id="closeSidebar" title="Close Sidebar" >
+            <img src="${chrome.runtime.getURL("images/closeSidebar.svg")}" draggable = "false">
+        </button>
     </div>
 </div>
 `;
@@ -34,48 +35,39 @@ document.body.appendChild(container);
 
 //Toolbar
 const toolbar = shadowRoot.getElementById('toolbarMain');
-const collapseButton = shadowRoot.getElementById('collapse');
+const openSidebarButton = shadowRoot.getElementById('openSidebar');
+const closeSidebarButton = shadowRoot.getElementById('closeSidebar');
 const allButtons = shadowRoot.querySelectorAll('.toolbar button');
-const menu = shadowRoot.getElementById('menu');
+const sidebar = shadowRoot.getElementById('sidebar');
 let isDragging = false;
 let offsetX, offsetY;
+let clickTimer;
 
 chrome.storage.sync.get(["toolbarLeftStyle", "toolbarTopStyle"], (result) => {
     toolbar.style.left = result.toolbarLeftStyle ? result.toolbarLeftStyle + 'px' : '';
     toolbar.style.top = result.toolbarTopStyle ? result.toolbarTopStyle + 'px' : '';
 });
 
-let isCollapsed = true;
-collapseButton.addEventListener('click', () => {
-    if(isCollapsed){
-        for (let button of MainButtons) {
-            button.classList.add('show');
-        }
+openSidebarButton.addEventListener('click', () => {
+    if((Date.now() - clickTimer) < 200){
+        sidebar.classList.add('show');
+        toolbar.classList.add('hide');
+        sidebar.style.top = 0;
+        sidebar.style.right = 0;
     }
-    else {
-        for (let button of allButtons) {
-            button.classList.remove('show');
-        }
-        menu.classList.remove('show');
-    }
-
-    toolbar.style.height = isCollapsed ? "585px" : "90px";
-    isCollapsed = !isCollapsed;
+});
+closeSidebarButton.addEventListener('click', () => {
+    sidebar.classList.remove('show');
+    toolbar.classList.remove('hide');
 });
 
-
 toolbar.addEventListener('mousedown', (e) => {
-    const isToolbarButton = e.target.closest('button');
-    const isPBMenu = e.target.closest('#PBMenu');
-    const isFDMenu = e.target.closest('#FDMenu');
-
-    if (!isToolbarButton && !isPBMenu && !isFDMenu) {	//changed foo
-        isDragging = true;
-        offsetX = e.clientX - toolbar.getBoundingClientRect().left;
-        offsetY = e.clientY - toolbar.getBoundingClientRect().top;
-        toolbar.style.cursor = 'grabbing';
-        document.body.classList.add('disable-text-selection');
-    }
+    clickTimer = Date.now();
+    isDragging = true;
+    offsetX = e.clientX - toolbar.getBoundingClientRect().left;
+    offsetY = e.clientY - toolbar.getBoundingClientRect().top;
+    toolbar.style.cursor = 'grabbing';
+    document.body.classList.add('disable-text-selection');
 });
 
 toolbar.addEventListener('dragover', (event) => {
