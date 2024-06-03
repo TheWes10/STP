@@ -20,9 +20,41 @@ const MainHTML = `
         </button>
     </div>
     <div id="sidebar">
-        <button id="closeSidebar" title="Close Sidebar" >
-            <img src="${chrome.runtime.getURL("images/closeSidebar.svg")}" draggable = "false">
+        <button id="closeSidebar" title="Close Sidebar">
+            <img src="${chrome.runtime.getURL("images/closeSidebar.svg")}" draggable="false">
         </button>
+        <div class="section" id="T2S">
+            <h2>Text to Speech</h2>
+            <div class="section-content">
+                <button>Read This Page</button>
+                <button>Speed</button>
+                <button>Highlight Text</button>
+            </div>
+        </div>
+        <div class="section" id="textConfig">
+            <h2>Text Configurations</h2>
+            <div class="section-content">
+                <!-- Font buttons or options go here -->
+            </div>
+        </div>
+        <div class="section" id="textSpacing">
+            <h2>Text Spacing</h2>
+            <div class="section-content">
+                <!-- Font buttons or options go here -->
+            </div>
+        </div>
+        <div class="section" id="focusRuler">
+            <h2>Focus Ruler</h2>
+            <div class="section-content">
+                <!-- Font buttons or options go here -->
+            </div>
+        </div>
+        <div class="section" id="colorSchemes">
+            <h2>Color Schemes</h2>
+            <div class="section-content">
+                <!-- Font buttons or options go here -->
+            </div>
+        </div>
     </div>
 </div>
 `;

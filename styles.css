@@ -45,6 +45,30 @@
     padding: 20px;
     box-sizing: border-box;
     z-index: 9999;
+    overflow-y: auto; /* Add vertical scrollbar */
+    color: white; /* Ensure text is visible on dark background */
+}
+
+#sidebar .section {
+    margin-bottom: 20px; /* Space between sections */
+}
+
+#sidebar .section h2 {
+    margin-bottom: 10px;
+}
+
+#sidebar .section-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#sidebar .section-content button {
+    background-color: #FFD700;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
 }
 
 #sidebar button {
