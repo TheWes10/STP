@@ -114,17 +114,27 @@ document.addEventListener('mousemove', (e) => {
     if (isDragging) {
         const newX = e.clientX - offsetX;
         const newY = e.clientY - offsetY;
+
+        const toolbarWidth = toolbar.offsetWidth;
+        const toolbarHeight = toolbar.offsetHeight;
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+
+        toolbarLeft = toolbar.offsetLeft; 
+        toolbarTop = toolbar.offsetTop;   
+
+        const potentialNewX = Math.max(0, Math.min(windowWidth - toolbarWidth, newX));
+        const potentialNewY = Math.max(0, Math.min(windowHeight - toolbarHeight, newY));
       
-        toolbar.style.left = newX + 'px';
-        toolbar.style.top = newY + 'px';
+        toolbar.style.left = potentialNewX + 'px';
+        toolbar.style.top = potentialNewY + 'px';
         
         toolbarLeft = toolbar.getBoundingClientRect().left;
         toolbarTop = toolbar.getBoundingClientRect().top;
     }
 });
 
-document.addEventListener('mouseup', () => {	//changed to include PS stuff and in chrome get thing
-    isDragging = false;
+document.addEventListener('mouseup', () => {	
     toolbar.style.cursor = 'grab';
     chrome.storage.sync.set({
         toolbarLeftStyle: toolbarLeft,
