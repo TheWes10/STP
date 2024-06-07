@@ -23,14 +23,20 @@ const MainHTML = `
         <button id="closeSidebar" title="Close Sidebar">
             <img src="${chrome.runtime.getURL("images/closeSidebar.svg")}" draggable="false">
         </button>
-        <div class="section" id="T2S">
-            <h2>Text to Speech</h2>
             <div class="section-content">
-                <button>Read This Page</button>
-                <button>Speed</button>
-                <button>Highlight Text</button>
+                <button id="readPage">
+                    <img id="readPageImg" src="${chrome.runtime.getURL("images/readPageOff.svg")}" draggable="false">
+                    <p class="buttonText">Read This Page</p>
+                </button>
+                <button id="readSpeed">
+                    <img id="readSpeedImg" src="${chrome.runtime.getURL("images/readSpeedOff.svg")}" draggable="false">
+                    <p class="buttonText">Speed</p>
+                </button>
+                <button id="t2sHighlight">
+                    <img id="t2sHighlightImg" src="${chrome.runtime.getURL("images/t2sHighlightOff.svg")}" draggable="false">
+                    <p class="buttonText">Highlight Text</p>
+                </button>
             </div>
-        </div>
         <div class="section" id="textConfig">
             <h2>Text Configurations</h2>
             <div class="section-content">
@@ -136,6 +142,7 @@ document.addEventListener('mousemove', (e) => {
 
 document.addEventListener('mouseup', () => {	
     toolbar.style.cursor = 'grab';
+    isDragging = false
     chrome.storage.sync.set({
         toolbarLeftStyle: toolbarLeft,
         toolbarTopStyle: toolbarTop,
@@ -144,4 +151,95 @@ document.addEventListener('mouseup', () => {
     document.body.classList.remove('disable-text-selection');
 });
 
- 
+//Text to Speech Functions
+const readPageButton = shadowRoot.getElementById('readPage');
+const readPageImg = shadowRoot.getElementById('readPageImg');
+const readSpeedButton = shadowRoot.getElementById('readSpeed');
+const readSpeedImg = shadowRoot.getElementById('readSpeedImg');
+const t2sHighlightButton = shadowRoot.getElementById('t2sHighlight');
+const t2sHighlightImg = shadowRoot.getElementById('t2sHighlightImg');
+
+let isReading = false;
+let currentSpeedIndex = 1;
+let isHighlighting = false;
+let speechSynthesisUtterance;
+
+const speedValues = [0.75, 1, 1.5]; // slow, normal, fast
+const speedImages = [
+    chrome.runtime.getURL("images/readSpeedSlow.svg"),
+    chrome.runtime.getURL("images/readSpeedNormal.svg"),
+    chrome.runtime.getURL("images/readSpeedFast.svg")
+];
+
+readPageButton.addEventListener('click', () => {
+    console.log('Read This Page button clicked');
+    const currentSrc = readPageImg.src;
+    const newSrc = currentSrc.includes("readPageOff.svg") 
+        ? chrome.runtime.getURL("images/readPageOn.svg") 
+        : chrome.runtime.getURL("images/readPageOff.svg");
+    readPageImg.src = newSrc;
+
+    if (!isReading) {
+        startReadingPage();
+    } else {
+        stopReadingPage();
+    }
+    isReading = !isReading;
+});
+    
+function startReadingPage(textToRead) {
+    if (!textToRead) {
+        textToRead = document.body.innerText;
+    }
+    speechSynthesisUtterance = new SpeechSynthesisUtterance(textToRead);
+    speechSynthesisUtterance.rate = speedValues[currentSpeedIndex]; // Set the current speech rate
+    speechSynthesisUtterance.pitch = 1; // Set default pitch
+
+    speechSynthesisUtterance.onend = () => {
+        readPageImg.src = chrome.runtime.getURL("images/readPageOff.svg");
+        isReading = false;
+    };
+    window.speechSynthesis.speak(speechSynthesisUtterance);
+}
+
+
+function stopReadingPage() {
+    window.speechSynthesis.cancel();
+    readPageImg.src = chrome.runtime.getURL("images/readPageOff.svg");
+}
+
+readSpeedButton.addEventListener('click', () => { //FIX SO THAT CHANIGNG SPEED DEOSN"T RESTART READER
+    console.log('Read Speed button clicked');
+    
+    // Cycle through the speed settings
+    currentSpeedIndex = (currentSpeedIndex + 1) % speedValues.length;
+    readSpeedImg.src = speedImages[currentSpeedIndex];
+    
+    // Adjust the reading speed
+    if (speechSynthesisUtterance) {
+        speechSynthesisUtterance.rate = speedValues[currentSpeedIndex];
+        console.log('Speech rate changed to:', speechSynthesisUtterance.rate);
+
+        if (isReading) {
+            // Restart the speech with the new rate
+            const textToRead = speechSynthesisUtterance.text;
+            stopReadingPage();
+            startReadingPage(textToRead);
+        }
+    }
+});
+
+t2sHighlightButton.addEventListener('click', () => {
+    const currentSrc = t2sHighlightImg.src;
+    t2sHighlightImg.src = currentSrc.includes("t2sHighlightOff.svg") 
+        ? chrome.runtime.getURL("images/t2sHighlightOn.svg") 
+        : chrome.runtime.getURL("images/t2sHighlightOff.svg");
+
+    // Add functionality to highlight text for reading here
+    if (!isHighlighting) {
+        startHighlightingText();
+    } else {
+        stopHighlightingText();
+    }
+    isHighlighting = !isHighlighting;
+});
