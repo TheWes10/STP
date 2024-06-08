@@ -30,8 +30,16 @@
     position: relative;
 }
 
+.toolbar button:hover {
+    box-shadow: 0 0 10px 2px blue; /* Blue highlight on hover */
+}
+
 .fontAlterationButtons {
     display: none;
+}
+
+.fontAlterationButtons:hover{
+    box-shadow: 0 0 10px 2px blue; /* Blue highlight on hover */
 }
 
 #sidebar {
@@ -61,8 +69,16 @@
 
 #sidebar .section-content {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+#sidebar .section-content-alpha {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    gap: 20px;
 }
 
 #sidebar .section-content button {
@@ -77,6 +93,10 @@
     background-color: #ffffff;
     border: none;
     border-radius: 10px;
+}
+
+#sidebar button:hover {
+    box-shadow: 0 0 10px 2px blue; /* Blue highlight on hover */
 }
 
 #closeSidebar {
@@ -101,3 +121,46 @@
     -webkit-user-select: none;
     -ms-user-select: none;
 }
+
+.centered-heading {
+    text-align: center; /* Center-align the heading */
+    margin-bottom: 10px; /* Add some space below the heading */
+}
+
+.color-button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
+    justify-content: center;
+}
+
+.color-button:hover {
+    box-shadow: 0 0 10px 2px blue; /* Blue highlight on hover */
+}
+
+.color-button[style*="background-color: white;"] {
+    border: 1px solid #ccc; /* Add border to make white button visible */
+}
+
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-left: 20px; /* Add margin to separate from color buttons */
+  }
+
+#brightnessSlider {
+    width: 200px;
+}
+
+.section-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px
+}
+
