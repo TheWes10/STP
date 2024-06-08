@@ -23,42 +23,124 @@ const MainHTML = `
         <button id="closeSidebar" title="Close Sidebar">
             <img src="${chrome.runtime.getURL("images/closeSidebar.svg")}" draggable="false">
         </button>
+        <div class="section" id="T2S">
+            <h2>Text to Speech</h2>
             <div class="section-content">
-                <button id="readPage">
-                    <img id="readPageImg" src="${chrome.runtime.getURL("images/readPageOff.svg")}" draggable="false">
-                    <p class="buttonText">Read This Page</p>
+                <button>
+                <img src="${chrome.runtime.getURL("images/ReadPage.svg")}" draggable = "false"> 
                 </button>
-                <button id="readSpeed">
-                    <img id="readSpeedImg" src="${chrome.runtime.getURL("images/readSpeedOff.svg")}" draggable="false">
-                    <p class="buttonText">Speed</p>
+                <button id="speedButton" title="speedButton">
+                    <img src="${chrome.runtime.getURL("images/SpeedNormalGray.svg")}" draggable = "false"> 
                 </button>
-                <button id="t2sHighlight">
-                    <img id="t2sHighlightImg" src="${chrome.runtime.getURL("images/t2sHighlightOff.svg")}" draggable="false">
-                    <p class="buttonText">Highlight Text</p>
+                <button>
+                    <img src="${chrome.runtime.getURL("images/Highlight Text.svg")}" draggable = "false"> 
                 </button>
-            </div>
-        <div class="section" id="textConfig">
-            <h2>Text Configurations</h2>
-            <div class="section-content">
-                <!-- Font buttons or options go here -->
             </div>
         </div>
+
+        <div class="section" id="textConfig">
+            <h2>Text Configurations</h2>
+            <h3 class="centered-heading">Vision Impaired and Dyslexic Friendly Fonts</h3>
+            <div class="section-content">
+                <button class="font-button" id="arialButton" style="font-family: Arial;">Arial</button>
+                <button class="font-button" id="calibriButton" style="font-family: Calibri;">Calibri</button>
+                <button class="font-button" id="centuryGothicButton" style="font-family: Century Gothic;">Century Gothic</button>
+                <button class="font-button" id="comicSansButton" style="font-family: 'Comic Sans MS';">Comic Sans</button>
+                <button class="font-button" id="courierButton" style="font-family: Courier;">Courier</button>
+                <button class="font-button" id="helveticaButton" style="font-family: Helvetica;">Helvetica</button>
+                <button class="font-button" id="openSansButton" style="font-family: 'Open Sans';">Open Sans</button>
+                <button class="font-button" id="openDyslexia"  sytle='OpenDyslexoc';>OpenDyslexic</button>
+                <button class="font-button" id="tahomaButton" style="font-family: Tahoma;">Tahoma</button>
+                <button class="font-button" id="verdanaButton" style="font-family: Verdana;">Verdana</button>
+            </div>
+            <div class="section-content">
+                <button>
+                    <img src="${chrome.runtime.getURL("images/TextSizeGray.svg")}" draggable="false"> 
+                </button>
+                <button>
+                    <img src="${chrome.runtime.getURL("images/EmboldenTextGray.svg")}" draggable="false"> 
+                </button>
+                <button>
+                    <img src="${chrome.runtime.getURL("images/ItalicizeTextGray.svg")}" draggable="false"> 
+                </button>
+                <button>
+                    <img src="${chrome.runtime.getURL("images/DefaultAlignGray.svg")}" draggable="false"> 
+                </button>
+            </div>
+            <h3 class="centered-heading">Choose Text Color</h3>
+            <div class="section-content">
+                <button class="color-button" style="background-color: black;" onclick="changeTextColor('black')"></button>
+                <button class="color-button" style="background-color: white; border: 1px solid #ccc;" onclick="changeTextColor('white')"></button>
+                <button class="color-button" style="background-color: red;" onclick="changeTextColor('red')"></button>
+                <button class="color-button" style="background-color: orange;" onclick="changeTextColor('orange')"></button>
+                <button class="color-button" style="background-color: yellow;" onclick="changeTextColor('yellow')"></button>
+                <button class="color-button" style="background-color: green;" onclick="changeTextColor('green')"></button>
+                <button class="color-button" style="background-color: blue;" onclick="changeTextColor('blue')"></button>
+                <button class="color-button" style="background-color: purple;" onclick="changeTextColor('purple')"></button>
+            </div>
+
         <div class="section" id="textSpacing">
             <h2>Text Spacing</h2>
             <div class="section-content">
-                <!-- Font buttons or options go here -->
+                <button>
+                    <img src="${chrome.runtime.getURL("images/BetweenLinesGray.svg")}" draggable = "false"> 
+                </button>
+                <button>
+                    <img src="${chrome.runtime.getURL("images/BetweenWordsGray.svg")}" draggable = "false"> 
+                </button>
+                <button>
+                    <img src="${chrome.runtime.getURL("images/BetweenLettersGray.svg")}" draggable = "false"> 
+                </button>
             </div>
         </div>
+
+
+        <div class="section" id="screenShader">
+            <h2>Screen Shader</h2>
+            <h3 class="centered-heading">Adjust Tint Color</h3>
+            <div class="section-content">
+                <div class="color-buttons">
+                    <button class="color-button" style="background-color: black;" onclick="changeTextColor('black')"></button>
+                    <button class="color-button" style="background-color: white; border: 1px solid #ccc;" onclick="changeTextColor('white')"></button>
+                    <button class="color-button" style="background-color: red;" onclick="changeTextColor('red')"></button>
+                    <button class="color-button" style="background-color: orange;" onclick="changeTextColor('orange')"></button>
+                    <button class="color-button" style="background-color: yellow;" onclick="changeTextColor('yellow')"></button>
+                    <button class="color-button" style="background-color: green;" onclick="changeTextColor('green')"></button>
+                    <button class="color-button" style="background-color: blue;" onclick="changeTextColor('blue')"></button>
+                    <button class="color-button" style="background-color: purple;" onclick="changeTextColor('purple')"></button>
+                </div>
+                <div class="slider-container">
+                    <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false"> 
+                    <input type="range" id="brightnessSlider" min="0" max="100" value="100">
+                </div>
+            </div>
+        </div>
+
         <div class="section" id="focusRuler">
             <h2>Focus Ruler</h2>
             <div class="section-content">
-                <!-- Font buttons or options go here -->
+                <button>
+                    <img src="${chrome.runtime.getURL("images/MaskTypeGray.svg")}" draggable = "false"> 
+                </button>
+                <div class="slider-container">
+                    <img src="${chrome.runtime.getURL("images/LineHeightGray.svg")}" draggable="false"> 
+                    <input type="range" id="brightnessSlider" min="0" max="100" value="100">
+                </div>
+                <div class="slider-container">
+                    <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false"> 
+                    <input type="range" id="brightnessSlider" min="0" max="100" value="100">
+                </div>
             </div>
         </div>
         <div class="section" id="colorSchemes">
             <h2>Color Schemes</h2>
             <div class="section-content">
-                <!-- Font buttons or options go here -->
+                <button>
+                    <img src="${chrome.runtime.getURL("images/DefaultContrast.svg")}" draggable = "false"> 
+                </button>
+                <button>
+                    <img src="${chrome.runtime.getURL("images/DefaultSaturation.svg")}" draggable = "false"> 
+                </button>
             </div>
         </div>
     </div>
@@ -142,104 +224,10 @@ document.addEventListener('mousemove', (e) => {
 
 document.addEventListener('mouseup', () => {	
     toolbar.style.cursor = 'grab';
-    isDragging = false
     chrome.storage.sync.set({
         toolbarLeftStyle: toolbarLeft,
         toolbarTopStyle: toolbarTop,
     });
 
     document.body.classList.remove('disable-text-selection');
-});
-
-//Text to Speech Functions
-const readPageButton = shadowRoot.getElementById('readPage');
-const readPageImg = shadowRoot.getElementById('readPageImg');
-const readSpeedButton = shadowRoot.getElementById('readSpeed');
-const readSpeedImg = shadowRoot.getElementById('readSpeedImg');
-const t2sHighlightButton = shadowRoot.getElementById('t2sHighlight');
-const t2sHighlightImg = shadowRoot.getElementById('t2sHighlightImg');
-
-let isReading = false;
-let currentSpeedIndex = 1;
-let isHighlighting = false;
-let speechSynthesisUtterance;
-
-const speedValues = [0.75, 1, 1.5]; // slow, normal, fast
-const speedImages = [
-    chrome.runtime.getURL("images/readSpeedSlow.svg"),
-    chrome.runtime.getURL("images/readSpeedNormal.svg"),
-    chrome.runtime.getURL("images/readSpeedFast.svg")
-];
-
-readPageButton.addEventListener('click', () => {
-    console.log('Read This Page button clicked');
-    const currentSrc = readPageImg.src;
-    const newSrc = currentSrc.includes("readPageOff.svg") 
-        ? chrome.runtime.getURL("images/readPageOn.svg") 
-        : chrome.runtime.getURL("images/readPageOff.svg");
-    readPageImg.src = newSrc;
-
-    if (!isReading) {
-        startReadingPage();
-    } else {
-        stopReadingPage();
-    }
-    isReading = !isReading;
-});
-    
-function startReadingPage(textToRead) {
-    if (!textToRead) {
-        textToRead = document.body.innerText;
-    }
-    speechSynthesisUtterance = new SpeechSynthesisUtterance(textToRead);
-    speechSynthesisUtterance.rate = speedValues[currentSpeedIndex]; // Set the current speech rate
-    speechSynthesisUtterance.pitch = 1; // Set default pitch
-
-    speechSynthesisUtterance.onend = () => {
-        readPageImg.src = chrome.runtime.getURL("images/readPageOff.svg");
-        isReading = false;
-    };
-    window.speechSynthesis.speak(speechSynthesisUtterance);
-}
-
-
-function stopReadingPage() {
-    window.speechSynthesis.cancel();
-    readPageImg.src = chrome.runtime.getURL("images/readPageOff.svg");
-}
-
-readSpeedButton.addEventListener('click', () => { //FIX SO THAT CHANIGNG SPEED DEOSN"T RESTART READER
-    console.log('Read Speed button clicked');
-    
-    // Cycle through the speed settings
-    currentSpeedIndex = (currentSpeedIndex + 1) % speedValues.length;
-    readSpeedImg.src = speedImages[currentSpeedIndex];
-    
-    // Adjust the reading speed
-    if (speechSynthesisUtterance) {
-        speechSynthesisUtterance.rate = speedValues[currentSpeedIndex];
-        console.log('Speech rate changed to:', speechSynthesisUtterance.rate);
-
-        if (isReading) {
-            // Restart the speech with the new rate
-            const textToRead = speechSynthesisUtterance.text;
-            stopReadingPage();
-            startReadingPage(textToRead);
-        }
-    }
-});
-
-t2sHighlightButton.addEventListener('click', () => {
-    const currentSrc = t2sHighlightImg.src;
-    t2sHighlightImg.src = currentSrc.includes("t2sHighlightOff.svg") 
-        ? chrome.runtime.getURL("images/t2sHighlightOn.svg") 
-        : chrome.runtime.getURL("images/t2sHighlightOff.svg");
-
-    // Add functionality to highlight text for reading here
-    if (!isHighlighting) {
-        startHighlightingText();
-    } else {
-        stopHighlightingText();
-    }
-    isHighlighting = !isHighlighting;
 });
