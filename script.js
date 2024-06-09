@@ -239,8 +239,8 @@ const readSpeedButton = shadowRoot.getElementById('readSpeak');
 const t2sHighlightButton = shadowRoot.getElementById('t2sHighlight');
 
 let isReading = false;
+let isReadingHighlighted = false;
 let currentSpeedIndex = 1;
-let isHighlighting = false;
 let speechSynthesisUtterance;
 const speedValues = [0.75, 1, 1.5]; // slow, normal, fast
 
@@ -254,38 +254,25 @@ readPageButton.addEventListener('click', () => {
     }
     isReading = !isReading;
 });
-    
-function startReadingPage(textToRead) {
-    if (!textToRead) {
-        textToRead = document.body.innerText;
-    }
+
+function startReadingPage() {
+    window.speechSynthesis.cancel();
+    isReadingHighlighted = false;
+    const textToRead = document.body.innerText;
+
     speechSynthesisUtterance = new SpeechSynthesisUtterance(textToRead);
+    
     speechSynthesisUtterance.rate = speedValues[currentSpeedIndex]; // Set the current speech rate
     speechSynthesisUtterance.pitch = 1; // Set default pitch
 
-    if (isHighlighting) {
-        speechSynthesisUtterance.onboundary = (event) => {
-            if (event.name === 'word') {
-                highlightWord(event.charIndex);
-            }
-        };
-    }
-
-    speechSynthesisUtterance.onend = () => {
-        isReading = false;
-        removeHighlighting();
-    };
     window.speechSynthesis.speak(speechSynthesisUtterance);
 }
 
 function stopReadingPage() {
     window.speechSynthesis.cancel();
-    removeHighlighting();
 }
 
 readSpeedButton.addEventListener('click', () => {
-    console.log('Read Speed button clicked');
-    
     // Cycle through the speed settings
     currentSpeedIndex = (currentSpeedIndex + 1) % speedValues.length;
     
@@ -296,101 +283,50 @@ readSpeedButton.addEventListener('click', () => {
 
         if (isReading) {
             // Restart the speech with the new rate
-            const textToRead = speechSynthesisUtterance.text;
             stopReadingPage();
-            startReadingPage(textToRead);
+            startReadingPage();
         }
     }
 });
 
 t2sHighlightButton.addEventListener('click', () => {
-    console.log("Highlight clicked");
-    if (!isHighlighting) {
-        startHighlightingText();
+    isReadingHighlighted = !isReadingHighlighted;
+    if (isReadingHighlighted) {
+        startReadingHighlightedText();
     } else {
-        stopHighlightingText();
+        stopReadingPage();
     }
-    isHighlighting = !isHighlighting;
 });
 
-function startHighlightingText() {
-    if (isReading) {
-        speechSynthesisUtterance.onboundary = (event) => {
-            if (event.name === 'word') {
-                highlightWord(event.charIndex);
-            }
+function startReadingHighlightedText() {
+    isReading = false;
+    window.speechSynthesis.cancel();
+    const highlightedText = getHighlightedText();
+    if (highlightedText) {
+        console.log('Reading highlighted text:', highlightedText);
+        speechSynthesisUtterance = new SpeechSynthesisUtterance(highlightedText);
+        speechSynthesisUtterance.rate = speedValues[currentSpeedIndex]; // Set the current speech rate
+        speechSynthesisUtterance.pitch = 1; // Set default pitch
+
+        speechSynthesisUtterance.onend = () => {
+            console.log('Speech synthesis ended for highlighted text');
+            isReading = false;
         };
+
+        console.log('About to speak highlighted text:', speechSynthesisUtterance);
+        window.speechSynthesis.speak(speechSynthesisUtterance);
     }
 }
 
-function stopHighlightingText() {
-    if (speechSynthesisUtterance) {
-        speechSynthesisUtterance.onboundary = null;
+function stopReadingHighlightedText() {
+    window.speechSynthesis.cancel();
+}
+
+function getHighlightedText() {
+    const selection = window.getSelection();
+    if (selection.rangeCount > 0) {
+        const range = selection.getRangeAt(0);
+        return range.toString();
     }
-    removeHighlighting();
-}
-
-function highlightWord(charIndex) {
-    removeHighlighting();
-
-    const { node, offset } = getTextNodeAtOffset(document.body, charIndex);
-    if (!node) return;
-
-    const text = node.nodeValue.trim(); // Remove leading and trailing whitespace
-    if (!text) return; // If the text is empty after trimming, return
-
-    // Calculate the adjusted offset within the trimmed text
-    const adjustedOffset = Math.min(offset, text.length - 1);
-
-    // Extract the word starting from the adjusted offset
-    const before = text.slice(0, adjustedOffset).replace(/.*\s/, ''); // Keep only the last word
-    const after = text.slice(adjustedOffset).match(/^\S*/)[0]; // Keep only the first word
-    const word = before + after;
-
-    // Get the index of the word within the original text
-    const wordIndex = text.indexOf(word);
-
-    // Create a range for highlighting
-    const range = document.createRange();
-    range.setStart(node, wordIndex);
-    range.setEnd(node, wordIndex + word.length);
-
-    // Create a span element for highlighting
-    const highlightSpan = document.createElement('span');
-    highlightSpan.style.backgroundColor = 'yellow';
-
-    // Surround the word with the highlight span
-    range.surroundContents(highlightSpan);
-}
-
-function removeHighlighting() {
-    const highlights = document.querySelectorAll('span[style*="background-color: yellow"]');
-    highlights.forEach((span) => {
-        const parent = span.parentNode;
-        while (span.firstChild) {
-            parent.insertBefore(span.firstChild, span);
-        }
-        parent.removeChild(span);
-        parent.normalize();
-    });
-}
-
-function getTextNodeAtOffset(root, offset) {
-    let treeWalker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, function(node) {
-        const nodeLength = node.nodeValue.length;
-        if (offset >= nodeLength) {
-            offset -= nodeLength;
-            return NodeFilter.FILTER_REJECT;
-        }
-        return NodeFilter.FILTER_ACCEPT;
-    });
-    const node = treeWalker.nextNode();
-    return node ? { node: node, offset: offset } : null;
-}
-
-function getWordAtTextNode(node, offset) {
-    const text = node.nodeValue;
-    const before = text.slice(0, offset).replace(/.*\s/, ''); // Keep only the last word
-    const after = text.slice(offset).match(/^\S*/)[0]; // Keep only the first word
-    return before + after;
+    return null;
 }
