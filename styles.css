@@ -163,3 +163,28 @@
     justify-content: center;
     gap: 20px
 }
+
+@font-face {
+    font-family: 'OpenDyslexic';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/OpenDyslexic3-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Helvetica';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/Helvetica.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/OpenSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Tahoma';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/Tahoma.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Verdana';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/verdana.ttf') format('truetype');
+}
