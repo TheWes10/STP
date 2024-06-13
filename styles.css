@@ -163,3 +163,53 @@
     justify-content: center;
     gap: 20px
 }
+
+#focusOverlayTop, #focusOverlayBottom {
+    position: fixed;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Darken the background */
+    z-index: 1000; /* Ensure it's on top of everything else */
+    pointer-events: none; /* Allow clicks to pass through */
+}
+
+#focusOverlayTop {
+    top: 0;
+    height: 0; /* Initial height */
+}
+
+#focusOverlayBottom {
+    height: 0; /* Initial height */
+}
+
+#focusRulerStrip {
+    position: absolute;
+    width: 100%;
+    height: 50px; /* Initial height */
+    background: transparent; /* Make the strip clear */
+    z-index: 1001; /* Ensure it's on top of the overlay */
+}
+
+@font-face {
+    font-family: 'OpenDyslexic';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/OpenDyslexic3-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Helvetica';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/Helvetica.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/OpenSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Tahoma';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/Tahoma.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Verdana';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/verdana.ttf') format('truetype');
+}
