@@ -13,7 +13,7 @@ linkElement.type = 'text/css';
 linkElement.href = extensionCSS;
 
 const MainHTML = `
-<div id="STP" style="font-family: Arial;">
+<div class="STP" id="STP" style="font-family: Arial;">
     <div class="toolbar" id="toolbarMain">
         <button id="openSidebar" title="Open Sidebar">
             <img src="${chrome.runtime.getURL("images/openSidebar.svg")}" draggable = "false">
@@ -23,17 +23,39 @@ const MainHTML = `
         <button id="closeSidebar" title="Close Sidebar">
             <img src="${chrome.runtime.getURL("images/closeSidebar.svg")}" draggable="false">
         </button>
+
+        <div class="section" id="Accessibility Profiles">
+            <h2>Accessibility Profiles</h2>
+            <div class="section-content">
+                <button id="colorBlindProfile" class="svg-button">
+                    <img id="colorBlindProfileImg" src="${chrome.runtime.getURL("")}" draggable = "false"> 
+                </button>
+                <button id="visuallyImpairedProfile" class="svg-button">
+                    <img id="visuallyImpairedProfileImg" src="${chrome.runtime.getURL("")}" draggable = "false"> 
+                </button>
+                <button id="dyslexiaProfile" class="svg-button">
+                    <img id="dyslexiaProfileImg" src="${chrome.runtime.getURL("")}" draggable = "false"> 
+                </button>
+                <button id="ADHDProfile" class="svg-button">
+                    <img id="ADHDProfileImg" src="${chrome.runtime.getURL("")}" draggable = "false"> 
+                </button>
+                <button id="LearningProfile" class="svg-button">
+                    <img id="LearningProfileImg" src="${chrome.runtime.getURL("")}" draggable = "false"> 
+                </button>
+            </div>
+        </div>
+
         <div class="section" id="T2S">
             <h2>Text to Speech</h2>
             <div class="section-content">
-                <button id="readPage">
-                    <img src="${chrome.runtime.getURL("images/ReadPage.svg")}" draggable = "false"> 
+                <button id="readPage" class="svg-button-larger">
+                    <img id="readPageImg" src="${chrome.runtime.getURL("images/ReadPage.svg")}" draggable = "false"> 
                 </button>
-                <button id="readSpeak" title="Screen Reader Speed">
-                    <img src="${chrome.runtime.getURL("images/SpeedNormalGray.svg")}" draggable = "false"> 
+                <button id="readSpeed" title="Screen Reader Speed" class="svg-button-larger">
+                    <img id="readSpeedImg" src="${chrome.runtime.getURL("images/SpeedNormalGray.svg")}" draggable = "false"> 
                 </button>
-                <button id="t2sHighlight">
-                    <img src="${chrome.runtime.getURL("images/Highlight Text.svg")}" draggable = "false"> 
+                <button id="t2sHighlight" class="svg-button-larger">
+                    <img id="t2sHighlightImg" src="${chrome.runtime.getURL("images/Highlight Text.svg")}" draggable = "false"> 
                 </button>
             </div>
         </div>
@@ -41,7 +63,7 @@ const MainHTML = `
         <div class="section" id="textConfig">
             <h2>Text Configurations</h2>
             <h3 class="centered-heading">Vision Impaired and Dyslexic Friendly Fonts</h3>
-            <div class="section-content">
+            <div class="section-content" id="textOptions">
                 <button class="font-button" id="arialButton" style="font-family: Arial;">Arial</button>
                 <button class="font-button" id="calibriButton" style="font-family: Calibri;">Calibri</button>
                 <button class="font-button" id="centuryGothicButton" style="font-family: Century Gothic;">Century Gothic</button>
@@ -54,86 +76,96 @@ const MainHTML = `
                 <button class="font-button" id="verdanaButton" style="font-family: Verdana;">Verdana</button>
             </div>
             <div class="section-content">
-                <button id="readPage">
+                <button id="textSize" class="svg-button-larger">
                     <img src="${chrome.runtime.getURL("images/TextSizeGray.svg")}" draggable="false"> 
                 </button>
-                <button>
+                <button id="emboldenText" class="svg-button-larger">
                     <img src="${chrome.runtime.getURL("images/EmboldenTextGray.svg")}" draggable="false"> 
                 </button>
-                <button>
+                <button id="italicizeText" class="svg-button-larger">
                     <img src="${chrome.runtime.getURL("images/ItalicizeTextGray.svg")}" draggable="false"> 
                 </button>
-                <button>
+                <button id="textAlignment" class="svg-button-larger">
                     <img src="${chrome.runtime.getURL("images/DefaultAlignGray.svg")}" draggable="false"> 
                 </button>
             </div>
             <h3 class="centered-heading">Choose Text Color</h3>
             <div class="section-content">
-                <button class="color-button" style="background-color: black;" onclick="changeTextColor('black')"></button>
-                <button class="color-button" style="background-color: white; border: 1px solid #ccc;" onclick="changeTextColor('white')"></button>
-                <button class="color-button" style="background-color: red;" onclick="changeTextColor('red')"></button>
-                <button class="color-button" style="background-color: orange;" onclick="changeTextColor('orange')"></button>
-                <button class="color-button" style="background-color: yellow;" onclick="changeTextColor('yellow')"></button>
-                <button class="color-button" style="background-color: green;" onclick="changeTextColor('green')"></button>
-                <button class="color-button" style="background-color: blue;" onclick="changeTextColor('blue')"></button>
-                <button class="color-button" style="background-color: purple;" onclick="changeTextColor('purple')"></button>
+                <div class="color-buttons">
+                    <button id="textBlack" class="color-button" style="background-color: black;" onclick="changeTextColor('black')"></button>
+                    <button id="textWhite" class="color-button" style="background-color: white; border: 1px solid #ccc;" onclick="changeTextColor('white')"></button>
+                    <button id="textRed" class="color-button" style="background-color: red;" onclick="changeTextColor('red')"></button>
+                    <button id="textOrange" class="color-button" style="background-color: orange;" onclick="changeTextColor('orange')"></button>
+                    <button id="textYellow" class="color-button" style="background-color: yellow;" onclick="changeTextColor('yellow')"></button>
+                    <button id="textGreen" class="color-button" style="background-color: green;" onclick="changeTextColor('green')"></button>
+                    <button id="textBlue" class="color-button" style="background-color: blue;" onclick="changeTextColor('blue')"></button>
+                    <button id="textPurple" class="color-button" style="background-color: purple;" onclick="changeTextColor('purple')"></button>
+                </div>
             </div>
+        </div>
 
         <div class="section" id="textSpacing">
             <h2>Text Spacing</h2>
             <div class="section-content">
-                <button>
+                <button id="spaceBetweenLines" class="svg-button-larger">
                     <img src="${chrome.runtime.getURL("images/BetweenLinesGray.svg")}" draggable = "false"> 
                 </button>
-                <button>
+                <button id="spaceBetweenWords" class="svg-button-larger">
                     <img src="${chrome.runtime.getURL("images/BetweenWordsGray.svg")}" draggable = "false"> 
                 </button>
-                <button>
+                <button id="spaceBetweenLetters" class="svg-button-larger">
                     <img src="${chrome.runtime.getURL("images/BetweenLettersGray.svg")}" draggable = "false"> 
                 </button>
             </div>
         </div>
 
-
         <div class="section" id="screenShader">
             <h2>Screen Shader</h2>
-            <h3 class="centered-heading">Adjust Tint Color</h3>
-            <div class="section-content">
-                <div class="color-buttons">
-                    <button class="color-button" data-color="black" style="background-color: black;"></button>
-                    <button class="color-button" data-color="white" style="background-color: white; border: 1px solid #ccc;"></button>
-                    <button class="color-button" data-color="red" style="background-color: red;"></button>
-                    <button class="color-button" data-color="orange" style="background-color: orange;"></button>
-                    <button class="color-button" data-color="yellow" style="background-color: yellow;"></button>
-                    <button class="color-button" data-color="green" style="background-color: green;"></button>
-                    <button class="color-button" data-color="blue" style="background-color: blue;"></button>
-                    <button class="color-button" data-color="purple" style="background-color: purple;"></button>
+            <div class="section-content-alpha">
+                <div class="left-content">
+                    <h3 class="centered-heading">Adjust Tint Color</h3>
+                    <div class="color-buttons">
+                        <button class="color-button-alpha" style="background-color: black;" data-color="0, 0, 0"></button>
+                        <button class="color-button-alpha" style="background-color: white; border: 1px solid #ccc;" data-color="255, 255, 255"></button>
+                        <button class="color-button-alpha" style="background-color: red;" data-color="255, 0, 0"></button>
+                        <button class="color-button-alpha" style="background-color: orange;" data-color="255, 165, 0"></button>
+                        <button class="color-button-alpha" style="background-color: yellow;" data-color="255, 255, 0"></button>
+                        <button class="color-button-alpha" style="background-color: green;" data-color="0, 128, 0"></button>
+                        <button class="color-button-alpha" style="background-color: blue;" data-color="0, 0, 255"></button>
+                        <button class="color-button-alpha" style="background-color: purple;" data-color="128, 0, 128"></button>
+                    </div>
                 </div>
-                <div class="slider-container">
-                    <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false"> 
-                    <input type="range" id="brightnessSliderAlpha" min="0" max="100" value="100">
+                <div class="right-content">
+                    <div class="slider-container">
+                        <div class = "image-slider-pair">
+                            <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false" class="svg-icon">
+                            <input type="range" id="brightnessSliderAlpha" min="0" max="100" value="50">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="section" id="focusRulerMain">
-            <h2>Focus Ruler</h2>
-            <div class="section-content">
-                <button id="toggleFocusRuler">
-                    <img src="${chrome.runtime.getURL("images/MaskTypeGray.svg")}" draggable="false" title="pain in my ass">
-                </button>
-                <div id="focusRuler"></div>
-                <div class="slider-container">
-                    <img src="${chrome.runtime.getURL("images/LineHeightGray.svg")}" draggable="false">
-                    <input type="range" id="lineHeightSlider" min="0" max="200" value="100">
-                </div>
-                <div class="slider-container">
-                    <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false">
-                    <input type="range" id="brightnessSliderBeta" min="0" max="100" value="100">
-                </div>
+
+    <div class="section" id="focusRulerMain">
+        <h2>Focus Ruler</h2>
+        <div class="section-content">
+            <button id="toggleFocusRuler">
+                <img src="${chrome.runtime.getURL("images/MaskTypeGray.svg")}" draggable="false" title="pain in my ass">
+            </button>
+            <div id="focusRuler"></div>
+            <div class="slider-container">
+                <img src="${chrome.runtime.getURL("images/LineHeightGray.svg")}" draggable="false">
+                <input type="range" id="lineHeightSlider" min="0" max="200" value="50">
             </div>
-            <h3 class="centered-heading">Choose Mask Color</h3>
-            <div class="section-content">
+            <div class="slider-container">
+                <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false">
+                <input type="range" id="brightnessSliderBeta" min="0" max="100" value="50">
+            </div>
+        </div>
+        <h3 class="centered-heading">Choose Mask Color</h3>
+        <div class="section-content">
+            <div class="color-buttons">
                 <button class="color-button" style="background-color: black;" data-color="0, 0, 0"></button>
                 <button class="color-button" style="background-color: white; border: 1px solid #ccc;" data-color="255, 255, 255"></button>
                 <button class="color-button" style="background-color: red;" data-color="255, 0, 0"></button>
@@ -144,20 +176,21 @@ const MainHTML = `
                 <button class="color-button" style="background-color: purple;" data-color="128, 0, 128"></button>
             </div>
         </div>
+        <div id="focusRulerContainer"></div>
+    </div>
 
-        <div class="section" id="colorSchemes">
-            <h2>Color Schemes</h2>
-            <div class="section-content">
-                <button id="changeContrast">
-                    <img src="${chrome.runtime.getURL("images/DefaultContrast.svg")}" draggable = "false"> 
-                </button>
-                <button id="changeSaturation"> 
-                    <img src="${chrome.runtime.getURL("images/DefaultSaturation.svg")}" draggable = "false"> 
-                </button>
-            </div>
+    <div class="section" id="colorSchemes">
+        <h2>Color Schemes</h2>
+        <div class="section-content">
+            <button id="changeContrast" class="svg-button-larger">
+                <img src="${chrome.runtime.getURL("images/DefaultContrast.svg")}" draggable = "false"> 
+            </button>
+            <button id="changeSaturation" class="svg-button-larger"> 
+                <img src="${chrome.runtime.getURL("images/DefaultSaturation.svg")}" draggable = "false"> 
+            </button>
         </div>
     </div>
-    <div id="focusRulerContainer"></div>
+
 </div>
 `;
 shadowRoot.innerHTML = MainHTML; 
@@ -247,19 +280,107 @@ document.addEventListener('mouseup', () => {
     document.body.classList.remove('disable-text-selection');
 });
 
+//Accessibility Profiles
+function defaultAll(){
+    currentTypeface = "arial";
+    currentSaturationIndex = 3;
+    currentSizeIndex = 0;
+
+    arialButton.click();
+    textSizeButton.click();
+    toggleSaturation();
+    currentProfile = "none";
+}
+
+const colorBlindProfile = shadowRoot.getElementById('colorBlindProfile');
+const colorBlindProfileImg = shadowRoot.getElementById('colorBlindProfileImg');
+
+const visuallyImpairedProfile = shadowRoot.getElementById('visuallyImpairedProfile');
+const visuallyImpairedProfileImg = shadowRoot.getElementById('visuallyImpairedProfileImg');
+
+const dyslexiaProfile = shadowRoot.getElementById('dyslexiaProfile');
+const dyslexiaProfileImg = shadowRoot.getElementById('dyslexiaProfileImg');
+
+const ADHDProfile = shadowRoot.getElementById('ADHDProfile');
+const ADHDProfileImg = shadowRoot.getElementById('ADHDProfileImg');
+
+const LearningProfile = shadowRoot.getElementById('LearningProfile');
+const LearningProfileImg = shadowRoot.getElementById('LearningProfileImg');
+
+let currentProfile = "none";
+
+colorBlindProfile.addEventListener('click', () => {
+    currentProfile = "colorBlind";
+    currentSaturationIndex = 1;
+    toggleSaturation();
+
+
+});
+
+visuallyImpairedProfile.addEventListener('click', () => {
+    if(currentProfile != "visImpaired"){
+        currentTypeface = "original";
+        currentSaturationIndex = 1;
+        currentSizeIndex = 1;
+
+        arialButton.click();
+        textSizeButton.click();
+        toggleSaturation();
+        currentProfile = "visImpaired";
+    }
+    else{
+        defaultAll();
+    }
+});
+
+dyslexiaProfile.addEventListener('click', () => {
+    if(currentProfile != "dyslexiaProfile"){
+        currentTypeface = "original";
+
+        openDyslexiaButton.click();
+        currentProfile = "dyslexiaProfile";
+    }
+    else{
+        currentTypeface = "dyslexia";
+
+        openDyslexiaButton.click();
+        currentProfile = "none";
+    }
+});
+
+ADHDProfile.addEventListener('click', () => {
+
+});
+
+LearningProfile.addEventListener('click', () => {
+
+});
+
+
+
 //Text to Speech Functions
 const readPageButton = shadowRoot.getElementById('readPage');
-const readSpeedButton = shadowRoot.getElementById('readSpeak');
+const readPageImg = shadowRoot.getElementById('readPageImg');
+
+
+const readSpeedButton = shadowRoot.getElementById('readSpeed');
+const readSpeedImg = shadowRoot.getElementById('readSpeedImg');
+
 const t2sHighlightButton = shadowRoot.getElementById('t2sHighlight');
+const t2sHighlightImg = shadowRoot.getElementById('t2sHighlightImg');
 
 let isReading = false;
+let isReadingHighlighted = false;
 let currentSpeedIndex = 1;
-let isHighlighting = false;
 let speechSynthesisUtterance;
 const speedValues = [0.75, 1, 1.5]; // slow, normal, fast
+const speedImages = [
+    chrome.runtime.getURL("images/SpeedSlow.svg"),
+    chrome.runtime.getURL("images/SpeedNormalBlue.svg"),
+    chrome.runtime.getURL("images/SpeedFast.svg")
+];
 
 readPageButton.addEventListener('click', () => {
-    console.log('Read This Page button clicked');
 
     if (!isReading) {
         startReadingPage();
@@ -268,40 +389,29 @@ readPageButton.addEventListener('click', () => {
     }
     isReading = !isReading;
 });
-    
-function startReadingPage(textToRead) {
-    if (!textToRead) {
-        textToRead = document.body.innerText;
-    }
+
+function startReadingPage() {
+    window.speechSynthesis.cancel();
+    isReadingHighlighted = false;
+    const textToRead = document.body.innerText;
+
     speechSynthesisUtterance = new SpeechSynthesisUtterance(textToRead);
+    
     speechSynthesisUtterance.rate = speedValues[currentSpeedIndex]; // Set the current speech rate
     speechSynthesisUtterance.pitch = 1; // Set default pitch
 
-    if (isHighlighting) {
-        speechSynthesisUtterance.onboundary = (event) => {
-            if (event.name === 'word') {
-                highlightWord(event.charIndex);
-            }
-        };
-    }
-
-    speechSynthesisUtterance.onend = () => {
-        isReading = false;
-        removeHighlighting();
-    };
     window.speechSynthesis.speak(speechSynthesisUtterance);
 }
 
 function stopReadingPage() {
     window.speechSynthesis.cancel();
-    removeHighlighting();
 }
 
 readSpeedButton.addEventListener('click', () => {
-    console.log('Read Speed button clicked');
-    
     // Cycle through the speed settings
     currentSpeedIndex = (currentSpeedIndex + 1) % speedValues.length;
+
+    readSpeedImg.src = speedImages[currentSpeedIndex];
     
     // Adjust the reading speed
     if (speechSynthesisUtterance) {
@@ -310,109 +420,827 @@ readSpeedButton.addEventListener('click', () => {
 
         if (isReading) {
             // Restart the speech with the new rate
-            const textToRead = speechSynthesisUtterance.text;
             stopReadingPage();
-            startReadingPage(textToRead);
+            startReadingPage();
         }
     }
 });
 
 t2sHighlightButton.addEventListener('click', () => {
-    console.log("Highlight clicked");
-    if (!isHighlighting) {
-        startHighlightingText();
+    isReadingHighlighted = !isReadingHighlighted;
+    if (isReadingHighlighted) {
+        startReadingHighlightedText();
     } else {
-        stopHighlightingText();
+        stopReadingPage();
     }
-    isHighlighting = !isHighlighting;
 });
 
-function startHighlightingText() {
-    if (isReading) {
-        speechSynthesisUtterance.onboundary = (event) => {
-            if (event.name === 'word') {
-                highlightWord(event.charIndex);
-            }
+function startReadingHighlightedText() {
+    isReading = false;
+    window.speechSynthesis.cancel();
+    const highlightedText = getHighlightedText();
+    if (highlightedText) {
+        console.log('Reading highlighted text:', highlightedText);
+        speechSynthesisUtterance = new SpeechSynthesisUtterance(highlightedText);
+        speechSynthesisUtterance.rate = speedValues[currentSpeedIndex]; // Set the current speech rate
+        speechSynthesisUtterance.pitch = 1; // Set default pitch
+
+        speechSynthesisUtterance.onend = () => {
+            console.log('Speech synthesis ended for highlighted text');
+            isReading = false;
         };
+
+        console.log('About to speak highlighted text:', speechSynthesisUtterance);
+        window.speechSynthesis.speak(speechSynthesisUtterance);
     }
 }
 
-function stopHighlightingText() {
-    if (speechSynthesisUtterance) {
-        speechSynthesisUtterance.onboundary = null;
+function stopReadingHighlightedText() {
+    window.speechSynthesis.cancel();
+}
+
+function getHighlightedText() {
+    const selection = window.getSelection();
+    if (selection.rangeCount > 0) {
+        const range = selection.getRangeAt(0);
+        return range.toString();
     }
-    removeHighlighting();
+    return null;
 }
 
-function highlightWord(charIndex) {
-    removeHighlighting();
+//Typeface Changers
+const arialButton = shadowRoot.getElementById('arialButton');
+const calibriButton = shadowRoot.getElementById('calibriButton');
+const gothicButton = shadowRoot.getElementById('centuryGothicButton');
+const comicButton = shadowRoot.getElementById('comicSansButton');
+const courierButton = shadowRoot.getElementById('courierButton');
+const helveticaButton = shadowRoot.getElementById('helveticaButton');
+const openSansButton = shadowRoot.getElementById('openSansButton');
+const openDyslexiaButton = shadowRoot.getElementById('openDyslexia');
+const tahomaButton = shadowRoot.getElementById('tahomaButton');
+const verdanaButton = shadowRoot.getElementById('verdanaButton');
 
-    const { node, offset } = getTextNodeAtOffset(document.body, charIndex);
-    if (!node) return;
+let currentTypeface = "original";
 
-    const text = node.nodeValue.trim(); // Remove leading and trailing whitespace
-    if (!text) return; // If the text is empty after trimming, return
-
-    // Calculate the adjusted offset within the trimmed text
-    const adjustedOffset = Math.min(offset, text.length - 1);
-
-    // Extract the word starting from the adjusted offset
-    const before = text.slice(0, adjustedOffset).replace(/.*\s/, ''); // Keep only the last word
-    const after = text.slice(adjustedOffset).match(/^\S*/)[0]; // Keep only the first word
-    const word = before + after;
-
-    // Get the index of the word within the original text
-    const wordIndex = text.indexOf(word);
-
-    // Create a range for highlighting
-    const range = document.createRange();
-    range.setStart(node, wordIndex);
-    range.setEnd(node, wordIndex + word.length);
-
-    // Create a span element for highlighting
-    const highlightSpan = document.createElement('span');
-    highlightSpan.style.backgroundColor = 'yellow';
-
-    // Surround the word with the highlight span
-    range.surroundContents(highlightSpan);
-}
-
-function removeHighlighting() {
-    const highlights = document.querySelectorAll('span[style*="background-color: yellow"]');
-    highlights.forEach((span) => {
-        const parent = span.parentNode;
-        while (span.firstChild) {
-            parent.insertBefore(span.firstChild, span);
-        }
-        parent.removeChild(span);
-        parent.normalize();
+let orignalTypeface;
+function storeOriginalTypeface() {
+    const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+    textElements.forEach(element => {
+        const typeface = window.getComputedStyle(element).fontFamily;
+        element.dataset.originalTypeface = typeface;
     });
 }
+storeOriginalTypeface();
+
+arialButton.addEventListener('click', () => {
+    if(currentTypeface != "arial"){
+        currentTypeface = "arial"
+        const selectedFont = "Arial";
+        document.body.style.fontFamily = selectedFont;
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            element.style.fontFamily = selectedFont;
+        });
+    }
+    else{
+        currentTypeface = "original"
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            if(element.hasAttribute('data-original-typeface')) {
+                const originalTypeface = element.dataset.originalTypeface;
+                element.style.fontFamily = originalTypeface;
+            }
+            else {
+                const originalTypeface = element.getAttribute('data-original-typeface');
+                element.style.fontFamily = originalTypeface;
+            }
+        });
+    }
+});
+
+calibriButton.addEventListener('click', () => {
+    if(currentTypeface != "calibri"){
+        currentTypeface = "calibri"
+        const selectedFont = "Calibri";
+        document.body.style.fontFamily = selectedFont;
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            element.style.fontFamily = selectedFont;
+        });
+    }
+    else{
+        currentTypeface = "original"
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            if(element.hasAttribute('data-original-typeface')) {
+                const originalTypeface = element.dataset.originalTypeface;
+                element.style.fontFamily = originalTypeface;
+            }
+            else {
+                const originalTypeface = element.getAttribute('data-original-typeface');
+                element.style.fontFamily = originalTypeface;
+            }
+        });
+    }
+});
+
+gothicButton.addEventListener('click', () => {
+    if(currentTypeface != "gothic"){
+        currentTypeface = "gothic"
+        const selectedFont = "Century Gothic";
+        document.body.style.fontFamily = selectedFont;
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            element.style.fontFamily = selectedFont;
+        });
+    }
+    else{
+        currentTypeface = "original"
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            if(element.hasAttribute('data-original-typeface')) {
+                const originalTypeface = element.dataset.originalTypeface;
+                element.style.fontFamily = originalTypeface;
+            }
+            else {
+                const originalTypeface = element.getAttribute('data-original-typeface');
+                element.style.fontFamily = originalTypeface;
+            }
+        });
+    }
+});
+
+comicButton.addEventListener('click', () => {
+    if(currentTypeface != "comic"){
+        currentTypeface = "comic"
+        const selectedFont = "Comic Sans MS";
+        document.body.style.fontFamily = selectedFont;
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            element.style.fontFamily = selectedFont;
+        });
+    }
+    else{
+        currentTypeface = "original"
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            if(element.hasAttribute('data-original-typeface')) {
+                const originalTypeface = element.dataset.originalTypeface;
+                element.style.fontFamily = originalTypeface;
+            }
+            else {
+                const originalTypeface = element.getAttribute('data-original-typeface');
+                element.style.fontFamily = originalTypeface;
+            }
+        });
+    }
+});
+
+courierButton.addEventListener('click', () => {
+    if(currentTypeface != "courier"){
+        currentTypeface = "courier"
+        const selectedFont = "Courier";
+        document.body.style.fontFamily = selectedFont;
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            element.style.fontFamily = selectedFont;
+        });
+    }
+    else{
+        currentTypeface = "original"
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            if(element.hasAttribute('data-original-typeface')) {
+                const originalTypeface = element.dataset.originalTypeface;
+                element.style.fontFamily = originalTypeface;
+            }
+            else {
+                const originalTypeface = element.getAttribute('data-original-typeface');
+                element.style.fontFamily = originalTypeface;
+            }
+        });
+    }
+});
+
+helveticaButton.addEventListener('click', () => {
+    if(currentTypeface != "helvetica"){
+        currentTypeface = "helvetica"
+        const selectedFont = "Helvetica";
+        document.body.style.fontFamily = selectedFont;
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            element.style.fontFamily = selectedFont;
+        });
+    }
+    else{
+        currentTypeface = "original"
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            if(element.hasAttribute('data-original-typeface')) {
+                const originalTypeface = element.dataset.originalTypeface;
+                element.style.fontFamily = originalTypeface;
+            }
+            else {
+                const originalTypeface = element.getAttribute('data-original-typeface');
+                element.style.fontFamily = originalTypeface;
+            }
+        });
+    }
+});
+
+openSansButton.addEventListener('click', () => {
+    if(currentTypeface != "open sans"){
+        currentTypeface = "open sans"
+        const selectedFont = "Open Sans";
+        document.body.style.fontFamily = selectedFont;
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            element.style.fontFamily = selectedFont;
+        });
+    }
+    else{
+        currentTypeface = "original"
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            if(element.hasAttribute('data-original-typeface')) {
+                const originalTypeface = element.dataset.originalTypeface;
+                element.style.fontFamily = originalTypeface;
+            }
+            else {
+                const originalTypeface = element.getAttribute('data-original-typeface');
+                element.style.fontFamily = originalTypeface;
+            }
+        });
+    }
+});
+
+openDyslexiaButton.addEventListener('click', () => {
+    if(currentTypeface != "dyslexia"){
+        currentTypeface = "dyslexia"
+        const selectedFont = "OpenDyslexic";
+        document.body.style.fontFamily = selectedFont;
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            element.style.fontFamily = selectedFont;
+        });
+    }
+    else{
+        currentTypeface = "original"
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            if(element.hasAttribute('data-original-typeface')) {
+                const originalTypeface = element.dataset.originalTypeface;
+                element.style.fontFamily = originalTypeface;
+            }
+            else {
+                const originalTypeface = element.getAttribute('data-original-typeface');
+                element.style.fontFamily = originalTypeface;
+            }
+        });
+    }
+});
+
+tahomaButton.addEventListener('click', () => {
+    if(currentTypeface != "tahoma"){
+        currentTypeface = "tahoma"
+        const selectedFont = "Tahoma";
+        document.body.style.fontFamily = selectedFont;
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            element.style.fontFamily = selectedFont;
+        });
+    }
+    else{
+        currentTypeface = "original"
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            if(element.hasAttribute('data-original-typeface')) {
+                const originalTypeface = element.dataset.originalTypeface;
+                element.style.fontFamily = originalTypeface;
+            }
+            else {
+                const originalTypeface = element.getAttribute('data-original-typeface');
+                element.style.fontFamily = originalTypeface;
+            }
+        });
+    }
+});
+
+verdanaButton.addEventListener('click', () => {
+    if(currentTypeface != "verdana"){
+        currentTypeface = "verdana"
+        const selectedFont = "Verdana";
+        document.body.style.fontFamily = selectedFont;
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            element.style.fontFamily = selectedFont;
+        });
+    }
+    else{
+        currentTypeface = "original"
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            if(element.hasAttribute('data-original-typeface')) {
+                const originalTypeface = element.dataset.originalTypeface;
+                element.style.fontFamily = originalTypeface;
+            }
+            else {
+                const originalTypeface = element.getAttribute('data-original-typeface');
+                element.style.fontFamily = originalTypeface;
+            }
+        });
+    }
+});
 
 
-function getTextNodeAtOffset(root, offset) {
-    let treeWalker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, function(node) {
-        const nodeLength = node.nodeValue.length;
-        if (offset >= nodeLength) {
-            offset -= nodeLength;
-            return NodeFilter.FILTER_REJECT;
-        }
-        return NodeFilter.FILTER_ACCEPT;
+function updateButtonImageText(button, imageName, isOriginal) {
+    if (isOriginal) {
+        button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + "Gray.svg")}`;
+    } else {
+        button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + "Blue.svg")}`;
+    }
+}
+
+//Text Styling
+const textSizeButton = shadowRoot.getElementById('textSize');
+const boldButton = shadowRoot.getElementById('emboldenText');
+const italicsButton = shadowRoot.getElementById('italicizeText');
+const alignmentButton = shadowRoot.getElementById('textAlignment');
+
+const sizeValues = [0.75, 1, 1.5];
+let currentSizeIndex = 1;
+
+const alignments = ['default', 'left', 'center', 'right'];
+let currentAlignmentIndex = 0;
+
+function storeOriginalFontSizes() {
+    const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
+
+    textElements.forEach(element => {
+        const fontSize = parseFloat(window.getComputedStyle(element).fontSize);
+        element.dataset.originalFontSize = fontSize;
     });
-    const node = treeWalker.nextNode();
-    return node ? { node: node, offset: offset } : null;
+}
+storeOriginalFontSizes();
+
+textSizeButton.addEventListener('click', () => {
+    currentSizeIndex = (currentSizeIndex + 1) % sizeValues.length;
+    const scaleFactor = sizeValues[currentSizeIndex];
+    const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
+    
+    textElements.forEach(element => {
+        const originalFontSize = parseFloat(element.dataset.originalFontSize);
+        const newSize = originalFontSize * scaleFactor;
+        element.style.fontSize = `${newSize}px`;
+    });
+
+    if (currentSizeIndex === 1) {
+        updateButtonImageText(textSizeButton, "TextSize", true);
+    } else {
+        updateButtonImageText(textSizeButton, "TextSize", false);
+    }
+
+});
+
+function storeOriginalStyles() {
+    const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+
+    textElements.forEach(element => {
+        const computedStyle = window.getComputedStyle(element);
+        element.dataset.originalFontWeight = computedStyle.fontWeight;
+        element.dataset.originalFontStyle = computedStyle.fontStyle;
+    });
+}
+storeOriginalStyles();
+
+boldButton.addEventListener('click', () => {
+    let isBold = false;
+    const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
+    
+    textElements.forEach(element => {
+        if (element.style.fontWeight === 'bold') {
+            element.style.fontWeight = element.dataset.originalFontWeight;
+            isBold = true;
+            updateButtonImageText(boldButton, "EmboldenText", isBold);
+        } else {
+            element.style.fontWeight = 'bold';
+            isBold = false;
+            updateButtonImageText(boldButton, "EmboldenText", isBold);
+        }
+    });
+});
+
+italicsButton.addEventListener('click', () => {
+    let isItalic = false;
+    const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
+    
+    textElements.forEach(element => {
+        if (element.style.fontStyle === 'italic') {
+            element.style.fontStyle = element.dataset.originalFontStyle;
+            isItalic = true;
+            updateButtonImageText(italicsButton, "ItalicizeText", isItalic);
+        } else {
+            element.style.fontStyle = 'italic';
+            isItalic = false;
+            updateButtonImageText(italicsButton, "ItalicizeText", isItalic);
+        }
+    });
+});
+
+function storeOriginalTextAlignment() {
+    const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+    
+    textElements.forEach(element => {
+        const computedStyle = window.getComputedStyle(element);
+        element.dataset.originalTextAlign = computedStyle.textAlign;
+    });
+}
+storeOriginalTextAlignment();
+
+alignmentButton.addEventListener('click', () => {
+    currentAlignmentIndex = (currentAlignmentIndex + 1) % alignments.length;
+
+    const newAlignment = alignments[currentAlignmentIndex];
+    const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
+    
+    textElements.forEach(element => {
+        if (newAlignment === 'default') {
+            element.style.textAlign = element.dataset.originalTextAlign;
+        } else {
+            element.style.textAlign = newAlignment;
+        }
+    });
+        updateButtonImageText(alignmentButton, "Align", false);
+        const alignmentImages = ["DefaultAlign", "AlignLeft", "AlignCenter", "AlignRight"];
+        alignmentImages.forEach((imageName, index) => {
+            if (index === currentAlignmentIndex) {
+                updateButtonImageText(alignmentButton, imageName, false);
+            }
+    });
+});
+
+const blackTextButton = shadowRoot.getElementById('textBlack');
+const whiteTextButton = shadowRoot.getElementById('textWhite');
+const redTextButton = shadowRoot.getElementById('textRed');
+const orangeTextButton = shadowRoot.getElementById('textOrange');
+const yellowTextButton = shadowRoot.getElementById('textYellow');
+const greenTextButton = shadowRoot.getElementById('textGreen');
+const blueTextButton = shadowRoot.getElementById('textBlue');
+const purpleTextButton = shadowRoot.getElementById('textPurple');
+
+currentColor = "original";
+
+let originalFontColor;
+function storeOriginalFontColor() {
+    const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+
+    textElements.forEach(element => {
+        if (!element.closest('#FocusUp')) {
+            const fontColor = window.getComputedStyle(element).color;
+            element.dataset.originalFontColor = fontColor;//check contents of originalFontColor
+        }
+    });
+}
+storeOriginalFontColor();
+
+blackTextButton.addEventListener('click', () => {
+    if(currentColor != "black"){
+        currentColor = "black";
+
+        const selectedColor = "black";
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, li, td, th, label, div');
+        textElements.forEach(element => {
+            element.style.color = selectedColor;
+        });
+    }
+    else{
+        currentColor = "original";
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            if(element.hasAttribute('data-original-font-color')) {
+                const originalFontColor = element.dataset.originalFontColor;
+                element.style.color = originalFontColor;
+            }
+            else {
+                const originalFontColor = element.getAttribute('data-original-font-color');
+                element.style.color = originalFontColor;
+            }
+        });
+    }
+});
+
+whiteTextButton.addEventListener('click', () => {
+    if(currentColor != "white"){
+        currentColor = "white";
+
+        const selectedColor = "white";
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, li, td, th, label, div');
+        textElements.forEach(element => {
+            element.style.color = selectedColor;
+        });
+    }
+    else{
+        currentColor = "original";
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            if(element.hasAttribute('data-original-font-color')) {
+                const originalFontColor = element.dataset.originalFontColor;
+                element.style.color = originalFontColor;
+            }
+            else {
+                const originalFontColor = element.getAttribute('data-original-font-color');
+                element.style.color = originalFontColor;
+            }
+        });
+    }
+});
+
+redTextButton.addEventListener('click', () => {
+    if(currentColor != "red"){
+        currentColor = "red";
+
+        const selectedColor = "red";
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, li, td, th, label, div');
+        textElements.forEach(element => {
+            element.style.color = selectedColor;
+        });
+    }
+    else{
+        currentColor = "original";
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            if(element.hasAttribute('data-original-font-color')) {
+                const originalFontColor = element.dataset.originalFontColor;
+                element.style.color = originalFontColor;
+            }
+            else {
+                const originalFontColor = element.getAttribute('data-original-font-color');
+                element.style.color = originalFontColor;
+            }
+        });
+    }
+});
+
+orangeTextButton.addEventListener('click', () => {
+    if(currentColor != "orange"){
+        currentColor = "orange";
+
+        const selectedColor = "orange";
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, li, td, th, label, div');
+        textElements.forEach(element => {
+            element.style.color = selectedColor;
+        });
+    }
+    else{
+        currentColor = "original";
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            if(element.hasAttribute('data-original-font-color')) {
+                const originalFontColor = element.dataset.originalFontColor;
+                element.style.color = originalFontColor;
+            }
+            else {
+                const originalFontColor = element.getAttribute('data-original-font-color');
+                element.style.color = originalFontColor;
+            }
+        });
+    }
+});
+
+yellowTextButton.addEventListener('click', () => {
+    if(currentColor != "yellow"){
+        currentColor = "yellow";
+
+        const selectedColor = "yellow";
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, li, td, th, label, div');
+        textElements.forEach(element => {
+            element.style.color = selectedColor;
+        });
+    }
+    else{
+        currentColor = "original";
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            if(element.hasAttribute('data-original-font-color')) {
+                const originalFontColor = element.dataset.originalFontColor;
+                element.style.color = originalFontColor;
+            }
+            else {
+                const originalFontColor = element.getAttribute('data-original-font-color');
+                element.style.color = originalFontColor;
+            }
+        });
+    }
+});
+
+greenTextButton.addEventListener('click', () => {
+    if(currentColor != "green"){
+        currentColor = "green";
+
+        const selectedColor = "green";
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, li, td, th, label, div');
+        textElements.forEach(element => {
+            element.style.color = selectedColor;
+        });
+    }
+    else{
+        currentColor = "original";
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            if(element.hasAttribute('data-original-font-color')) {
+                const originalFontColor = element.dataset.originalFontColor;
+                element.style.color = originalFontColor;
+            }
+            else {
+                const originalFontColor = element.getAttribute('data-original-font-color');
+                element.style.color = originalFontColor;
+            }
+        });
+    }
+});
+
+blueTextButton.addEventListener('click', () => {
+    if(currentColor != "blue"){
+        currentColor = "blue";
+
+        const selectedColor = "blue";
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, li, td, th, label, div');
+        textElements.forEach(element => {
+            element.style.color = selectedColor;
+        });
+    }
+    else{
+        currentColor = "original";
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            if(element.hasAttribute('data-original-font-color')) {
+                const originalFontColor = element.dataset.originalFontColor;
+                element.style.color = originalFontColor;
+            }
+            else {
+                const originalFontColor = element.getAttribute('data-original-font-color');
+                element.style.color = originalFontColor;
+            }
+        });
+    }
+});
+
+purpleTextButton.addEventListener('click', () => {
+    if(currentColor != "purple"){
+        currentColor = "purple";
+
+        const selectedColor = "purple";
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, li, td, th, label, div');
+        textElements.forEach(element => {
+            element.style.color = selectedColor;
+        });
+    }
+    else{
+        currentColor = "original";
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        textElements.forEach(element => {
+            if(element.hasAttribute('data-original-font-color')) {
+                const originalFontColor = element.dataset.originalFontColor;
+                element.style.color = originalFontColor;
+            }
+            else {
+                const originalFontColor = element.getAttribute('data-original-font-color');
+                element.style.color = originalFontColor;
+            }
+        });
+    }
+});
+
+// Function to update button image based on mode
+function updateButtonImageBetween(button, imageName, isOriginal) {
+    if (isOriginal) {
+        button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + "Gray.svg")}`;
+    } else {
+        button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + "Blue.svg")}`;
+    }
 }
 
-function getWordAtTextNode(node, offset) {
-    const text = node.nodeValue;
-    const before = text.slice(0, offset).replace(/.*\s/, ''); // Keep only the last word
-    const after = text.slice(offset).match(/^\S*/)[0]; // Keep only the first word
-    return before + after;
+//Text Spacing
+const spaceBetweenLinesButton = shadowRoot.getElementById('spaceBetweenLines');
+const spaceBetweenWordsButton = shadowRoot.getElementById('spaceBetweenWords');
+const spaceBetweenLettersButton = shadowRoot.getElementById('spaceBetweenLetters');
+
+const lineHeightValues = [1, 1.5, 0.75];
+let currentLineHeightIndex = 0;
+
+const wordSpacingValues = [1, 3, 7];
+let currentWordSpacingIndex = 0;
+
+const letterSpacingValues = [1, 1.5, 2];
+let currentLetterSpacingIndex = 0;
+
+function storeOriginalLineHeight() {
+    const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+    
+    textElements.forEach(element => {
+        const computedStyle = window.getComputedStyle(element);
+        element.dataset.originalLineHeight = computedStyle.lineHeight;
+    });
 }
+storeOriginalLineHeight();
 
 
+spaceBetweenLinesButton.addEventListener('click', () => {
+    currentLineHeightIndex = (currentLineHeightIndex + 1) % lineHeightValues.length;
 
-/// Get the toggle button and sliders
+    const newLineHeight = lineHeightValues[currentLineHeightIndex];
+    const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
+    
+    textElements.forEach(element => {
+        const originalLineHeight = parseFloat(element.dataset.originalLineHeight);
+        const newLineHeightValue = originalLineHeight * newLineHeight;
+        element.style.lineHeight = `${newLineHeightValue}px`;
+    });
+    if (currentLineHeightIndex === 0) {
+        updateButtonImageBetween(spaceBetweenLinesButton, "BetweenLines", true);
+    } else {
+        updateButtonImageBetween(spaceBetweenLinesButton, "BetweenLines", false);
+    }
+});
+
+function storeOriginalWordSpacing() {
+    const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+    
+    textElements.forEach(element => {
+        const computedStyle = window.getComputedStyle(element);
+        element.dataset.originalWordSpacing = computedStyle.wordSpacing;
+    });
+}
+storeOriginalWordSpacing();
+
+
+spaceBetweenWordsButton.addEventListener('click', () => {
+    currentWordSpacingIndex = (currentWordSpacingIndex + 1) % wordSpacingValues.length;
+
+    const newWordSpacing = wordSpacingValues[currentWordSpacingIndex];
+    const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
+    let newWordSpacingValue;
+    textElements.forEach(element => {
+        const originalWordSpacing = parseFloat(element.dataset.originalWordSpacing);
+        if(originalWordSpacing == 0){
+            newWordSpacingValue = 1 * newWordSpacing;
+        }
+        else{
+            newWordSpacingValue = originalWordSpacing * newWordSpacing;
+        }
+        element.style.wordSpacing = `${newWordSpacingValue}px`;
+    });
+    if (currentWordSpacingIndex === 0) {
+        updateButtonImageBetween(spaceBetweenWordsButton, "BetweenWords", true);
+    } else {
+        updateButtonImageBetween(spaceBetweenWordsButton, "BetweenWords", false);
+    }
+});
+
+function storeOriginalLetterSpacing() {
+    const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+    
+    textElements.forEach(element => {
+        const computedStyle = window.getComputedStyle(element);
+        console.log(computedStyle.letterSpacing);
+        element.dataset.originalLetterSpacing = computedStyle.letterSpacing;
+    });
+}
+storeOriginalLetterSpacing();
+
+spaceBetweenLettersButton.addEventListener('click', () => {
+    currentLetterSpacingIndex = (currentLetterSpacingIndex + 1) % letterSpacingValues.length;
+
+    const newLetterSpacing = letterSpacingValues[currentLetterSpacingIndex];
+    const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
+    let newLetterSpacingValue;
+
+    textElements.forEach(element => {
+        const originalLetterSpacing = element.dataset.originalLetterSpacing;
+        
+        console.log(originalLetterSpacing);
+        if(originalLetterSpacing == "normal"){
+            if(newLetterSpacing == 1){
+                element.style.letterSpacing = `normal`;
+            }
+            else{
+                newLetterSpacingValue = 1 * newLetterSpacing;
+                element.style.letterSpacing = `${newLetterSpacingValue}px`;
+            }
+        }
+        else{
+            newLetterSpacingValue = originalLetterSpacing * newLetterSpacing;
+            element.style.letterSpacing = `${newLetterSpacingValue}px`;
+        }
+    });
+    if (currentLetterSpacingIndex === 0) {
+        updateButtonImageBetween(spaceBetweenLettersButton, "BetweenLetters", true);
+    } else {
+        updateButtonImageBetween(spaceBetweenLettersButton, "BetweenLetters", false);
+    }
+}); 
+
+// Get the toggle button and sliders
 const toggleFocusRulerButton = shadowRoot.getElementById('toggleFocusRuler');
 const lineHeightSlider = shadowRoot.getElementById('lineHeightSlider');
 const brightnessSlider = shadowRoot.getElementById('brightnessSliderBeta');
@@ -446,6 +1274,18 @@ function updateOverlayBrightness() {
   } else if (focusRulerState === 2) {
     focusRulerStrip.style.background = `rgba(${maskColor}, ${brightness})`;
   }
+}
+
+function toggleFocusRuler() {
+    if (focusRulerState === 0) {
+        // Logic for when focus ruler is turned on
+        // Update button image to MaskTypeBlue
+        updateButtonImage(toggleFocusRulerButton, "MaskTypeGray");
+    } else {
+        // Logic for when focus ruler is turned off or inverted
+        // Update button image to MaskTypeGray
+        updateButtonImage(toggleFocusRulerButton, "MaskTypeBlue");
+    }
 }
 
 // Add event listener to the toggle button
@@ -483,6 +1323,7 @@ toggleFocusRulerButton.addEventListener('click', () => {
     updateOverlayBrightness();
 
     focusRulerState = 1; // Set state to on
+    toggleFocusRuler();
   } else if (focusRulerState === 1) {
     // Invert the focus ruler and overlay
     focusRulerStrip.style.background = `rgba(${maskColor}, ${brightnessSlider.value / 100})`;
@@ -490,6 +1331,7 @@ toggleFocusRulerButton.addEventListener('click', () => {
     focusOverlayBottom.style.background = 'transparent';
 
     focusRulerState = 2; // Set state to inverted
+    toggleFocusRuler();
   } else if (focusRulerState === 2) {
     // Remove the overlay and strip elements
     focusOverlayTop.parentNode.removeChild(focusOverlayTop);
@@ -503,6 +1345,7 @@ toggleFocusRulerButton.addEventListener('click', () => {
     brightnessSlider.removeEventListener('input', updateOverlayBrightness);
 
     focusRulerState = 0; // Set state to off
+    toggleFocusRuler();
   }
 });
 
@@ -575,37 +1418,50 @@ function getFilterValue(mode) {
             return 'none';
     }
 }
-
-const brightnessSliderAlpha = shadowRoot.getElementById('brightnessSliderAlpha');
-
-
-const colorButtonsAlpha = shadowRoot.querySelectorAll('.color-button');
-// Add event listeners to color buttons
-colorButtonsAlpha.forEach((button) => {
-    console.log("yee");
-  button.addEventListener('click', (e) => {
-    const selectedColor = e.target.dataset.color;
-    updateScreenTint(selectedColor);
-  });
-});
-
-// Add event listener to brightness slider
-brightnessSliderAlpha.addEventListener('input', (e) => {
-  const brightnessValue = e.target.value;
-  updateScreenBrightness(brightnessValue);
-});
-
-// Function to update screen tint
-function updateScreenTint(color) {
-  document.body.style.backgroundColor = color;
+// Helper function to update button image based on mode
+function updateButtonImage(button, imageName) {
+    button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + ".svg")}`;
 }
 
-// Function to update screen brightness
-function updateScreenBrightness(value) {
-  const alphaValue = value / 100;
-  document.body.style.backgroundColor = `rgba(0, 0, 0, ${alphaValue})`;
+
+let screenShaderOverlay;
+let tintColor = '0, 0, 0'; // Default mask color
+
+// Function to change mask color
+function changeTintColor(color) {
+    tintColor = color;
+    updateSSOverlayBrightness();
 }
 
-// Initialize screen tint and brightness
-updateScreenTint('transparent'); // default tint color
-updateScreenBrightness(100); // default brightness value
+// Function to update overlay brightness and color
+function updateSSOverlayBrightness() {
+    const brightness = brightnessSliderSS.value / 100;
+    screenShaderOverlay.style.backgroundColor = `rgba(${tintColor}, ${brightness})`;
+}
+
+// Create screenShaderOverlay div inside the shadow root
+screenShaderOverlay = document.createElement('div');
+screenShaderOverlay.id = 'screenShaderOverlay';
+screenShaderOverlay.style.position = 'fixed';
+screenShaderOverlay.style.top = '0';
+screenShaderOverlay.style.left = '0';
+screenShaderOverlay.style.width = '100%';
+screenShaderOverlay.style.height = '100%';
+screenShaderOverlay.style.zIndex = '1005';
+screenShaderOverlay.style.pointerEvents = 'none'; // Allow interaction with underlying content
+
+// Append the overlay to the shadow root
+shadowRoot.appendChild(screenShaderOverlay);
+
+// Event listener for brightness slider
+const brightnessSliderSS = shadowRoot.getElementById('brightnessSliderAlpha');
+brightnessSliderSS.addEventListener('input', updateSSOverlayBrightness);
+
+// Event listener for color buttons inside shadow root
+const colorButtonsSS = shadowRoot.querySelectorAll('.color-button-alpha');
+colorButtonsSS.forEach(button => {
+    button.addEventListener('click', (event) => {
+        const color = event.target.getAttribute('data-color');
+        changeTintColor(color);
+    });
+});
