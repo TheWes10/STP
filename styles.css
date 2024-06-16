@@ -1,3 +1,5 @@
+
+
 .toolbar {
     position: fixed;
     right: 10px;
@@ -75,8 +77,9 @@
 #sidebar .section-content-alpha {
     display: flex;
     flex-wrap: wrap;
-    justify-content: left;
+    justify-content: center;
     gap: 20px;
+    border: 2px solid black;
 }
 
 #sidebar .section-content button {
@@ -133,6 +136,7 @@
     cursor: pointer;
     transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
     justify-content: center;
+    margin: 0px;
 }
 
 .color-button:hover {
@@ -140,6 +144,25 @@
 }
 
 .color-button[style*="background-color: white;"] {
+    border: 1px solid #ccc; /* Add border to make white button visible */
+}
+
+.color-button-alpha {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
+    justify-content: center;
+    margin: 0px;
+}
+
+.color-button-alpha:hover {
+    box-shadow: 0 0 10px 2px blue; /* Blue highlight on hover */
+}
+
+.color-button-aplha[style*="background-color: white;"] {
     border: 1px solid #ccc; /* Add border to make white button visible */
 }
 
@@ -159,7 +182,20 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px
+    gap: 20px;
+    border: 2px solid black;
+    
+    /*what if we try justify content: space-between */
+}
+
+.left-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.right-content {
+    display: flex;
+    align-items: center; /* Align items vertically center */
 }
 
 #focusOverlayTop, #focusOverlayBottom {
@@ -185,4 +221,83 @@
     height: 50px; /* Initial height */
     background: transparent; /* Make the strip clear */
     z-index: 1001; /* Ensure it's on top of the overlay */
+}
+
+@font-face {
+    font-family: 'OpenDyslexic';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/OpenDyslexic3-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Helvetica';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/Helvetica.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/OpenSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Tahoma';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/Tahoma.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Verdana';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/verdana.ttf') format('truetype');
+}
+
+
+#screenShaderOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1005;
+    pointer-events: none;
+    background: rgba(0, 0, 0, 0); /* Initial background color with opacity */
+    transition: background-color 0.3s ease; /* Optional: Add transition effect */
+}
+
+/* Target the buttons containing SVGs */
+.svg-button img {
+    width: 150px;
+    height: 150px; 
+  }
+
+  .svg-button-larger img {
+    width: 200px;
+    height: 200px; 
+  }
+
+
+.image-slider-pair {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px; /* Adjust gap to control the space between the image and the slider */
+}
+
+.svg-icon {
+    width: auto; /* Adjust size as needed */
+    height: auto;
+}
+  
+ #textOptions .font-button {
+    display: inline-block;
+    width: 15%; /* Adjust the width to fit five buttons in a row */
+    margin: 1px;
+    padding: 1px;
+    font-size: 16px;
+  }
+
+
+#changeContrast {
+    margin-right: 100px;
+}
+
+#changeSaturation {
+    margin-left: 100px;
 }
