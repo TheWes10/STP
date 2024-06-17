@@ -301,3 +301,7 @@
 #changeSaturation {
     margin-left: 100px;
 }
+
+.font-button.active {
+    background-color: lightblue; /* or any shade of blue you prefer */
+}
