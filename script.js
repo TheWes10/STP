@@ -27,20 +27,20 @@ const MainHTML = `
         <div class="section" id="Accessibility Profiles">
             <h2>Accessibility Profiles</h2>
             <div class="section-content">
-                <button id="colorBlindProfile" class="svg-button">
-                    <img id="colorBlindProfileImg" src="${chrome.runtime.getURL("")}" draggable = "false"> 
+                <button id="colorBlindProfile" class="svg-button-larger">
+                    <img id="colorBlindProfileImg" src="${chrome.runtime.getURL("images/ColorblindGray.svg")}" draggable = "false"> 
                 </button>
-                <button id="visuallyImpairedProfile" class="svg-button">
-                    <img id="visuallyImpairedProfileImg" src="${chrome.runtime.getURL("")}" draggable = "false"> 
+                <button id="visuallyImpairedProfile" class="svg-button-larger">
+                    <img id="visuallyImpairedProfileImg" src="${chrome.runtime.getURL("images/DyslexiaGray.svg")}" draggable = "false"> 
                 </button>
-                <button id="dyslexiaProfile" class="svg-button">
-                    <img id="dyslexiaProfileImg" src="${chrome.runtime.getURL("")}" draggable = "false"> 
+                <button id="dyslexiaProfile" class="svg-button-larger">
+                    <img id="dyslexiaProfileImg" src="${chrome.runtime.getURL("images/VisuallyImpairedGray.svg")}" draggable = "false"> 
                 </button>
-                <button id="ADHDProfile" class="svg-button">
-                    <img id="ADHDProfileImg" src="${chrome.runtime.getURL("")}" draggable = "false"> 
+                <button id="ADHDProfile" class="svg-button-larger">
+                    <img id="ADHDProfileImg" src="${chrome.runtime.getURL("images/ADHDGray.svg")}" draggable = "false"> 
                 </button>
-                <button id="LearningProfile" class="svg-button">
-                    <img id="LearningProfileImg" src="${chrome.runtime.getURL("")}" draggable = "false"> 
+                <button id="LearningProfile" class="svg-button-larger">
+                    <img id="LearningProfileImg" src="${chrome.runtime.getURL("images/CognitiveGray.svg")}" draggable = "false"> 
                 </button>
             </div>
         </div>
