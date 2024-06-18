@@ -1,4 +1,3 @@
-
 //Injection
 //<img src="${chrome.runtime.getURL("images/fontAlteration.svg")}">
 const container = document.createElement('div');
@@ -27,20 +26,20 @@ const MainHTML = `
         <div class="section" id="Accessibility Profiles">
             <h2>Accessibility Profiles</h2>
             <div class="section-content">
-                <button id="colorBlindProfile">
-                    <img id="colorBlindProfileImg" src="${chrome.runtime.getURL("images/ColorblindGray.svg")}" draggable = "false"> 
+                <button id="colorBlindProfile" class="svg-button">
+                    <img id="colorBlindProfileImg" src="${chrome.runtime.getURL("")}" draggable = "false"> 
                 </button>
-                <button id="visuallyImpairedProfile">
-                    <img id="visuallyImpairedProfileImg" src="${chrome.runtime.getURL("images/DyslexiaGray.svg")}" draggable = "false"> 
+                <button id="visuallyImpairedProfile" class="svg-button">
+                    <img id="visuallyImpairedProfileImg" src="${chrome.runtime.getURL("")}" draggable = "false"> 
                 </button>
-                <button id="dyslexiaProfile">
-                    <img id="dyslexiaProfileImg" src="${chrome.runtime.getURL("images/VisuallyImpairedGray.svg")}" draggable = "false"> 
+                <button id="dyslexiaProfile" class="svg-button">
+                    <img id="dyslexiaProfileImg" src="${chrome.runtime.getURL("")}" draggable = "false"> 
                 </button>
-                <button id="ADHDProfile">
-                    <img id="ADHDProfileImg" src="${chrome.runtime.getURL("images/ADHDGray.svg")}" draggable = "false"> 
+                <button id="ADHDProfile" class="svg-button">
+                    <img id="ADHDProfileImg" src="${chrome.runtime.getURL("")}" draggable = "false"> 
                 </button>
-                <button id="LearningProfile">
-                    <img id="LearningProfileImg" src="${chrome.runtime.getURL("images/CognitiveGray.svg")}" draggable = "false"> 
+                <button id="LearningProfile" class="svg-button">
+                    <img id="LearningProfileImg" src="${chrome.runtime.getURL("")}" draggable = "false"> 
                 </button>
             </div>
         </div>
@@ -48,13 +47,13 @@ const MainHTML = `
         <div class="section" id="T2S">
             <h2>Text to Speech</h2>
             <div class="section-content">
-                <button id="readPage">
+                <button id="readPage" class="svg-button-larger">
                     <img id="readPageImg" src="${chrome.runtime.getURL("images/ReadPage.svg")}" draggable = "false"> 
                 </button>
-                <button id="readSpeed" title="Screen Reader Speed">
+                <button id="readSpeed" title="Screen Reader Speed" class="svg-button-larger">
                     <img id="readSpeedImg" src="${chrome.runtime.getURL("images/SpeedNormalGray.svg")}" draggable = "false"> 
                 </button>
-                <button id="t2sHighlight">
+                <button id="t2sHighlight" class="svg-button-larger">
                     <img id="t2sHighlightImg" src="${chrome.runtime.getURL("images/Highlight Text.svg")}" draggable = "false"> 
                 </button>
             </div>
@@ -63,7 +62,7 @@ const MainHTML = `
         <div class="section" id="textConfig">
             <h2>Text Configurations</h2>
             <h3 class="centered-heading">Vision Impaired and Dyslexic Friendly Fonts</h3>
-            <div class="section-content">
+            <div class="section-content" id="textOptions">
                 <button class="font-button" id="arialButton" style="font-family: Arial;">Arial</button>
                 <button class="font-button" id="calibriButton" style="font-family: Calibri;">Calibri</button>
                 <button class="font-button" id="centuryGothicButton" style="font-family: Century Gothic;">Century Gothic</button>
@@ -76,42 +75,45 @@ const MainHTML = `
                 <button class="font-button" id="verdanaButton" style="font-family: Verdana;">Verdana</button>
             </div>
             <div class="section-content">
-                <button id="textSize">
+                <button id="textSize" class="svg-button-larger">
                     <img src="${chrome.runtime.getURL("images/TextSizeGray.svg")}" draggable="false"> 
                 </button>
-                <button id="emboldenText">
+                <button id="emboldenText" class="svg-button-larger">
                     <img src="${chrome.runtime.getURL("images/EmboldenTextGray.svg")}" draggable="false"> 
                 </button>
-                <button id="italicizeText">
+                <button id="italicizeText" class="svg-button-larger">
                     <img src="${chrome.runtime.getURL("images/ItalicizeTextGray.svg")}" draggable="false"> 
                 </button>
-                <button id="textAlignment">
+                <button id="textAlignment" class="svg-button-larger">
                     <img src="${chrome.runtime.getURL("images/DefaultAlignGray.svg")}" draggable="false"> 
                 </button>
             </div>
             <h3 class="centered-heading">Choose Text Color</h3>
             <div class="section-content">
-                <button id="textBlack" class="color-button" style="background-color: black;" onclick="changeTextColor('black')"></button>
-                <button id="textWhite" class="color-button" style="background-color: white; border: 1px solid #ccc;" onclick="changeTextColor('white')"></button>
-                <button id="textRed" class="color-button" style="background-color: red;" onclick="changeTextColor('red')"></button>
-                <button id="textOrange" class="color-button" style="background-color: orange;" onclick="changeTextColor('orange')"></button>
-                <button id="textYellow" class="color-button" style="background-color: yellow;" onclick="changeTextColor('yellow')"></button>
-                <button id="textGreen" class="color-button" style="background-color: green;" onclick="changeTextColor('green')"></button>
-                <button id="textBlue" class="color-button" style="background-color: blue;" onclick="changeTextColor('blue')"></button>
-                <button id="textPurple" class="color-button" style="background-color: purple;" onclick="changeTextColor('purple')"></button>
-                <button id="textColorDefault" class="color-button" style="background-color: gray;" onclick="changeTextColor('purple')"></button>
+                <div class="color-buttons">
+                    <button id="textBlack" class="color-button" style="background-color: black;" onclick="changeTextColor('black')"></button>
+                    <button id="textWhite" class="color-button" style="background-color: white; border: 1px solid #ccc;" onclick="changeTextColor('white')"></button>
+                    <button id="textRed" class="color-button" style="background-color: red;" onclick="changeTextColor('red')"></button>
+                    <button id="textOrange" class="color-button" style="background-color: orange;" onclick="changeTextColor('orange')"></button>
+                    <button id="textYellow" class="color-button" style="background-color: yellow;" onclick="changeTextColor('yellow')"></button>
+                    <button id="textGreen" class="color-button" style="background-color: green;" onclick="changeTextColor('green')"></button>
+                    <button id="textBlue" class="color-button" style="background-color: blue;" onclick="changeTextColor('blue')"></button>
+                    <button id="textPurple" class="color-button" style="background-color: purple;" onclick="changeTextColor('purple')"></button>
+                    <button id="textColorDefault" class="color-button" style="background-color: gray;" onclick="changeTextColor('purple')"></button>
+                </div>
             </div>
+        </div>
 
         <div class="section" id="textSpacing">
             <h2>Text Spacing</h2>
             <div class="section-content">
-                <button id="spaceBetweenLines">
+                <button id="spaceBetweenLines" class="svg-button-larger">
                     <img src="${chrome.runtime.getURL("images/BetweenLinesGray.svg")}" draggable = "false"> 
                 </button>
-                <button id="spaceBetweenWords">
+                <button id="spaceBetweenWords" class="svg-button-larger">
                     <img src="${chrome.runtime.getURL("images/BetweenWordsGray.svg")}" draggable = "false"> 
                 </button>
-                <button id="spaceBetweenLetters">
+                <button id="spaceBetweenLetters" class="svg-button-larger">
                     <img src="${chrome.runtime.getURL("images/BetweenLettersGray.svg")}" draggable = "false"> 
                 </button>
             </div>
@@ -145,24 +147,26 @@ const MainHTML = `
             </div>
         </div>
 
-        <div class="section" id="focusRulerMain">
-            <h2>Focus Ruler</h2>
-            <div class="section-content">
-                <button id="toggleFocusRuler">
-                    <img src="${chrome.runtime.getURL("images/MaskTypeGray.svg")}" draggable="false" title="pain in my ass">
-                </button>
-                <div id="focusRuler"></div>
-                <div class="slider-container">
-                    <img src="${chrome.runtime.getURL("images/LineHeightGray.svg")}" draggable="false">
-                    <input type="range" id="lineHeightSlider" min="0" max="200" value="100">
-                </div>
-                <div class="slider-container">
-                    <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false">
-                    <input type="range" id="brightnessSliderBeta" min="0" max="100" value="100">
-                </div>
+
+    <div class="section" id="focusRulerMain">
+        <h2>Focus Ruler</h2>
+        <div class="section-content">
+            <button id="toggleFocusRuler">
+                <img src="${chrome.runtime.getURL("images/MaskTypeGray.svg")}" draggable="false" title="pain in my ass">
+            </button>
+            <div id="focusRuler"></div>
+            <div class="slider-container">
+                <img src="${chrome.runtime.getURL("images/LineHeightGray.svg")}" draggable="false">
+                <input type="range" id="lineHeightSlider" min="0" max="200" value="50">
             </div>
-            <h3 class="centered-heading">Choose Mask Color</h3>
-            <div class="section-content">
+            <div class="slider-container">
+                <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false">
+                <input type="range" id="brightnessSliderBeta" min="0" max="100" value="50">
+            </div>
+        </div>
+        <h3 class="centered-heading">Choose Mask Color</h3>
+        <div class="section-content">
+            <div class="color-buttons">
                 <button class="color-button" style="background-color: black;" data-color="0, 0, 0"></button>
                 <button class="color-button" style="background-color: white; border: 1px solid #ccc;" data-color="255, 255, 255"></button>
                 <button class="color-button" style="background-color: red;" data-color="255, 0, 0"></button>
@@ -173,20 +177,21 @@ const MainHTML = `
                 <button class="color-button" style="background-color: purple;" data-color="128, 0, 128"></button>
             </div>
         </div>
+        <div id="focusRulerContainer"></div>
+    </div>
 
-        <div class="section" id="colorSchemes">
-            <h2>Color Schemes</h2>
-            <div class="section-content">
-                <button id="changeContrast">
-                    <img src="${chrome.runtime.getURL("images/DefaultContrast.svg")}" draggable = "false"> 
-                </button>
-                <button id="changeSaturation"> 
-                    <img src="${chrome.runtime.getURL("images/DefaultSaturation.svg")}" draggable = "false"> 
-                </button>
-            </div>
+    <div class="section" id="colorSchemes">
+        <h2>Color Schemes</h2>
+        <div class="section-content">
+            <button id="changeContrast" class="svg-button-larger">
+                <img src="${chrome.runtime.getURL("images/DefaultContrast.svg")}" draggable = "false"> 
+            </button>
+            <button id="changeSaturation" class="svg-button-larger"> 
+                <img src="${chrome.runtime.getURL("images/DefaultSaturation.svg")}" draggable = "false"> 
+            </button>
         </div>
     </div>
-    <div id="focusRulerContainer"></div>
+
 </div>
 `;
 shadowRoot.innerHTML = MainHTML; 
