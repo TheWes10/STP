@@ -1,3 +1,4 @@
+
 //Injection
 //<img src="${chrome.runtime.getURL("images/fontAlteration.svg")}">
 const container = document.createElement('div');
@@ -392,8 +393,7 @@ LearningProfile.addEventListener('click', () => {
 });
 
 
-
-//Text to Speech Functions
+//Text to Speech Functions --------------------------------------------------------------------------
 const readPageButton = shadowRoot.getElementById('readPage');
 const readPageImg = shadowRoot.getElementById('readPageImg');
 
@@ -411,7 +411,7 @@ let speechSynthesisUtterance;
 const speedValues = [0.75, 1, 1.5]; // slow, normal, fast
 const speedImages = [
     chrome.runtime.getURL("images/SpeedSlow.svg"),
-    chrome.runtime.getURL("images/SpeedNormalBlue.svg"),
+    chrome.runtime.getURL("images/SpeedNormalGray.svg"),
     chrome.runtime.getURL("images/SpeedFast.svg")
 ];
 
@@ -516,6 +516,8 @@ const tahomaButton = shadowRoot.getElementById('tahomaButton');
 const verdanaButton = shadowRoot.getElementById('verdanaButton');
 
 let currentTypeface = "original";
+let currentButton = null;
+
 
 let orignalTypeface;
 function storeOriginalTypeface() {
@@ -565,6 +567,21 @@ function typefaceHighlightConversion(selectedFont, selection) {
     selection.removeAllRanges();
 }
 
+function toggleButtonBackground(button) {
+    if (currentFontButton === button) {
+        button.style.backgroundColor = ''; // Remove background color if already clicked
+        currentFontButton = null;
+    } else {
+        if (currentFontButton) {
+            currentFontButton.style.backgroundColor = ''; // Remove background color from previous button
+        }
+        button.style.backgroundColor = 'rgba(0, 0, 255, 0.5)'; // Semi-transparent blue background
+        currentFontButton = button;
+    }
+}
+
+let isClicked = false;
+let currentFontButton = null;
 arialButton.addEventListener('click', () => {
     const selectedFont = "Arial";
     const selection = window.getSelection();
@@ -579,6 +596,7 @@ arialButton.addEventListener('click', () => {
             textElements.forEach(element => {
                 element.style.fontFamily = selectedFont;
             });
+            toggleButtonBackground(arialButton);
         }
         else{
             currentTypeface = "original"
@@ -593,11 +611,11 @@ arialButton.addEventListener('click', () => {
                     element.style.fontFamily = originalTypeface;
                 }
             });
+            toggleButtonBackground(arialButton);
         }
     }
 });
-
-//IF selecting multiple words then trying to revert one, it deletes it. 
+/////////////
 calibriButton.addEventListener('click', () => {
     const selectedFont = "Calibri";
     const selection = window.getSelection();
@@ -612,6 +630,7 @@ calibriButton.addEventListener('click', () => {
             textElements.forEach(element => {
                 element.style.fontFamily = selectedFont;
             });
+            toggleButtonBackground(calibriButton);
         }
         else{
             currentTypeface = "original"
@@ -626,10 +645,11 @@ calibriButton.addEventListener('click', () => {
                     element.style.fontFamily = originalTypeface;
                 }
             });
+            toggleButtonBackground(calibriButton);
         }
     }
 });
-
+////////////
 gothicButton.addEventListener('click', () => {
     const selectedFont = "Century Gothic";
     const selection = window.getSelection();
@@ -644,6 +664,7 @@ gothicButton.addEventListener('click', () => {
             textElements.forEach(element => {
                 element.style.fontFamily = selectedFont;
             });
+            toggleButtonBackground(gothicButton);
         }
         else{
             currentTypeface = "original"
@@ -658,10 +679,11 @@ gothicButton.addEventListener('click', () => {
                     element.style.fontFamily = originalTypeface;
                 }
             });
+            toggleButtonBackground(gothicButton);
         }
     }
 });
-
+///////////////
 comicButton.addEventListener('click', () => {
     const selectedFont = "Comic Sans MS";
     const selection = window.getSelection();
@@ -676,6 +698,7 @@ comicButton.addEventListener('click', () => {
             textElements.forEach(element => {
                 element.style.fontFamily = selectedFont;
             });
+            toggleButtonBackground(comicButton);
         }
         else{
             currentTypeface = "original"
@@ -690,10 +713,11 @@ comicButton.addEventListener('click', () => {
                     element.style.fontFamily = originalTypeface;
                 }
             });
+            toggleButtonBackground(comicButton);
         }
     }
 });
-
+////////
 courierButton.addEventListener('click', () => {
     const selectedFont = "Courier";
     const selection = window.getSelection();
@@ -708,6 +732,7 @@ courierButton.addEventListener('click', () => {
             textElements.forEach(element => {
                 element.style.fontFamily = selectedFont;
             });
+            toggleButtonBackground(courierButton);
         }
         else{
             currentTypeface = "original"
@@ -722,10 +747,11 @@ courierButton.addEventListener('click', () => {
                     element.style.fontFamily = originalTypeface;
                 }
             });
+            toggleButtonBackground(courierButton);
         }
     }
 });
-
+///////////////
 helveticaButton.addEventListener('click', () => {
     const selectedFont = "Helvetica";
     const selection = window.getSelection();
@@ -740,6 +766,7 @@ helveticaButton.addEventListener('click', () => {
             textElements.forEach(element => {
                 element.style.fontFamily = selectedFont;
             });
+            toggleButtonBackground(helveticaButton);
         }
         else{
             currentTypeface = "original"
@@ -754,10 +781,11 @@ helveticaButton.addEventListener('click', () => {
                     element.style.fontFamily = originalTypeface;
                 }
             });
+            toggleButtonBackground(helveticaButton);
         }
     }
 });
-
+/////////////////////
 openSansButton.addEventListener('click', () => {
     const selectedFont = "Open Sans";
     const selection = window.getSelection();
@@ -772,6 +800,7 @@ openSansButton.addEventListener('click', () => {
             textElements.forEach(element => {
                 element.style.fontFamily = selectedFont;
             });
+            toggleButtonBackground(openSansButton);
         }
         else{
             currentTypeface = "original"
@@ -786,10 +815,12 @@ openSansButton.addEventListener('click', () => {
                     element.style.fontFamily = originalTypeface;
                 }
             });
+            toggleButtonBackground(openSansButton);
         }
     }
 });
 
+/////////////////
 openDyslexiaButton.addEventListener('click', () => {
     const selectedFont = "OpenDyslexic";
     const selection = window.getSelection();
@@ -805,6 +836,7 @@ openDyslexiaButton.addEventListener('click', () => {
             textElements.forEach(element => {
                 element.style.fontFamily = selectedFont;
             });
+            toggleButtonBackground(openDyslexiaButton);
         }
         else{
             currentTypeface = "original"
@@ -819,10 +851,11 @@ openDyslexiaButton.addEventListener('click', () => {
                     element.style.fontFamily = originalTypeface;
                 }
             });
+            toggleButtonBackground(openDyslexiaButton);
         }
     }
 });
-
+/////////////
 tahomaButton.addEventListener('click', () => {
     const selectedFont = "Tahoma";
     const selection = window.getSelection();
@@ -837,6 +870,7 @@ tahomaButton.addEventListener('click', () => {
             textElements.forEach(element => {
                 element.style.fontFamily = selectedFont;
             });
+            toggleButtonBackground(tahomaButton);
         }
         else{
             currentTypeface = "original"
@@ -851,9 +885,12 @@ tahomaButton.addEventListener('click', () => {
                     element.style.fontFamily = originalTypeface;
                 }
             });
+            toggleButtonBackground(tahomaButton);
         }
+        
     }
 });
+//////////////////////////
 
 verdanaButton.addEventListener('click', () => {
     const selectedFont = "Verdana";
@@ -870,6 +907,7 @@ verdanaButton.addEventListener('click', () => {
             textElements.forEach(element => {
                 element.style.fontFamily = selectedFont;
             });
+            toggleButtonBackground(verdanaButton);
         }
         else{
             currentTypeface = "original"
@@ -884,11 +922,36 @@ verdanaButton.addEventListener('click', () => {
                     element.style.fontFamily = originalTypeface;
                 }
             });
+            toggleButtonBackground(verdanaButton);
         }
     }
 });
 
-//Text Styling
+function updateButtonImageMisc(button, imageName, isOriginal) {
+    if(imageName == "DefaultAlign"){
+        isOriginal = true;
+    }
+    if (isOriginal) {
+        button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + "Gray.svg")}`;
+    } else {
+        button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + "Blue.svg")}`;
+    }
+}
+
+// Function to update the button image based on the current size index
+function updateButtonImageText(button, imageName, currentSizeIndex) {
+    let imageSuffix = "Gray";
+    if (currentSizeIndex === 0) {
+        imageSuffix = "BlueSmall";
+    } else if (currentSizeIndex === 2) {
+        imageSuffix = "BlueLarge";
+    } else if (currentSizeIndex === 1) {
+        imageSuffix = "Gray";
+    }
+    button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + imageSuffix + ".svg")}`;
+}
+
+// Text Styling
 const textSizeButton = shadowRoot.getElementById('textSize');
 const boldButton = shadowRoot.getElementById('emboldenText');
 const italicsButton = shadowRoot.getElementById('italicizeText');
@@ -910,6 +973,7 @@ function storeOriginalFontSizes() {
 }
 storeOriginalFontSizes();
 
+///////////////////////////////
 textSizeButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
@@ -962,20 +1026,11 @@ textSizeButton.addEventListener('click', () => {
             const newSize = originalFontSize * scaleFactor;
             element.style.fontSize = `${newSize}px`;
         });
+        updateButtonImageText(textSizeButton, "TextSize", currentSizeIndex);
     }
 });
+//////////////////////////////
 
-// Helper function to find if a word is already wrapped in a span with currentSizeIndex
-function findContainingSpan(range, word) {
-    let node = range.commonAncestorContainer;
-    while (node) {
-        if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'SPAN' && node.textContent.trim() === word && node.dataset.currentSizeIndex !== undefined) {
-            return node;
-        }
-        node = node.parentElement;
-    }
-    return null;
-}
 
 function storeOriginalStyles() {
     const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
@@ -1026,6 +1081,7 @@ function boldHighlightConversion(selection) {
     selection.removeAllRanges();
 }
 
+
 boldButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
@@ -1037,8 +1093,12 @@ boldButton.addEventListener('click', () => {
         textElements.forEach(element => {
             if (element.style.fontWeight === 'bold') {
                 element.style.fontWeight = element.dataset.originalFontWeight;
+                isBold = true;
+                updateButtonImageMisc(boldButton, "EmboldenText", isBold);
             } else {
                 element.style.fontWeight = 'bold';
+                isBold = false;
+                updateButtonImageMisc(boldButton, "EmboldenText", isBold);
             }
         });
     }
@@ -1083,6 +1143,7 @@ function italicsHighlightConversion(selection) {
 }
 
 italicsButton.addEventListener('click', () => {
+    let isItalic = false;
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
@@ -1095,6 +1156,8 @@ italicsButton.addEventListener('click', () => {
                 if (element.dataset.originalFontStyle) {
                     element.style.fontStyle = element.dataset.originalFontStyle;
                     element.removeAttribute('data-original-fontStyle');
+                    isItalic = true;
+                    updateButtonImageMisc(italicsButton, "ItalicizeText", isItalic);
                 } else {
                     element.style.fontStyle = 'normal';
                 }
@@ -1103,6 +1166,8 @@ italicsButton.addEventListener('click', () => {
                     element.dataset.originalFontStyle = window.getComputedStyle(element).fontStyle;
                 }
                 element.style.fontStyle = 'italic';
+                isItalic = false;
+                updateButtonImageMisc(italicsButton, "ItalicizeText", isItalic);
             }
         });
     }
@@ -1130,6 +1195,13 @@ alignmentButton.addEventListener('click', () => {
         } else {
             element.style.textAlign = newAlignment;
         }
+    });
+        updateButtonImageMisc(alignmentButton, "Align", false);
+        const alignmentImages = ["DefaultAlign", "AlignLeft", "AlignCenter", "AlignRight"];
+        alignmentImages.forEach((imageName, index) => {
+            if (index === currentAlignmentIndex) {
+                updateButtonImageMisc(alignmentButton, imageName, false);
+            }
     });
 });
 
@@ -1195,7 +1267,6 @@ function colorHighlightConversion(selectedColor, selection) {
     range.insertNode(fragment);
     selection.removeAllRanges();
 }
-
 blackTextButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
@@ -1468,6 +1539,25 @@ defaultTextColorButton.addEventListener('click', () => {
     });
 });
 
+// Function to update button image based on mode
+function updateButtonImageBetween(button, imageName, isOriginal) {
+    if (isOriginal) {
+        button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + "Gray.svg")}`;
+    } else {
+        button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + "Blue.svg")}`;
+    }
+}
+
+function updateButtonImageBetweenLineAndWord(button, imageName, isOriginal, marker) {
+    if (isOriginal) {
+        button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + "Gray.svg")}`;
+    } else if (marker === 1){
+        button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + "BlueAlpha.svg")}`;
+    }
+    else if (marker === 2){
+        button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + "BlueBeta.svg")}`;
+    }
+}
 
 //Text Spacing
 const spaceBetweenLinesButton = shadowRoot.getElementById('spaceBetweenLines');
@@ -1504,6 +1594,12 @@ spaceBetweenLinesButton.addEventListener('click', () => {
         const newLineHeightValue = originalLineHeight * newLineHeight;
         element.style.lineHeight = `${newLineHeightValue}px`;
     });
+    if (currentLineHeightIndex === 0) {
+        updateButtonImageBetweenLineAndWord(spaceBetweenLinesButton, "BetweenLines", true, currentLineHeightIndex);
+    } else {
+        updateButtonImageBetweenLineAndWord(spaceBetweenLinesButton, "BetweenLines", false, currentLineHeightIndex);
+    }
+    //0 -- normal, 1 --- big, 2-- small
 });
 
 function storeOriginalWordSpacing() {
@@ -1533,6 +1629,12 @@ spaceBetweenWordsButton.addEventListener('click', () => {
         }
         element.style.wordSpacing = `${newWordSpacingValue}px`;
     });
+
+    if (currentWordSpacingIndex === 0) {
+        updateButtonImageBetweenLineAndWord(spaceBetweenWordsButton, "BetweenWords", true, currentWordSpacingIndex);
+    } else {
+        updateButtonImageBetweenLineAndWord(spaceBetweenWordsButton, "BetweenWords", false, currentWordSpacingIndex);
+    }
 });
 
 function storeOriginalLetterSpacing() {
@@ -1571,9 +1673,14 @@ spaceBetweenLettersButton.addEventListener('click', () => {
             element.style.letterSpacing = `${newLetterSpacingValue}px`;
         }
     });
+    if (currentLetterSpacingIndex === 0) {
+        updateButtonImageBetweenLineAndWord(spaceBetweenLettersButton, "BetweenLetters", true, currentLetterSpacingIndex);
+    } else {
+        updateButtonImageBetweenLineAndWord(spaceBetweenLettersButton, "BetweenLetters", false, currentLetterSpacingIndex);
+    }
 }); 
 
-/// Get the toggle button and sliders
+// Get the toggle button and sliders
 const toggleFocusRulerButton = shadowRoot.getElementById('toggleFocusRuler');
 const lineHeightSlider = shadowRoot.getElementById('lineHeightSlider');
 const brightnessSlider = shadowRoot.getElementById('brightnessSliderBeta');
@@ -1607,6 +1714,18 @@ function updateOverlayBrightness() {
   } else if (focusRulerState === 2) {
     focusRulerStrip.style.background = `rgba(${maskColor}, ${brightness})`;
   }
+}
+
+function toggleFocusRuler() {
+    if (focusRulerState === 0) {
+        // Logic for when focus ruler is turned on
+        // Update button image to MaskTypeBlue
+        updateButtonImage(toggleFocusRulerButton, "MaskTypeGray");
+    } else {
+        // Logic for when focus ruler is turned off or inverted
+        // Update button image to MaskTypeGray
+        updateButtonImage(toggleFocusRulerButton, "MaskTypeBlue");
+    }
 }
 
 // Add event listener to the toggle button
@@ -1644,6 +1763,7 @@ toggleFocusRulerButton.addEventListener('click', () => {
     updateOverlayBrightness();
 
     focusRulerState = 1; // Set state to on
+    toggleFocusRuler();
   } else if (focusRulerState === 1) {
     // Invert the focus ruler and overlay
     focusRulerStrip.style.background = `rgba(${maskColor}, ${brightnessSlider.value / 100})`;
@@ -1651,6 +1771,7 @@ toggleFocusRulerButton.addEventListener('click', () => {
     focusOverlayBottom.style.background = 'transparent';
 
     focusRulerState = 2; // Set state to inverted
+    toggleFocusRuler();
   } else if (focusRulerState === 2) {
     // Remove the overlay and strip elements
     focusOverlayTop.parentNode.removeChild(focusOverlayTop);
@@ -1664,6 +1785,7 @@ toggleFocusRulerButton.addEventListener('click', () => {
     brightnessSlider.removeEventListener('input', updateOverlayBrightness);
 
     focusRulerState = 0; // Set state to off
+    toggleFocusRuler();
   }
 });
 
@@ -1715,11 +1837,7 @@ function applySaturation(saturationLevel) {
     updateButtonImage(changeSaturationBtn, saturationLevel + "Saturation");
 }
 
-function updateButtonImage(button, imageName) {
-    button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + ".svg")}`;
-}
-
-// Helper function to get filter value based on msode
+// Helper function to get filter value based on mode
 function getFilterValue(mode) {
     switch (mode) {
         case 'default':
@@ -1740,9 +1858,12 @@ function getFilterValue(mode) {
             return 'none';
     }
 }
+// Helper function to update button image based on mode
+function updateButtonImage(button, imageName) {
+    button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + ".svg")}`;
+}
 
-//Screen Shading
-// Assuming you have access to shadowRoot where you want to attach the overlay
+
 let screenShaderOverlay;
 let tintColor = '0, 0, 0'; // Default mask color
 
