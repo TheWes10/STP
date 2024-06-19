@@ -28,7 +28,8 @@ const MainHTML = `
             <h2>Accessibility Profiles</h2>
             <div class="section-content">
                 <button id="colorBlindProfile" class="svg-button-larger">
-                    <img id="colorBlindProfileImg" src="${chrome.runtime.getURL("images/ColorblindGray.svg")}" draggable = "false"> 
+                    <img id="colorBlindProfileImg" src="${chrome.runtime.getURL("images/ColorblindGray.svg")}" draggable = "false">
+                    <h3 class="centered-heading">Color Blind</h3>
                 </button>
                 <button id="visuallyImpairedProfile" class="svg-button-larger">
                     <img id="visuallyImpairedProfileImg" src="${chrome.runtime.getURL("images/DyslexiaGray.svg")}" draggable = "false"> 
@@ -193,6 +194,20 @@ const MainHTML = `
         </div>
     </div>
 
+    <div class="section" id="misc">
+        <h2>Miscellaneous</h2>
+        <div class="section-content">
+            <button id="highlightLinks" class="svg-button-larger">
+                <img src="${chrome.runtime.getURL("")}" draggable = "false"> 
+            </button>
+            <button id="hideImages" class="svg-button-larger"> 
+                <img src="${chrome.runtime.getURL("")}" draggable = "false"> 
+            </button>
+            <button id="cursorSize" class="svg-button-larger">
+                <img src="${chrome.runtime.getURL("")}" draggable = "false"> 
+            </button>
+        </div>
+    </div>
 </div>
 `;
 shadowRoot.innerHTML = MainHTML; 
@@ -1908,4 +1923,85 @@ colorButtonsSS.forEach(button => {
             screenShaderOverlay.style.background = 'rgba(0, 0, 0, 0)';
 
     });
+});
+
+//Misc features
+function storeOriginalHighlights() {
+    const links = document.querySelectorAll('a');
+    links.forEach(link => {
+        const originalBackgroundColor = window.getComputedStyle(link).backgroundColor;
+        link.dataset.originalBackgroundColor = originalBackgroundColor;
+    });
+}
+storeOriginalHighlights();
+
+let isHighlighted = false;
+const highlightLinksButton = shadowRoot.getElementById('highlightLinks');
+
+highlightLinksButton.addEventListener('click', () => {
+    const links = document.querySelectorAll('a');
+
+    links.forEach(link => {
+        if (isHighlighted) {
+            // Revert to original background color
+            link.style.backgroundColor = link.dataset.originalBackgroundColor;
+        } else {
+            // Highlight with yellow background color
+            link.style.backgroundColor = 'yellow';
+        }
+    });
+
+    // Toggle the highlighting state
+    isHighlighted = !isHighlighted;
+});
+
+
+
+
+function storeOriginalImageDisplay() {
+    const images = document.querySelectorAll('img');
+    images.forEach(image => {
+        const originalDisplay = window.getComputedStyle(image).display;
+        image.dataset.originalDisplay = originalDisplay;
+    });
+}
+storeOriginalImageDisplay();
+
+let imagesHidden = false;
+const hideImagesButton = shadowRoot.getElementById('hideImages');
+
+hideImagesButton.addEventListener('click', () => {
+    const images = document.querySelectorAll('img');
+
+    images.forEach(image => {
+        if (imagesHidden) {
+            // Revert to original display state
+            image.style.display = image.dataset.originalDisplay;
+        } else {
+            // Hide images
+            image.style.display = 'none';
+        }
+    });
+
+    // Toggle the hiding state
+    imagesHidden = !imagesHidden;
+});
+
+let originalCursorSize = window.getComputedStyle(document.body).cursor;
+let isCursorLarge = false;
+const toggleCursorSizeButton = shadowRoot.getElementById('cursorSize');
+
+const bigCursorURL = chrome.runtime.getURL('images/bigCursor.png');
+
+toggleCursorSizeButton.addEventListener('click', () => {
+    if (isCursorLarge) {
+        // Revert to original cursor size
+        document.body.style.cursor = originalCursorSize;
+    } else {
+        // Increase cursor size using bigCursor.svg
+        document.body.style.cursor = `url(${bigCursorURL}), auto`;
+    }
+
+    // Toggle the cursor state
+    isCursorLarge = !isCursorLarge;
 });
