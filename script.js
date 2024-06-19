@@ -198,13 +198,13 @@ const MainHTML = `
         <h2>Miscellaneous</h2>
         <div class="section-content">
             <button id="highlightLinks" class="svg-button-larger">
-                <img src="${chrome.runtime.getURL("")}" draggable = "false"> 
+                <img src="${chrome.runtime.getURL("images/HighlightLinkGray.svg")}" draggable = "false"> 
             </button>
             <button id="hideImages" class="svg-button-larger"> 
-                <img src="${chrome.runtime.getURL("")}" draggable = "false"> 
+                <img src="${chrome.runtime.getURL("images/HideImagesGray.svg")}" draggable = "false"> 
             </button>
             <button id="cursorSize" class="svg-button-larger">
-                <img src="${chrome.runtime.getURL("")}" draggable = "false"> 
+                <img src="${chrome.runtime.getURL("images/BigCursorGray.svg")}" draggable = "false"> 
             </button>
         </div>
     </div>
