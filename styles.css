@@ -32,78 +32,95 @@
     box-shadow: 0 0 10px 2px blue; /* Blue highlight on hover */
 }
 
-.fontAlterationButtons {
-    display: none;
+
+h2 {
+    color: #212121; /* Darker color for contrast */
+    text-align: left; /* Left align */
+    margin-bottom: 10px;
+    font-size: 30px; /* Ensure font size includes unit */
+    font-family: Arial, sans-serif; /* Set the font to Arial */
+    font-weight: bold; /* Make the text bold */
+    background-color: #ffeb3b; /* Highlight color */
+    padding: 5px 10px; /* Add some padding */
+    border-radius: 5px; /* Optional: Rounded corners */
 }
 
-.fontAlterationButtons:hover{
-    box-shadow: 0 0 10px 2px blue; /* Blue highlight on hover */
-}
+
+
 
 #sidebar {
     display: none; 
     position: fixed;
     top: 0;
     right: 0;
-    width: 50%;
+    width: 17%;
     height: 100%;
-    background-color: white;
+    background-color:#212121;
     padding: 20px;
     box-sizing: border-box;
     z-index: 9999;
     overflow-y: auto; /* Add vertical scrollbar */
     color: black; /* Ensure text is visible on dark background */
-    box-shadow: -10px 0 15px #00000033;
+    box-shadow: -10px 0 15px #ffffff;
 }
 
-#sidebar .section {
+.section{
     margin-bottom: 20px; /* Space between sections */
 }
 
-#sidebar .section h2 {
-    margin-bottom: 10px;
-    font-size: 95;
-}
-
-#sidebar .section-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-}
-
-#sidebar .section-content-alpha {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    border: 2px solid black;
-}
-
-#sidebar .section-content button {
-    background-color: #ffffff;
-    border: none;
+button {
+    background-color: #bdbbdd;
     border-radius: 10px;
     padding: 10px;
-    cursor: pointer;
+    height: 100px;
+    width: 150px;
+    border: 1px solid black;
 }
 
-#sidebar button {
-    background-color: #ffffff;
-    border: none;
+#closeSidebar {
+    background-color: #bdbbdd;
     border-radius: 10px;
+    padding: 10px;
+    width: auto;
+    height: auto;
+}
+button:hover {
+    box-shadow: 0 0 10px 2px blue; /* Blue highlight on hover */
 }
 
-#sidebar button:hover {
-    box-shadow: 0 0 10px 2px blue; /* Blue highlight on hover */
+.section-content {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 2%;
+    row-gap: 1%;
+    justify-content: center; /* Center the columns horizontally */
+    border: 1px solid rgba(157, 255, 0, 0);
 }
 
 #closeSidebar {
     position: absolute;
-    top: 10px; /* Adjust the top position as needed */
+    top: 10px; /* Adjust the top position as needed */ 
     right: 10px; /* Adjust the right position as needed */
     border: black;
     cursor: pointer;
+}
+
+#textOptions.section-content{
+    grid-column-gap: 15%;
+}
+
+/* Target the buttons containing SVGs */
+.svg-button img {
+    width: 10%;
+    height: 10%; 
+    background-color: #bdbbdd;
+}
+
+.svg-button-larger img {
+    max-width: 100%; /* Ensure images don't exceed their container */
+    max-height: 100%; /* Ensure images don't exceed their container */
+    width: auto;
+    height: auto;
 }
 
 .show {
@@ -124,17 +141,17 @@
 .centered-heading {
     text-align: center; /* Center-align the heading */
     margin-bottom: 10px; /* Add some space below the heading */
+    color: #bdbbdd;
 }
 
 .color-button {
-    width: 30px;
-    height: 30px;
+    width: auto;
+    height: auto;
     border-radius: 50%;
     border: none;
     cursor: pointer;
     transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
-    justify-content: center;
-    margin: 0px;
+
 }
 
 .color-button:hover {
@@ -145,7 +162,7 @@
     border: 1px solid #ccc; /* Add border to make white button visible */
 }
 
-.color-button-alpha {
+.color-button-alpha { /*I need the alpha to keep tint working */
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -176,15 +193,7 @@
     width: 200px;
 }
 
-.section-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    border: 2px solid black;
-    
-    /*what if we try justify content: space-between */
-}
+
 
 .left-content {
     display: flex;
@@ -259,16 +268,6 @@
     transition: background-color 0.3s ease; /* Optional: Add transition effect */
 }
 
-/* Target the buttons containing SVGs */
-.svg-button img {
-    width: 150px;
-    height: 150px; 
-  }
-
-  .svg-button-larger img {
-    width: 200px;
-    height: 200px; 
-  }
 
 
 .image-slider-pair {
@@ -279,26 +278,21 @@
 }
 
 .svg-icon {
-    width: auto; /* Adjust size as needed */
-    height: auto;
+    width: 80%; /* Adjust size as needed */
+    height: 80%;
+    background-color: #bdbbdd;
+    border-radius: 50%;
+    border: none;
 }
   
- #textOptions .font-button {
-    display: inline-block;
-    width: 15%; /* Adjust the width to fit five buttons in a row */
-    margin: 1px;
+ .font-button{
+    height: 99%;
+    width: 99%;
     padding: 1px;
     font-size: 16px;
-  }
 
-
-#changeContrast {
-    margin-right: 100px;
 }
 
-#changeSaturation {
-    margin-left: 100px;
-}
 
 .font-button.active {
     background-color: lightblue; /* or any shade of blue you prefer */
@@ -329,3 +323,11 @@
     font-family: 'Verdana';
     src: url('chrome-extension://__MSG_@@extension_id__/fonts/verdana.ttf') format('truetype');
 }
+
+
+
+.fontAlterationButtons {
+    display: none;
+}
+
+
