@@ -16,6 +16,7 @@
 }
 
 
+
 .toolbar button {
     background-color: transparent;
     border: none;
@@ -176,16 +177,6 @@
     width: 200px;
 }
 
-.section-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    border: 2px solid black;
-    
-    /*what if we try justify content: space-between */
-}
-
 .left-content {
     display: flex;
     flex-direction: column;
@@ -266,8 +257,8 @@
   }
 
   .svg-button-larger img {
-    width: 200px;
-    height: 200px; 
+    width: 100px;
+    height: 100px; 
   }
 
 
@@ -304,6 +295,28 @@
     background-color: lightblue; /* or any shade of blue you prefer */
 }
 
+.highlight-bold { font-weight: bold !important;}
+.highlight-italics { font-style: italic !important; }
+
+.highlight-typeface-arial { font-family: Arial; }
+.highlight-typeface-calibri { font-family: 'Calibri'; }
+.highlight-typeface-century-gothic { font-family: 'Century Gothic'; }
+.highlight-typeface-comic-sans-ms { font-family: 'Comic Sans MS'; }
+.highlight-typeface-courier { font-family: Courier; }
+.highlight-typeface-helvetica { font-family: Helvetica; }
+.highlight-typeface-open-sans { font-family: 'Open Sans'; }
+.highlight-typeface-opendyslexic { font-family: 'OpenDyslexic'; }
+.highlight-typeface-tahoma { font-family: Tahoma; }
+.highlight-typeface-verdana { font-family: Verdana; }
+
+.highlight-color-black { color: black; }
+.highlight-color-white { color: white; }
+.highlight-color-red { color: red; }
+.highlight-color-orange { color: orange; }
+.highlight-color-yellow { color: yellow; }
+.highlight-color-green { color: green; }
+.highlight-color-blue { color: blue; }
+.highlight-color-purple { color: purple; }
 
 @font-face {
     font-family: 'OpenDyslexic';

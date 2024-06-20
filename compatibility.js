@@ -24,24 +24,11 @@ const MainHTML = `
             <img src="${chrome.runtime.getURL("images/closeSidebar.svg")}" draggable="false">
         </button>
 
-        <div class="section" id="translator">
-            <h2>Language</h2>
-            <div class="section-content">
-                <select id="languageSelector">
-                    <option value="en">English</option>
-                    <option value="es">Spanish</option>
-                    <option value="fr">French</option>
-                    <!-- Add more languages as needed -->
-                </select>
-            </div>
-        </div>
-
         <div class="section" id="Accessibility Profiles">
             <h2>Accessibility Profiles</h2>
             <div class="section-content">
                 <button id="colorBlindProfile" class="svg-button-larger">
-                    <img id="colorBlindProfileImg" src="${chrome.runtime.getURL("images/ColorblindGray.svg")}" draggable = "false">
-                    <h3 class="centered-heading">Color Blind</h3>
+                    <img id="colorBlindProfileImg" src="${chrome.runtime.getURL("images/ColorblindGray.svg")}" draggable = "false"> 
                 </button>
                 <button id="visuallyImpairedProfile" class="svg-button-larger">
                     <img id="visuallyImpairedProfileImg" src="${chrome.runtime.getURL("images/DyslexiaGray.svg")}" draggable = "false"> 
@@ -210,16 +197,17 @@ const MainHTML = `
         <h2>Miscellaneous</h2>
         <div class="section-content">
             <button id="highlightLinks" class="svg-button-larger">
-                <img src="${chrome.runtime.getURL("images/HighlightLinkGray.svg")}" draggable = "false"> 
+                <img src="${chrome.runtime.getURL("")}" draggable = "false"> 
             </button>
             <button id="hideImages" class="svg-button-larger"> 
-                <img src="${chrome.runtime.getURL("images/HideImagesGray.svg")}" draggable = "false"> 
+                <img src="${chrome.runtime.getURL("")}" draggable = "false"> 
             </button>
             <button id="cursorSize" class="svg-button-larger">
-                <img src="${chrome.runtime.getURL("images/BigCursorGray.svg")}" draggable = "false"> 
+                <img src="${chrome.runtime.getURL("")}" draggable = "false"> 
             </button>
         </div>
     </div>
+
 </div>
 `;
 shadowRoot.innerHTML = MainHTML; 
@@ -556,60 +544,47 @@ function storeOriginalTypeface() {
 }
 storeOriginalTypeface();
 
-function toggleClassOnSelection(className, classType) {
-    const selection = window.getSelection();
-    if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        const range = selection.getRangeAt(0);
-        const selectedContent = range.extractContents();
-        const fragment = document.createDocumentFragment();
+//Doesn't work for some fonts for some reason i.e. comic sans
+function applyStyleToTextNodes(node, styleProperty, styleValue) {
+    const span = document.createElement('span');
+    span.style[styleProperty] = styleValue;
+    span.textContent = node.textContent;
+    return span;
+}
 
-        selectedContent.childNodes.forEach(node => {
-            if (node.nodeType === Node.TEXT_NODE) {
-                const words = node.textContent.split(/(\s+)/); // Split on spaces while keeping the spaces
-                words.forEach(word => {
-                    if (word.trim() !== "") {
-                        const span = document.createElement('span');
-                        span.className = className;
-                        span.textContent = word;
-                        fragment.appendChild(span);
-                    } else {
-                        fragment.appendChild(document.createTextNode(word)); // Add the space back
-                    }
-                });
-            } else if (node.nodeType === Node.ELEMENT_NODE) {
-                if (node.classList.contains(className)) {
-                    node.classList.remove(className);
-                    fragment.appendChild(node.cloneNode(true));
+// Common function to handle the range extraction and node processing
+function handleRangeAndNodes(selection, styleProperty, styleValue) {
+    const range = selection.getRangeAt(0);
+    const selectedContent = range.extractContents();
+    const fragment = document.createDocumentFragment();
+
+    selectedContent.childNodes.forEach(node => {
+        if (node.nodeType === Node.TEXT_NODE) {
+            const words = node.textContent.split(/(\s+)/); // Split on spaces while keeping the spaces
+            words.forEach(word => {
+                if (word.trim() !== "") {
+                    fragment.appendChild(applyStyleToTextNodes(node, styleProperty, styleValue));
                 } else {
-                    const clonedNode = node.cloneNode(true);
-                    if (classType === "Typeface") {
-                        clonedNode.classList.remove(
-                            'highlight-typeface-arial', 'highlight-typeface-calibri', 'highlight-typeface-century-gothic',
-                            'highlight-typeface-comic-sans-ms', 'highlight-typeface-courier', 'highlight-typeface-helvetica',
-                            'highlight-typeface-open-sans', 'highlight-typeface-opendyslexic', 'highlight-typeface-tahoma',
-                            'highlight-typeface-verdana'
-                        );
-                    } else if (classType === "Color") {
-                        clonedNode.classList.remove(
-                            'highlight-color-black', 'highlight-color-white', 'highlight-color-red',
-                            'highlight-color-orange', 'highlight-color-yellow', 'highlight-color-green',
-                            'highlight-color-blue', 'highlight-color-purple'
-                        );
-                    }
-                    clonedNode.classList.add(className);
-                    fragment.appendChild(clonedNode);
+                    fragment.appendChild(document.createTextNode(word)); // Add the space back
                 }
-            } else {
-                const clonedNode = node.cloneNode(true);
+            });
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+            const span = node.cloneNode(true);
+            span.style[styleProperty] = styleValue;
+            fragment.appendChild(span);
+        } else {
+            const clonedNode = node.cloneNode(true);
+            clonedNode.style[styleProperty] = styleValue;
+            fragment.appendChild(clonedNode);
+        }
+    });
 
-                clonedNode.classList.add(className);
-                fragment.appendChild(clonedNode);
-            }
-        });
+    range.insertNode(fragment);
+    selection.removeAllRanges();
+}
 
-        range.insertNode(fragment);
-        selection.removeAllRanges();
-    }
+function typefaceHighlightConversion(selectedFont, selection) {
+    handleRangeAndNodes(selection, 'fontFamily', selectedFont);
 }
 
 function toggleButtonBackground(button) {
@@ -632,7 +607,7 @@ arialButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        toggleClassOnSelection('highlight-typeface-arial', "Typeface");
+        typefaceHighlightConversion(selectedFont, selection);
     } else {
         if(currentTypeface != "arial"){
             currentTypeface = "arial"
@@ -666,7 +641,7 @@ calibriButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        toggleClassOnSelection('highlight-typeface-calibri', "Typeface");
+        typefaceHighlightConversion(selectedFont, selection);
     } else {
         if(currentTypeface != "calibri"){
             currentTypeface = "calibri"
@@ -700,7 +675,7 @@ gothicButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        toggleClassOnSelection('highlight-typeface-century-gothic', "Typeface");
+        typefaceHighlightConversion(selectedFont, selection);
     } else {
         if(currentTypeface != "gothic"){
             currentTypeface = "gothic"
@@ -734,7 +709,7 @@ comicButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        toggleClassOnSelection('highlight-typeface-comic-sans-ms', "Typeface");
+        typefaceHighlightConversion(selectedFont, selection);
     } else {
         if(currentTypeface != "comic"){
             currentTypeface = "comic"
@@ -768,7 +743,7 @@ courierButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        toggleClassOnSelection('highlight-typeface-courier', "Typeface");
+        typefaceHighlightConversion(selectedFont, selection);
     } else {
         if(currentTypeface != "courier"){
             currentTypeface = "courier"
@@ -802,7 +777,7 @@ helveticaButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        toggleClassOnSelection('highlight-typeface-helvetica', "Typeface");
+        typefaceHighlightConversion(selectedFont, selection);
     } else {
         if(currentTypeface != "helvetica"){
             currentTypeface = "helvetica"
@@ -836,7 +811,7 @@ openSansButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        toggleClassOnSelection('highlight-typeface-open-sans', "Typeface");
+        typefaceHighlightConversion(selectedFont, selection);
     } else {
         if(currentTypeface != "open sans"){
             currentTypeface = "open sans"
@@ -871,7 +846,7 @@ openDyslexiaButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        toggleClassOnSelection('highlight-typeface-opendyslexic', "Typeface");
+        typefaceHighlightConversion(selectedFont, selection);
     } else {
         if(currentTypeface != "dyslexia"){
             currentTypeface = "dyslexia"
@@ -906,7 +881,7 @@ tahomaButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        toggleClassOnSelection('highlight-typeface-tahoma', "Typeface");
+        typefaceHighlightConversion(selectedFont, selection);
     } else {
         if(currentTypeface != "tahoma"){
             currentTypeface = "tahoma"
@@ -942,7 +917,7 @@ verdanaButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        toggleClassOnSelection('highlight-typeface-verdana', "Typeface");
+        typefaceHighlightConversion(selectedFont, selection);
     } else {
         if(currentTypeface != "verdana"){
             currentTypeface = "verdana"
@@ -1089,41 +1064,7 @@ function storeOriginalStyles() {
 storeOriginalStyles();
 
 function boldHighlightConversion(selection) {
-    const range = selection.getRangeAt(0);
-    const selectedContent = range.extractContents();
-    const fragment = document.createDocumentFragment();
-
-    selectedContent.childNodes.forEach(node => {
-        if (node.nodeType === Node.TEXT_NODE) {
-            const words = node.textContent.split(/(\s+)/); // Split on spaces while keeping the spaces
-            words.forEach(word => {
-                if (word.trim() !== "") {
-                    const span = document.createElement('span');
-                    span.style.fontWeight = 'bold';
-                    span.textContent = word;
-                    fragment.appendChild(span);
-                } else {
-                    fragment.appendChild(document.createTextNode(word)); // Add the space back
-                }
-            });
-        } else if (node.nodeType === Node.ELEMENT_NODE && node.style.fontWeight === 'bold') {
-            const textNodes = node.childNodes;
-            textNodes.forEach(textNode => {
-                if (textNode.nodeType === Node.TEXT_NODE) {
-                    fragment.appendChild(document.createTextNode(textNode.textContent));
-                } else {
-                    fragment.appendChild(textNode.cloneNode(true));
-                }
-            });
-        } else {
-            const clonedNode = node.cloneNode(true);
-            clonedNode.style.fontWeight = 'bold';
-            fragment.appendChild(clonedNode);
-        }
-    });
-
-    range.insertNode(fragment);
-    selection.removeAllRanges();
+    handleRangeAndNodes(selection, 'fontWeight', 'bold');
 }
 
 
@@ -1131,7 +1072,7 @@ boldButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        toggleClassOnSelection('highlight-bold', "Bold");
+        boldHighlightConversion(selection);
     } else {
         const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
         
@@ -1150,41 +1091,7 @@ boldButton.addEventListener('click', () => {
 });
 
 function italicsHighlightConversion(selection) {
-    const range = selection.getRangeAt(0);
-    const selectedContent = range.extractContents();
-    const fragment = document.createDocumentFragment();
-
-    selectedContent.childNodes.forEach(node => {
-        if (node.nodeType === Node.TEXT_NODE) {
-            const words = node.textContent.split(/(\s+)/); // Split on spaces while keeping the spaces
-            words.forEach(word => {
-                if (word.trim() !== "") {
-                    const span = document.createElement('span');
-                    span.style.fontStyle = 'italic';
-                    span.textContent = word;
-                    fragment.appendChild(span);
-                } else {
-                    fragment.appendChild(document.createTextNode(word)); // Add the space back
-                }
-            });
-        } else if (node.nodeType === Node.ELEMENT_NODE && node.style.fontStyle === 'italic') {
-            const textNodes = node.childNodes;
-            textNodes.forEach(textNode => {
-                if (textNode.nodeType === Node.TEXT_NODE) {
-                    fragment.appendChild(document.createTextNode(textNode.textContent));
-                } else {
-                    fragment.appendChild(textNode.cloneNode(true));
-                }
-            });
-        } else {
-            const clonedNode = node.cloneNode(true);
-            clonedNode.style.fontStyle = 'italic';
-            fragment.appendChild(clonedNode);
-        }
-    });
-
-    range.insertNode(fragment);
-    selection.removeAllRanges();
+    handleRangeAndNodes(selection, 'fontStyle', 'italic');
 }
 
 italicsButton.addEventListener('click', () => {
@@ -1192,7 +1099,7 @@ italicsButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        toggleClassOnSelection('highlight-italics', "Italics");
+        italicsHighlightConversion(selection);
     } else {
         const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
         
@@ -1275,11 +1182,14 @@ function storeOriginalFontColor() {
 }
 storeOriginalFontColor();
 
+function colorHighlightConversion(selectedColor, selection) {
+    handleRangeAndNodes(selection, 'color', selectedColor);
+}
 blackTextButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        toggleClassOnSelection('highlight-color-black', "Color");
+        colorHighlightConversion('black', selection);
     } else {
         if (currentColor !== "black") {
             currentColor = "black";
@@ -1312,7 +1222,7 @@ whiteTextButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        toggleClassOnSelection('highlight-color-white', "Color");
+        colorHighlightConversion('white', selection);
     } else {
         if(currentColor != "white"){
             currentColor = "white";
@@ -1344,7 +1254,7 @@ redTextButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        toggleClassOnSelection('highlight-color-red', "Color");
+        colorHighlightConversion('red', selection);
     } else {
         if(currentColor != "red"){
             currentColor = "red";
@@ -1376,7 +1286,7 @@ orangeTextButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        toggleClassOnSelection('highlight-color-orange', "Color");
+        colorHighlightConversion('orange', selection);
     } else {
             if(currentColor != "orange"){
             currentColor = "orange";
@@ -1408,7 +1318,7 @@ yellowTextButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        toggleClassOnSelection('highlight-color-yellow', "Color");
+        colorHighlightConversion('yellow', selection);
     } else {
         if(currentColor != "yellow"){
             currentColor = "yellow";
@@ -1440,7 +1350,7 @@ greenTextButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        toggleClassOnSelection('highlight-color-green', "Color");
+        colorHighlightConversion('green', selection);
     } else {
         if(currentColor != "green"){
             currentColor = "green";
@@ -1472,7 +1382,7 @@ blueTextButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        toggleClassOnSelection('highlight-color-blue', "Color");
+        colorHighlightConversion('blue', selection);
     } else {
         if(currentColor != "blue"){
             currentColor = "blue";
@@ -1504,7 +1414,7 @@ purpleTextButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        toggleClassOnSelection('highlight-color-purple', "Color");
+        colorHighlightConversion('purple', selection);
     } else {
         if(currentColor != "purple"){
             currentColor = "purple";

@@ -22,7 +22,7 @@
       ],
       "web_accessible_resources": [ {
         "matches": [ "<all_urls>" ],
-        "resources": [ "styles.css", "images/*.svg", "fonts/*.ttf"]
+        "resources": [ "styles.css", "images/*.svg", "images/*.png", "fonts/*.ttf"]
      } ]
       
 }
