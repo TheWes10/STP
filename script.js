@@ -556,61 +556,121 @@ function storeOriginalTypeface() {
 }
 storeOriginalTypeface();
 
+function WrapEveryWord() {
+    console.log("DOM fully loaded and parsed");
+
+    const textNodesUnder = (el) => {
+        let n, a = [], walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+        while (n = walk.nextNode()) a.push(n);
+        return a;
+    };
+
+    console.log("Defining wrapWordsInSpan function");
+
+    const wrapWordsInSpan = (node) => {
+        const parent = node.parentNode;
+        const words = node.textContent.split(/(\s+)/); // Split on spaces while keeping the spaces
+        const fragment = document.createDocumentFragment();
+
+        words.forEach(word => {
+            if (word.trim() !== "") {
+                const span = document.createElement('span');
+                span.textContent = word;
+                span.classList.add('highlightConversion');
+                span.style.whiteSpace = "pre"; // Preserve spaces
+                console.log(`Wrapping word: "${word}"`); // Debugging statement
+                fragment.appendChild(span);
+            } else {
+                console.log(`Preserving space: "${word}"`); // Debugging statement
+                fragment.appendChild(document.createTextNode(word)); // Add the space back
+            }
+        });
+
+        parent.replaceChild(fragment, node);
+    };
+
+    console.log("Fetching text nodes");
+
+    const textNodes = textNodesUnder(document.body);
+    console.log(`Found ${textNodes.length} text nodes`);
+
+    textNodes.forEach(node => {
+        console.log(`Wrapping node with text: "${node.textContent.trim()}"`); // Debugging statement
+        wrapWordsInSpan(node);
+    });
+
+    console.log("Wrapping completed");
+}
+WrapEveryWord();
+
+
+
 function toggleClassOnSelection(className, classType) {
     const selection = window.getSelection();
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
         const range = selection.getRangeAt(0);
-        const selectedContent = range.extractContents();
-        const fragment = document.createDocumentFragment();
 
-        selectedContent.childNodes.forEach(node => {
-            if (node.nodeType === Node.TEXT_NODE) {
-                const words = node.textContent.split(/(\s+)/); // Split on spaces while keeping the spaces
-                words.forEach(word => {
-                    if (word.trim() !== "") {
-                        const span = document.createElement('span');
-                        span.className = className;
-                        span.textContent = word;
-                        fragment.appendChild(span);
-                    } else {
-                        fragment.appendChild(document.createTextNode(word)); // Add the space back
-                    }
-                });
-            } else if (node.nodeType === Node.ELEMENT_NODE) {
-                if (node.classList.contains(className)) {
-                    node.classList.remove(className);
-                    fragment.appendChild(node.cloneNode(true));
-                } else {
-                    const clonedNode = node.cloneNode(true);
-                    if (classType === "Typeface") {
-                        clonedNode.classList.remove(
-                            'highlight-typeface-arial', 'highlight-typeface-calibri', 'highlight-typeface-century-gothic',
-                            'highlight-typeface-comic-sans-ms', 'highlight-typeface-courier', 'highlight-typeface-helvetica',
-                            'highlight-typeface-open-sans', 'highlight-typeface-opendyslexic', 'highlight-typeface-tahoma',
-                            'highlight-typeface-verdana'
-                        );
-                    } else if (classType === "Color") {
-                        clonedNode.classList.remove(
-                            'highlight-color-black', 'highlight-color-white', 'highlight-color-red',
-                            'highlight-color-orange', 'highlight-color-yellow', 'highlight-color-green',
-                            'highlight-color-blue', 'highlight-color-purple'
-                        );
-                    }
-                    clonedNode.classList.add(className);
-                    fragment.appendChild(clonedNode);
-                }
-            } else {
-                const clonedNode = node.cloneNode(true);
+        // Get the elements within the range
+        const startContainer = range.startContainer;
+        const endContainer = range.endContainer;
 
-                clonedNode.classList.add(className);
-                fragment.appendChild(clonedNode);
+        const spans = document.querySelectorAll('span');
+        let inSelection = false;
+        let shouldToggleOff = false;
+
+        // Determine if the class should be toggled off
+        spans.forEach(span => {
+            if (span.contains(startContainer) || span === startContainer) {
+                inSelection = true;
+            }
+
+            if (inSelection && span.classList.contains(className)) {
+                shouldToggleOff = true;
+            }
+
+            if (span.contains(endContainer) || span === endContainer) {
+                inSelection = false;
             }
         });
 
-        range.insertNode(fragment);
-        selection.removeAllRanges();
+        inSelection = false;
+
+        // Apply or remove the class as necessary
+        spans.forEach(span => {
+            if (span.contains(startContainer) || span === startContainer) {
+                inSelection = true;
+            }
+
+            if (inSelection) {
+                if (classType === "Typeface") {
+                    span.classList.remove(
+                        'highlight-typeface-arial', 'highlight-typeface-calibri', 'highlight-typeface-century-gothic',
+                        'highlight-typeface-comic-sans-ms', 'highlight-typeface-courier', 'highlight-typeface-helvetica',
+                        'highlight-typeface-open-sans', 'highlight-typeface-opendyslexic', 'highlight-typeface-tahoma',
+                        'highlight-typeface-verdana'
+                    );
+                } else if (classType === "Color") {
+                    span.classList.remove(
+                        'highlight-color-black', 'highlight-color-white', 'highlight-color-red',
+                        'highlight-color-orange', 'highlight-color-yellow', 'highlight-color-green',
+                        'highlight-color-blue', 'highlight-color-purple'
+                    );
+                }
+
+                if (shouldToggleOff) {
+                    span.classList.remove(className);
+                } else {
+                    span.classList.add(className);
+                }
+            }
+
+            if (span.contains(endContainer) || span === endContainer) {
+                inSelection = false;
+            }
+        });
     }
 }
+
 
 function toggleButtonBackground(button) {
     if (currentFontButton === button) {
