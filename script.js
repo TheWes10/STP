@@ -27,12 +27,7 @@ const MainHTML = `
         <div class="section" id="translator">
             <h2>Language</h2>
             <div class="section-content">
-                <select id="languageSelector">
-                    <option value="en">English</option>
-                    <option value="es">Spanish</option>
-                    <option value="fr">French</option>
-                    <!-- Add more languages as needed -->
-                </select>
+                <button id="defaultButton">To default</button>
             </div>
         </div>
 
@@ -309,19 +304,81 @@ document.addEventListener('mouseup', () => {
     document.body.classList.remove('disable-text-selection');
 });
 
+const toDefault = shadowRoot.getElementById('defaultButton');
+toDefault.addEventListener('click', defaultAll);
+
+function handleKeyboardShortcuts(event) {
+    if (event.altKey && event.key === 'f') {
+        event.preventDefault();
+        toggleFocusRulerButton.click();
+    }
+    if (event.altKey && event.key === 's') {
+        event.preventDefault();
+        readPageButton.click();
+    }
+    if (event.altKey && event.key === 'd') {
+        event.preventDefault();
+        defaultAll();
+    }
+}
+document.addEventListener('keydown', handleKeyboardShortcuts);
+
 //Accessibility Profiles
 function defaultAll(){
     currentTypeface = "arial";
     currentSaturationIndex = 3;
     currentContrastIndex = 3;
     currentSizeIndex = 0;
-    focusRulerState = 2;
+    currentColor = 'black'
+    currentLineHeightIndex = 2;
+    currentWordSpacingIndex = 2;
+    currentLetterSpacingIndex = 2;
+    currentAlignmentIndex = 3;
+    screenShaderOverlay.style.background = 'rgba(0, 0, 0, 0)';
+    isHighlighted = true;
+    imagesHidden = true;
+    isCursorLarge = true;
+    
+    //focus ruller
 
     arialButton.click();
     textSizeButton.click();
     toggleSaturation();
     toggleContrast();
-    toggleFocusRulerButton.click();
+    blackTextButton.click();
+    spaceBetweenLinesButton.click();
+    spaceBetweenWordsButton.click();
+    spaceBetweenLettersButton.click();
+    alignmentButton.click();
+    toggleButtonBackground(arialButton);
+    highlightLinksButton.click();
+    hideImagesButton.click();
+    toggleCursorSizeButton.click();
+    if (focusRulerState !== 0) {
+        if (focusRulerState === 1) {
+            toggleFocusRulerButton.click();
+        }
+        toggleFocusRulerButton.click();
+    }
+
+    const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');    
+    textElements.forEach(element => {
+        if (element.style.fontWeight === 'bold') {
+            element.style.fontWeight = element.dataset.originalFontWeight;
+            updateButtonImageMisc(boldButton, "EmboldenText", true);
+        }
+        if (element.style.fontStyle === 'italic') { 
+            if (element.dataset.originalFontStyle) {
+                element.style.fontStyle = element.dataset.originalFontStyle;
+                element.removeAttribute('data-original-fontStyle');
+                isItalic = true;
+                updateButtonImageMisc(italicsButton, "ItalicizeText", true);
+            } else {
+                element.style.fontStyle = 'normal';
+            }
+        }
+
+    });
     
     currentProfile = "none";
 }
@@ -478,7 +535,6 @@ readSpeedButton.addEventListener('click', () => {
     // Adjust the reading speed
     if (speechSynthesisUtterance) {
         speechSynthesisUtterance.rate = speedValues[currentSpeedIndex];
-        console.log('Speech rate changed to:', speechSynthesisUtterance.rate);
 
         if (isReading) {
             // Restart the speech with the new rate
@@ -502,17 +558,14 @@ function startReadingHighlightedText() {
     window.speechSynthesis.cancel();
     const highlightedText = getHighlightedText();
     if (highlightedText) {
-        console.log('Reading highlighted text:', highlightedText);
         speechSynthesisUtterance = new SpeechSynthesisUtterance(highlightedText);
         speechSynthesisUtterance.rate = speedValues[currentSpeedIndex]; // Set the current speech rate
         speechSynthesisUtterance.pitch = 1; // Set default pitch
 
         speechSynthesisUtterance.onend = () => {
-            console.log('Speech synthesis ended for highlighted text');
             isReading = false;
         };
 
-        console.log('About to speak highlighted text:', speechSynthesisUtterance);
         window.speechSynthesis.speak(speechSynthesisUtterance);
     }
 }
@@ -557,15 +610,12 @@ function storeOriginalTypeface() {
 storeOriginalTypeface();
 
 function WrapEveryWord() {
-    console.log("DOM fully loaded and parsed");
-
     const textNodesUnder = (el) => {
         let n, a = [], walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
         while (n = walk.nextNode()) a.push(n);
         return a;
     };
 
-    console.log("Defining wrapWordsInSpan function");
 
     const wrapWordsInSpan = (node) => {
         const parent = node.parentNode;
@@ -578,10 +628,8 @@ function WrapEveryWord() {
                 span.textContent = word;
                 span.classList.add('highlightConversion');
                 span.style.whiteSpace = "pre"; // Preserve spaces
-                console.log(`Wrapping word: "${word}"`); // Debugging statement
                 fragment.appendChild(span);
             } else {
-                console.log(`Preserving space: "${word}"`); // Debugging statement
                 fragment.appendChild(document.createTextNode(word)); // Add the space back
             }
         });
@@ -589,17 +637,13 @@ function WrapEveryWord() {
         parent.replaceChild(fragment, node);
     };
 
-    console.log("Fetching text nodes");
 
     const textNodes = textNodesUnder(document.body);
-    console.log(`Found ${textNodes.length} text nodes`);
 
     textNodes.forEach(node => {
-        console.log(`Wrapping node with text: "${node.textContent.trim()}"`); // Debugging statement
         wrapWordsInSpan(node);
     });
 
-    console.log("Wrapping completed");
 }
 WrapEveryWord();
 
@@ -1084,54 +1128,41 @@ textSizeButton.addEventListener('click', () => {
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
         const range = selection.getRangeAt(0);
-        const selectedContent = range.extractContents();
-        const fragment = document.createDocumentFragment();
+        const spans = document.querySelectorAll('span');
+        let inSelection = false;
 
-        selectedContent.childNodes.forEach(node => {
-            if (node.nodeType === Node.TEXT_NODE) {
-                const words = node.textContent.split(/(\s+)/); // Split on spaces while keeping the spaces
-                words.forEach(word => {
-                    if (word.trim() !== "") {
-                        const span = document.createElement('span');
-                        span.dataset.currentSizeIndex = (currentSizeIndex + 1) % sizeValues.length;
-                        span.textContent = word;
+        spans.forEach(span => {
+            if (range.intersectsNode(span)) {
+                if (!span.dataset.originalFontSize) {
+                    span.dataset.originalFontSize = window.getComputedStyle(span).fontSize;
+                }
 
-                        // Get the parent element's original font size
-                        const parentFontSize = parseFloat(window.getComputedStyle(range.commonAncestorContainer.parentElement).fontSize);
-                        span.style.fontSize = `${parentFontSize * sizeValues[span.dataset.currentSizeIndex]}px`; // Scale relative to parent font size
-                        fragment.appendChild(span);
-                    } else {
-                        fragment.appendChild(document.createTextNode(word)); // Add the space back
-                    }
-                });
-            } else if (node.nodeType === Node.ELEMENT_NODE && node.dataset.currentSizeIndex !== undefined) {
-                // If it's already wrapped and has a size index, update the span's size
-                const span = node.cloneNode(true);
-                span.dataset.currentSizeIndex = (parseInt(node.dataset.currentSizeIndex) + 1) % sizeValues.length;
-                const parentFontSize = parseFloat(window.getComputedStyle(range.commonAncestorContainer.parentElement).fontSize);
-                span.style.fontSize = `${parentFontSize * sizeValues[span.dataset.currentSizeIndex]}px`;
-                fragment.appendChild(span);
-            } else {
-                // Clone other types of nodes
-                fragment.appendChild(node.cloneNode(true));
+                // Toggle size index
+                let sizeIndex = span.dataset.currentSizeIndex ? parseInt(span.dataset.currentSizeIndex) : 0;
+                sizeIndex = (sizeIndex + 1) % sizeValues.length;
+
+                span.dataset.currentSizeIndex = sizeIndex;
+
+                const originalFontSize = parseFloat(span.dataset.originalFontSize);
+                const newSize = originalFontSize * sizeValues[sizeIndex];
+                span.style.fontSize = `${newSize}px`;
             }
         });
-
-        // Insert the modified fragment back into the range
-        range.insertNode(fragment);
-        selection.removeAllRanges();
     } else {
-        // Toggle through size values for all text elements
+        // Toggle through size values for all text elements if no selection is made
         currentSizeIndex = (currentSizeIndex + 1) % sizeValues.length;
         const scaleFactor = sizeValues[currentSizeIndex];
-        const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
-        
+        const textElements = document.querySelectorAll('span.highlightConversion');
+
         textElements.forEach(element => {
+            if (!element.dataset.originalFontSize) {
+                element.dataset.originalFontSize = window.getComputedStyle(element).fontSize;
+            }
+
             const originalFontSize = parseFloat(element.dataset.originalFontSize);
             const newSize = originalFontSize * scaleFactor;
             element.style.fontSize = `${newSize}px`;
         });
-        updateButtonImageText(textSizeButton, "TextSize", currentSizeIndex);
     }
 });
 //////////////////////////////
@@ -1710,7 +1741,6 @@ function storeOriginalLetterSpacing() {
     
     textElements.forEach(element => {
         const computedStyle = window.getComputedStyle(element);
-        console.log(computedStyle.letterSpacing);
         element.dataset.originalLetterSpacing = computedStyle.letterSpacing;
     });
 }
@@ -1726,7 +1756,6 @@ spaceBetweenLettersButton.addEventListener('click', () => {
     textElements.forEach(element => {
         const originalLetterSpacing = element.dataset.originalLetterSpacing;
         
-        console.log(originalLetterSpacing);
         if(originalLetterSpacing == "normal"){
             if(newLetterSpacing == 1){
                 element.style.letterSpacing = `normal`;
