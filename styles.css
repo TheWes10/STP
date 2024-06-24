@@ -89,6 +89,12 @@
     margin-bottom: 10px;
 }
 
+#button-container-alpha {
+    background-color: rgba(255, 255, 255, 0);
+    padding-left: 1.5%;
+    margin-bottom: 10px;
+}
+
 .gridSetUp {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr)); /* Adjust minmax as needed */
