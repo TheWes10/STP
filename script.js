@@ -173,7 +173,7 @@ const MainHTML = `
                 <div class="grid-item">
                     <button id="spaceBetweenLetters" class="svg-button-larger">
                         <img src="${chrome.runtime.getURL("images/BetweenLettersGray.svg")}" draggable = "false">
-                        <p>Between Words</p> 
+                        <p>Between Letters</p> 
                     </button>
                 </div>
             
