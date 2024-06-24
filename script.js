@@ -468,12 +468,13 @@ function defaultAll(){
     highlightLinksButton.click();
     hideImagesButton.click();
     toggleCursorSizeButton.click();
-    if (focusRulerState !== 0) {
+    
+    /* if (focusRulerState !== 0) {
         if (focusRulerState === 1) {
             toggleFocusRulerButton.click();
         }
         toggleFocusRulerButton.click();
-    }
+    } */
     const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
     textElements.forEach(element => {
         if (element.style.fontWeight === 'bold') {
