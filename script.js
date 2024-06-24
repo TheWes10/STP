@@ -760,7 +760,6 @@ function toggleClassOnSelection(className, classType) {
     const selection = window.getSelection();
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
         const range = selection.getRangeAt(0);
-        // Get the elements within the range
         const startContainer = range.startContainer;
         const endContainer = range.endContainer;
         const spans = document.querySelectorAll('span');
@@ -779,13 +778,17 @@ function toggleClassOnSelection(className, classType) {
                 inSelection = false;
             }
         });
+
         inSelection = false;
+
         // Apply or remove the class as necessary
         spans.forEach(span => {
-            if (span.contains(startContainer) || span === startContainer) {
-                inSelection = true;
-            }
-            if (inSelection) {
+            const spanRange = document.createRange();
+            spanRange.selectNodeContents(span);
+
+            if (range.compareBoundaryPoints(Range.START_TO_END, spanRange) > 0 && 
+                range.compareBoundaryPoints(Range.END_TO_START, spanRange) < 0) {
+                // The span is fully or partially within the selection
                 if (classType === "Typeface") {
                     span.classList.remove(
                         'highlight-typeface-arial', 'highlight-typeface-calibri', 'highlight-typeface-century-gothic',
@@ -801,17 +804,11 @@ function toggleClassOnSelection(className, classType) {
                     );
                 }
 
-
-
                 if (shouldToggleOff) {
                     span.classList.remove(className);
                 } else {
                     span.classList.add(className);
                 }
-            }
-
-            if (span.contains(endContainer) || span === endContainer) {
-                inSelection = false;
             }
         });
     }
