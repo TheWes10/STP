@@ -15,7 +15,6 @@
     z-index: 9999;
 }
 
-
 .toolbar button {
     background-color: transparent;
     border: none;
@@ -32,95 +31,145 @@
     box-shadow: 0 0 10px 2px blue; /* Blue highlight on hover */
 }
 
-
-h2 {
-    color: #212121; /* Darker color for contrast */
-    text-align: left; /* Left align */
-    margin-bottom: 10px;
-    font-size: 30px; /* Ensure font size includes unit */
-    font-family: Arial, sans-serif; /* Set the font to Arial */
-    font-weight: bold; /* Make the text bold */
-    background-color: #ffeb3b; /* Highlight color */
-    padding: 5px 10px; /* Add some padding */
-    border-radius: 5px; /* Optional: Rounded corners */
-}
-
-
-
-
 #sidebar {
     display: none; 
     position: fixed;
     top: 0;
     right: 0;
-    width: 17%;
+    width: 30%;
     height: 100%;
-    background-color:#212121;
-    padding: 20px;
+    background-color:rgba(239,241,245,255);
+    padding: 1px;
     box-sizing: border-box;
     z-index: 9999;
     overflow-y: auto; /* Add vertical scrollbar */
-    color: black; /* Ensure text is visible on dark background */
-    box-shadow: -10px 0 15px #ffffff;
+    border: 1px solid rgb(0, 0, 0);   
 }
 
-.section{
-    margin-bottom: 20px; /* Space between sections */
+#sidebar.left {
+    left: 0;
+    right: auto;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.5);
 }
 
-button {
-    background-color: #bdbbdd;
+#menu{
+    background-color: rgba(33,37,41,255);
+    font-size: 30px;
     border-radius: 10px;
-    padding: 10px;
-    height: 100px;
-    width: 150px;
-    border: 1px solid black;
+    color: white;
+    width: 97%;
+    height: 10%;
+    padding-left: 2%;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 5%;
+    margin-bottom: 4%;
+    margin-left: 1%;
+    padding-bottom: 4%;
+}
+
+.myButtons{
+    background-color: rgb(255, 255, 255);
+    text-align: center;
+    align-items: center;
+    border: 1px solid rgb(0, 0, 0); 
+    border-radius: 10px; /* Increase the border-radius to round all corners */
+    font-size: 30px;
+    width: 97%; /* Make the buttons take up the full width of the grid cell */
+    height: 100%; /* Make the buttons take up the full height of the grid cell */
+    font-weight: bold;
+}
+
+#button-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Define two columns of equal width */
+    gap: 1%; /* Add a gap between the columns */
+    background-color: rgba(255, 255, 255, 0);
+    padding-left: 1.5%;
+    margin-bottom: 10px;
+}
+
+#button-container-alpha {
+    background-color: rgba(255, 255, 255, 0);
+    padding-left: 1.5%;
+    margin-bottom: 10px;
+}
+
+.gridSetUp {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr)); /* Adjust minmax as needed */
+    grid-template-rows: repeat(10, minmax(0, 1fr)); /* Create 10 rows */
+    grid-auto-rows: minmax(100px, auto); /* Adjust row height */
+    gap: 1%; /* Adjust gap as needed */
+    justify-content: center;
+    padding: 1%; /* Add padding around the grid */
+}
+
+.grid-item {
+    padding: 1%; /* Adjust padding as needed*/
+}
+
+.grid-item img {
+    max-width: 100%; /* Adjust max-width as needed */
+    max-height: 50%; /* Adjust max-height as needed */
+    margin-bottom: 10px; /* Space between image and text */
+}
+
+#brightnessAlpha{
+    padding-right: 15%;
+}
+
+#brightnessBeta{
+    padding-right: 15%;
+}
+
+#lineHeightIMG{
+    padding-right: 15%;
+}
+
+.grid-item p {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #000000;
+    text-align: center;
+    margin: 0; /* Remove default margin */
+    font-weight: bold;
+}
+
+.grid-item button {
+    display: block; /* Add this */
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    text-align: center; /* Add this */
+    align-items: center;
+    border: 1px solid rgb(0, 0, 0); 
+    border-radius: 10px; /* Add border-radius if needed */
 }
 
 #closeSidebar {
-    background-color: #bdbbdd;
-    border-radius: 10px;
+    background-color: #ffffff;
+    border-radius: 50%;
     padding: 10px;
     width: auto;
     height: auto;
 }
+
 button:hover {
     box-shadow: 0 0 10px 2px blue; /* Blue highlight on hover */
-}
-
-.section-content {
-    display: grid;
-    grid-template-columns: auto auto;
-    column-gap: 2%;
-    row-gap: 1%;
-    justify-content: center; /* Center the columns horizontally */
-    border: 1px solid rgba(157, 255, 0, 0);
 }
 
 #closeSidebar {
     position: absolute;
     top: 10px; /* Adjust the top position as needed */ 
     right: 10px; /* Adjust the right position as needed */
-    border: black;
     cursor: pointer;
 }
 
-#textOptions.section-content{
-    grid-column-gap: 15%;
-}
-
-/* Target the buttons containing SVGs */
-.svg-button img {
-    width: 10%;
-    height: 10%; 
-    background-color: #bdbbdd;
-}
-
-.svg-button-larger img {
-    max-width: 100%; /* Ensure images don't exceed their container */
-    max-height: 100%; /* Ensure images don't exceed their container */
-    width: auto;
-    height: auto;
+#textOptions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns, each taking 1 fractional unit */
+    column-gap: 1px; /* Adjust gap as needed */
 }
 
 .show {
@@ -141,17 +190,50 @@ button:hover {
 .centered-heading {
     text-align: center; /* Center-align the heading */
     margin-bottom: 10px; /* Add some space below the heading */
-    color: #bdbbdd;
+    color: #000000;
+}
+.color-grid-container {
+    text-align: center; /* Center the title */
+    box-sizing: border-box;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 10%;
+    background-color: rgb(255, 255, 255);
+    
+}
+
+.color-grid-title {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    color: #000000;
+    margin-bottom: 0px; /* Add some space between the title and the grid */
+    font-weight: bold;
+    padding-bottom: 10%;
+}
+
+.color-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, .2fr));
+    column-gap: 2%;
+    row-gap: 2%;
+    align-items: center;
+    justify-content: center;
+}
+
+.color-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .color-button {
-    width: auto;
-    height: auto;
+    width: 100%; /* Set a fixed width for the buttons */
+    height: 20px; /* Set a fixed height for the buttons */
+    aspect-ratio: 1/1;
     border-radius: 50%;
     border: none;
     cursor: pointer;
     transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
-
+    border: 1px solid rgb(0, 0, 0); 
 }
 
 .color-button:hover {
@@ -162,15 +244,15 @@ button:hover {
     border: 1px solid #ccc; /* Add border to make white button visible */
 }
 
-.color-button-alpha { /*I need the alpha to keep tint working */
-    width: 30px;
-    height: 30px;
+.color-button-alpha {
+    width: 100%; /* Set a fixed width for the buttons */
+    height: 20px; /* Set a fixed height for the buttons */
+    aspect-ratio: 1/1;
     border-radius: 50%;
     border: none;
     cursor: pointer;
     transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
-    justify-content: center;
-    margin: 0px;
+    border: 1px solid rgb(0, 0, 0); 
 }
 
 .color-button-alpha:hover {
@@ -187,13 +269,37 @@ button:hover {
     align-items: center;
     gap: 10px;
     margin-left: 20px; /* Add margin to separate from color buttons */
-  }
-
-#brightnessSlider {
-    width: 200px;
 }
 
+#slider-beta{
+    border: 1px solid rgb(0, 0, 0); 
+    border-radius: 10%; /* Add border-radius if needed */
+    background-color: rgb(255, 255, 255);
+}
 
+#slider-alpha{
+    border: 1px solid rgb(0, 0, 0); 
+    border-radius: 10%; /* Add border-radius if needed */
+    background-color: rgb(255, 255, 255);
+}
+
+#Line-Height-Border{
+    border: 1px solid rgb(0, 0, 0); 
+    border-radius: 10%; /* Add border-radius if needed */
+    background-color: rgb(255, 255, 255);
+}
+
+#brightnessSliderAlpha {
+    width: 85%;
+}
+
+#brightnessSliderBeta {
+    width: 85%;
+}
+
+#lineHeightSlider{
+    width: 85%;
+}
 
 .left-content {
     display: flex;
@@ -255,7 +361,6 @@ button:hover {
     src: url('chrome-extension://__MSG_@@extension_id__/fonts/verdana.ttf') format('truetype');
 }
 
-
 #screenShaderOverlay {
     position: fixed;
     top: 0;
@@ -268,36 +373,21 @@ button:hover {
     transition: background-color 0.3s ease; /* Optional: Add transition effect */
 }
 
-
-
 .image-slider-pair {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 1px; /* Adjust gap to control the space between the image and the slider */
-}
-
-.svg-icon {
-    width: 80%; /* Adjust size as needed */
-    height: 80%;
-    background-color: #bdbbdd;
-    border-radius: 50%;
-    border: none;
 }
   
  .font-button{
-    height: 99%;
-    width: 99%;
     padding: 1px;
-    font-size: 16px;
+    font-size: 12px;
 
 }
-
 
 .font-button.active {
     background-color: lightblue; /* or any shade of blue you prefer */
 }
-
 
 @font-face {
     font-family: 'OpenDyslexic';
@@ -325,9 +415,27 @@ button:hover {
 }
 
 
-
 .fontAlterationButtons {
     display: none;
 }
 
-
+.highlight-bold { font-weight: bold !important;}
+.highlight-italics { font-style: italic !important; }
+.highlight-typeface-arial { font-family: Arial; }
+.highlight-typeface-calibri { font-family: 'Calibri'; }
+.highlight-typeface-century-gothic { font-family: 'Century Gothic'; }
+.highlight-typeface-comic-sans-ms { font-family: 'Comic Sans MS'; }
+.highlight-typeface-courier { font-family: Courier; }
+.highlight-typeface-helvetica { font-family: Helvetica; }
+.highlight-typeface-open-sans { font-family: 'Open Sans'; }
+.highlight-typeface-opendyslexic { font-family: 'OpenDyslexic'; }
+.highlight-typeface-tahoma { font-family: Tahoma; }
+.highlight-typeface-verdana { font-family: Verdana; }
+.highlight-color-black { color: black; }
+.highlight-color-white { color: white; }
+.highlight-color-red { color: red; }
+.highlight-color-orange { color: orange; }
+.highlight-color-yellow { color: yellow; }
+.highlight-color-green { color: green; }
+.highlight-color-blue { color: blue; }
+.highlight-color-purple { color: purple; }
