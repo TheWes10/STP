@@ -647,7 +647,6 @@ readSpeedButton.addEventListener('click', () => {
     // Adjust the reading speed
     if (speechSynthesisUtterance) {
         speechSynthesisUtterance.rate = speedValues[currentSpeedIndex];
-        console.log('Speech rate changed to:', speechSynthesisUtterance.rate);
 
         if (isReading) {
             // Restart the speech with the new rate
@@ -671,17 +670,14 @@ function startReadingHighlightedText() {
     window.speechSynthesis.cancel();
     const highlightedText = getHighlightedText();
     if (highlightedText) {
-        console.log('Reading highlighted text:', highlightedText);
         speechSynthesisUtterance = new SpeechSynthesisUtterance(highlightedText);
         speechSynthesisUtterance.rate = speedValues[currentSpeedIndex]; // Set the current speech rate
         speechSynthesisUtterance.pitch = 1; // Set default pitch
 
         speechSynthesisUtterance.onend = () => {
-            console.log('Speech synthesis ended for highlighted text');
             isReading = false;
         };
 
-        console.log('About to speak highlighted text:', speechSynthesisUtterance);
         window.speechSynthesis.speak(speechSynthesisUtterance);
     }
 }
@@ -1843,7 +1839,6 @@ function storeOriginalLetterSpacing() {
     
     textElements.forEach(element => {
         const computedStyle = window.getComputedStyle(element);
-        console.log(computedStyle.letterSpacing);
         element.dataset.originalLetterSpacing = computedStyle.letterSpacing;
     });
 }
@@ -1859,7 +1854,6 @@ spaceBetweenLettersButton.addEventListener('click', () => {
     textElements.forEach(element => {
         const originalLetterSpacing = element.dataset.originalLetterSpacing;
         
-        console.log(originalLetterSpacing);
         if(originalLetterSpacing == "normal"){
             if(newLetterSpacing == 1){
                 element.style.letterSpacing = `normal`;
