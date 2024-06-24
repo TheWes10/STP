@@ -2131,9 +2131,11 @@ highlightLinksButton.addEventListener('click', () => {
         if (isHighlighted) {
             // Revert to original background color
             link.style.backgroundColor = link.dataset.originalBackgroundColor;
+            updateButtonImageMisc(highlightLinksButton, "HighlightLink", isHighlighted);
         } else {
             // Highlight with yellow background color
             link.style.backgroundColor = 'yellow';
+            updateButtonImageMisc(highlightLinksButton, "HighlightLink", isHighlighted);
         }
     });
 
@@ -2163,9 +2165,11 @@ hideImagesButton.addEventListener('click', () => {
         if (imagesHidden) {
             // Revert to original display state
             image.style.display = image.dataset.originalDisplay;
+            updateButtonImageMisc(hideImagesButton, "HideImages", imagesHidden);
         } else {
             // Hide images
             image.style.display = 'none';
+            updateButtonImageMisc(hideImagesButton, "HideImages", imagesHidden);
         }
     });
 
@@ -2183,9 +2187,12 @@ toggleCursorSizeButton.addEventListener('click', () => {
     if (isCursorLarge) {
         // Revert to original cursor size
         document.body.style.cursor = originalCursorSize;
+        updateButtonImageMisc(toggleCursorSizeButton, "BigCursor", isCursorLarge);
+        
     } else {
         // Increase cursor size using bigCursor.svg
         document.body.style.cursor = `url(${bigCursorURL}), auto`;
+        updateButtonImageMisc(toggleCursorSizeButton, "BigCursor", isCursorLarge);
     }
 
     // Toggle the cursor state
