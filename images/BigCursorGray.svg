@@ -1,9 +1,10 @@
-<svg width="213" height="142" viewBox="0 0 213 142" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<rect x="68" y="25" width="77" height="117" fill="url(#pattern0_376_449)"/>
+<svg width="213" height="142" viewBox="0 0 213 142" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_374_718)">
+<path d="M116.14 121.676C115.005 122.365 113.579 121.917 112.967 120.664L100.776 95.6202L88.682 111.815C85.0358 116.696 80.2206 117.908 79.7405 110.512L73.9998 21.3199C73.972 20.855 74.139 20.3819 74.4521 20.1079C74.814 19.917 75.2384 19.9834 75.5585 20.2491L137.432 70.7759C142.561 74.9678 139.276 79.334 133.911 80.6621L116.112 85.0616L128.198 110.18C128.797 111.433 128.414 113.135 127.35 113.957L116.14 121.676Z" fill="black"/>
+</g>
 <defs>
-<pattern id="pattern0_376_449" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image0_376_449" transform="matrix(0.0303896 0 0 0.02 -0.00142857 0)"/>
-</pattern>
-<image id="image0_376_449" width="33" height="50" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAyCAYAAADSprJaAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAHsYAAB7GAZEt8iwAAARHSURBVFhHxZjbS1VZHMe3djEyGRQUbygq3vAS5jWxIgNBGhgYIgzMJBFUmojAQIreRP+CxKAgxqGsmSJFZxpQX2Reesyn0KAXb3kPZ4631ny/a+8lKz3nuPf2HP3AR8/PvddaX9fZZ521twEe8sdhI+AD8+XhwRDfYJusDgmGUEHu8Q+HgQqhgtyFB44MEBMTowe5Aw8UOXhvb6+oqKjQg9yGB4YceHBwUKysrIjy8nI9yC14IGyHIMvLy6KsrEwF2YLNMOh8F4IsLS2JkpISFWQTNsKgsisEWVxcFMXFxXqQmzBoeA1BFhYWRGFhoR6kHgYFnyHI/Py8KCgo0IPcgAHHbwgyNzcn8vPz9SDXYUDZMwSZnZ0Vubm5KsgGvAYDhq0QZGZmRuTk5Kgg6/AqDAi2QxAvQa7AfeMoBJmenhbZ2dkqyBr8Ge4LxyHI5OSkyMjI0IP8BF0Rav12TFxcnDE8PGykpaWxPA5fwh9ZOMV1CJKQkLAzyO/wMgsn7CsESUpKkkFSU1NZhkEGqWZhl32HIAwyMjJipKSksDwBX8MqFnYISAiigiQnJ7NkkDfwEou9CFgIwgB8axITE1mehG/hRRb+CGgIwmuDQXjRgnDYBy+w8EXAQ5D09HQZJD4+nuUpOADPs/BGUEIQLGQyCNcTwBlhkAoWOwlaCJKZmSmDxMbGsuSMDMKzLHSCGoJkZWXJILivYRkB/4QlLBRBD0HwZWcMDQ2pID/Av2AxC+I6hMfjkWtDeHi4LUtLSw3sWa3WRiR8B4tkBVx9i5K2tjb1LepWpjoTYhUGQhjV1b6X/PX1dWN0dNSorKy0/mIYExMT8uLb2uI9ktEL/+YLhyzyh0zlbyY2NjZETU2NwPTL1zoIrv6rf9iZW/yG4KC1tbVqINHX12cdMRkYGFDHOB2noSt8hmCAurq67QC0qqrKOmqCt0nOkHX8MXSF7GBniM3NTVFfX789OHzP36GhoWJ8fNw6y6Szs1Od8xXyI+gY2YEeggEaGhpUx5T/IZfeL6xbW1utM02mpqZEWFiYOvcX6BjZWIXAlS4aGxtVh/QpVOtJBxTR0dFibW1Nnq/ghctj8ANPdIpszBCcgaamJtUZfQb1BY17ON4Gip6eHmt4E3x89XbnoCNkw/7+ftHS0qJ39Cv0tqJy7ZePlnQ4g3l5eartC57oBNmwqKhIdUB/g0egN7itFyEhIWJsbMyKYNLV1aXa/wejoW30welzeBT6guE+Q9Hc3GwNb8JnXhEREaofR0+J9QCvoL8AivtQREZGitXVVSuCCYPxGPwEfc3mLlSjP6CdAIT7Nt4Mi+7ubjk4n3O1t7eLqKgo1R+1fSPEk7k9txtAwS8s+fCko6NDzgpry3/hIyg3mXbgtvyY+dIR3MrrA1NekFzY5J7fCbyHdAM/vh8hB/fAJzAJOoYXjtwMuICD86nvLOQTGy5sy9AhhvE/sEk7MxjYbQAAAAAASUVORK5CYII="/>
+<clipPath id="clip0_374_718">
+<rect width="66" height="102" fill="white" transform="translate(74 20)"/>
+</clipPath>
 </defs>
 </svg>
