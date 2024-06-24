@@ -22,7 +22,9 @@ const MainHTML = `
     <div id="sidebar">
         <div id="menu">
             <p>Accessibility Menu</p>
-            <button id="defaultButton">To default</button>
+        </div>
+        <div id="button-container-alpha">
+             <button class = "myButtons" id="defaultButton">To default</button>
         </div>
         <div id="button-container">
             <button class = "myButtons" id="moveSidebarLeft">Left</button>
