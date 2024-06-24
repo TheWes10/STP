@@ -20,200 +20,289 @@ const MainHTML = `
         </button>
     </div>
     <div id="sidebar">
+        <div id="menu">
+            <p>Accessibility Menu</p>
+            <button id="defaultButton">To default</button>
+        </div>
+        <div id="button-container">
+            <button class = "myButtons" id="moveSidebarLeft">Left</button>
+            <button class = "myButtons" id="moveSidebarRight">Right</button>
+        </div>
         <button id="closeSidebar" title="Close Sidebar">
             <img src="${chrome.runtime.getURL("images/closeSidebar.svg")}" draggable="false">
         </button>
-
-        <div class="section" id="translator">
-            <h2>Language</h2>
-            <div class="section-content">
-                <button id="defaultButton">To default</button>
-            </div>
-        </div>
-
-        <div class="section" id="Accessibility Profiles">
-            <h2>Accessibility Profiles</h2>
-            <div class="section-content">
-                <button id="colorBlindProfile" class="svg-button-larger">
-                    <img id="colorBlindProfileImg" src="${chrome.runtime.getURL("images/ColorblindGray.svg")}" draggable = "false">
-                    <h3 class="centered-heading">Color Blind</h3>
-                </button>
-                <button id="visuallyImpairedProfile" class="svg-button-larger">
-                    <img id="visuallyImpairedProfileImg" src="${chrome.runtime.getURL("images/DyslexiaGray.svg")}" draggable = "false"> 
-                </button>
-                <button id="dyslexiaProfile" class="svg-button-larger">
-                    <img id="dyslexiaProfileImg" src="${chrome.runtime.getURL("images/VisuallyImpairedGray.svg")}" draggable = "false"> 
-                </button>
-                <button id="ADHDProfile" class="svg-button-larger">
-                    <img id="ADHDProfileImg" src="${chrome.runtime.getURL("images/ADHDGray.svg")}" draggable = "false"> 
-                </button>
-                <button id="LearningProfile" class="svg-button-larger">
-                    <img id="LearningProfileImg" src="${chrome.runtime.getURL("images/CognitiveGray.svg")}" draggable = "false"> 
-                </button>
-            </div>
-        </div>
-
-        <div class="section" id="T2S">
-            <h2>Text to Speech</h2>
-            <div class="section-content">
-                <button id="readPage" class="svg-button-larger">
-                    <img id="readPageImg" src="${chrome.runtime.getURL("images/ReadPage.svg")}" draggable = "false"> 
-                </button>
-                <button id="readSpeed" title="Screen Reader Speed" class="svg-button-larger">
-                    <img id="readSpeedImg" src="${chrome.runtime.getURL("images/SpeedNormalGray.svg")}" draggable = "false"> 
-                </button>
-                <button id="t2sHighlight" class="svg-button-larger">
-                    <img id="t2sHighlightImg" src="${chrome.runtime.getURL("images/Highlight Text.svg")}" draggable = "false"> 
-                </button>
-            </div>
-        </div>
-
-        <div class="section" id="textConfig">
-            <h2>Text Configurations</h2>
-            <h3 class="centered-heading">Vision Impaired and Dyslexic Friendly Fonts</h3>
-            <div class="section-content" id="textOptions">
-                <button class="font-button" id="arialButton" style="font-family: Arial;">Arial</button>
-                <button class="font-button" id="calibriButton" style="font-family: Calibri;">Calibri</button>
-                <button class="font-button" id="centuryGothicButton" style="font-family: Century Gothic;">Century Gothic</button>
-                <button class="font-button" id="comicSansButton" style="font-family: 'Comic Sans MS';">Comic Sans</button>
-                <button class="font-button" id="courierButton" style="font-family: Courier;">Courier</button>
-                <button class="font-button" id="helveticaButton" style="font-family: Helvetica;">Helvetica</button>
-                <button class="font-button" id="openSansButton" style="font-family: 'Open Sans';">Open Sans</button>
-                <button class="font-button" id="openDyslexia"  sytle='OpenDyslexoc';>OpenDyslexic</button>
-                <button class="font-button" id="tahomaButton" style="font-family: Tahoma;">Tahoma</button>
-                <button class="font-button" id="verdanaButton" style="font-family: Verdana;">Verdana</button>
-            </div>
-            <div class="section-content">
-                <button id="textSize" class="svg-button-larger">
-                    <img src="${chrome.runtime.getURL("images/TextSizeGray.svg")}" draggable="false"> 
-                </button>
-                <button id="emboldenText" class="svg-button-larger">
-                    <img src="${chrome.runtime.getURL("images/EmboldenTextGray.svg")}" draggable="false"> 
-                </button>
-                <button id="italicizeText" class="svg-button-larger">
-                    <img src="${chrome.runtime.getURL("images/ItalicizeTextGray.svg")}" draggable="false"> 
-                </button>
-                <button id="textAlignment" class="svg-button-larger">
-                    <img src="${chrome.runtime.getURL("images/DefaultAlignGray.svg")}" draggable="false"> 
-                </button>
-            </div>
-            <h3 class="centered-heading">Choose Text Color</h3>
-            <div class="section-content">
-                <div class="color-buttons">
-                    <button id="textBlack" class="color-button" style="background-color: black;" onclick="changeTextColor('black')"></button>
-                    <button id="textWhite" class="color-button" style="background-color: white; border: 1px solid #ccc;" onclick="changeTextColor('white')"></button>
-                    <button id="textRed" class="color-button" style="background-color: red;" onclick="changeTextColor('red')"></button>
-                    <button id="textOrange" class="color-button" style="background-color: orange;" onclick="changeTextColor('orange')"></button>
-                    <button id="textYellow" class="color-button" style="background-color: yellow;" onclick="changeTextColor('yellow')"></button>
-                    <button id="textGreen" class="color-button" style="background-color: green;" onclick="changeTextColor('green')"></button>
-                    <button id="textBlue" class="color-button" style="background-color: blue;" onclick="changeTextColor('blue')"></button>
-                    <button id="textPurple" class="color-button" style="background-color: purple;" onclick="changeTextColor('purple')"></button>
-                    <button id="textColorDefault" class="color-button" style="background-color: gray;" onclick="changeTextColor('purple')"></button>
+        <div class = "gridSetUp" id = "mainSetUp">
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+                <div class="grid-item" id = "colorBlindProfileStyle">
+                    <button id="colorBlindProfile">
+                        <img id="colorBlindProfileImg" src="${chrome.runtime.getURL('images/ColorblindGray.svg')}" draggable="false">  
+                        <p>Color Blind</p>
+                    </button>
                 </div>
-            </div>
-        </div>
+                <div class="grid-item">
+                    <button id="visuallyImpairedProfile" class="svg-button-larger">
+                        <img id="visuallyImpairedProfileImg" src="${chrome.runtime.getURL("images/DyslexiaGray.svg")}" draggable = "false">
+                        <p>Dyslexia</p>
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="dyslexiaProfile" class="svg-button-larger">
+                        <img id="dyslexiaProfileImg" src="${chrome.runtime.getURL("images/VisuallyImpairedGray.svg")}" draggable = "false">
+                        <p>Visual Impariment</p> 
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="ADHDProfile" class="svg-button-larger">
+                        <img id="ADHDProfileImg" src="${chrome.runtime.getURL("images/ADHDGray.svg")}" draggable = "false">
+                        <p>ADHD</p> 
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="LearningProfile" class="svg-button-larger">
+                        <img id="LearningProfileImg" src="${chrome.runtime.getURL("images/CognitiveGray.svg")}" draggable = "false">
+                        <p>Cognitive & Learning</p> 
+                    </button>
+                </div>
+            
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
 
-        <div class="section" id="textSpacing">
-            <h2>Text Spacing</h2>
-            <div class="section-content">
-                <button id="spaceBetweenLines" class="svg-button-larger">
-                    <img src="${chrome.runtime.getURL("images/BetweenLinesGray.svg")}" draggable = "false"> 
-                </button>
-                <button id="spaceBetweenWords" class="svg-button-larger">
-                    <img src="${chrome.runtime.getURL("images/BetweenWordsGray.svg")}" draggable = "false"> 
-                </button>
-                <button id="spaceBetweenLetters" class="svg-button-larger">
-                    <img src="${chrome.runtime.getURL("images/BetweenLettersGray.svg")}" draggable = "false"> 
-                </button>
-            </div>
-        </div>
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ ---> 
+            <!-- <div class="section" id="T2S"> -->
+                <div class="grid-item">
+                    <button id="readPage" class="svg-button-larger">
+                        <img id="readPageImg" src="${chrome.runtime.getURL("images/ReadPage.svg")}" draggable = "false">
+                        <p>Read This Page</p>  
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="readSpeed" title="Screen Reader Speed" class="svg-button-larger">
+                        <img id="readSpeedImg" src="${chrome.runtime.getURL("images/SpeedNormalGray.svg")}" draggable = "false">
+                        <p>Speed</p>  
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="t2sHighlight" class="svg-button-larger">
+                        <img id="t2sHighlightImg" src="${chrome.runtime.getURL("images/Highlight Text.svg")}" draggable = "false">
+                        <p>Highlight Text</p>
+                    </button>
+                </div>
+            
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
 
-        <div class="section" id="screenShader">
-            <h2>Screen Shader</h2>
-            <div class="section-content-alpha">
-                <div class="left-content">
-                    <h3 class="centered-heading">Adjust Tint Color</h3>
-                    <div class="color-buttons">
-                        <button class="color-button-alpha" style="background-color: black;" data-color="0, 0, 0"></button>
-                        <button class="color-button-alpha" style="background-color: white; border: 1px solid #ccc;" data-color="255, 255, 255"></button>
-                        <button class="color-button-alpha" style="background-color: red;" data-color="255, 0, 0"></button>
-                        <button class="color-button-alpha" style="background-color: orange;" data-color="255, 165, 0"></button>
-                        <button class="color-button-alpha" style="background-color: yellow;" data-color="255, 255, 0"></button>
-                        <button class="color-button-alpha" style="background-color: green;" data-color="0, 128, 0"></button>
-                        <button class="color-button-alpha" style="background-color: blue;" data-color="0, 0, 255"></button>
-                        <button class="color-button-alpha" style="background-color: purple;" data-color="128, 0, 128"></button>
-                        <button class="color-button-alpha" style="background-color: gray;" data-color="128,128,128"></button>
+
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+            <!-- <div class="section" id="textConfig"> -->
+                <div class="grid-item" id = "textOptions">
+                    <button class="font-button" id="arialButton" style="font-family: Arial;">Arial</button>
+                    <button class="font-button" id="calibriButton" style="font-family: Calibri;">Calibri</button>
+                    <button class="font-button" id="centuryGothicButton" style="font-family: Century Gothic;">Century Gothic</button>
+                    <button class="font-button" id="comicSansButton" style="font-family: 'Comic Sans MS';">Comic Sans</button>
+                    <button class="font-button" id="courierButton" style="font-family: Courier;">Courier</button>
+                    <button class="font-button" id="helveticaButton" style="font-family: Helvetica;">Helvetica</button>
+                    <button class="font-button" id="openSansButton" style="font-family: 'Open Sans';">Open Sans</button>
+                    <button class="font-button" id="openDyslexia"  sytle='OpenDyslexoc';>OpenDyslexic</button>
+                    <button class="font-button" id="tahomaButton" style="font-family: Tahoma;">Tahoma</button>
+                    <button class="font-button" id="verdanaButton" style="font-family: Verdana;">Verdana</button>
+                </div>
+                <!-- <h3 class="centered-heading">Edit Website Text</h3> -->
+                <div class="grid-item">
+                    <button id="textSize" class="svg-button-larger">
+                        <img src="${chrome.runtime.getURL("images/TextSizeGray.svg")}" draggable="false">
+                        <p>Text Size</p> 
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="emboldenText" class="svg-button-larger">
+                        <img src="${chrome.runtime.getURL("images/EmboldenTextGray.svg")}" draggable="false">
+                        <p>Embolden Text</p> 
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="italicizeText" class="svg-button-larger">
+                        <img src="${chrome.runtime.getURL("images/ItalicizeTextGray.svg")}" draggable="false">
+                        <p>Italicize Text</p> 
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="textAlignment" class="svg-button-larger">
+                        <img src="${chrome.runtime.getURL("images/DefaultAlignGray.svg")}" draggable="false">
+                        <p>Align Text</p> 
+                    </button>
+                </div>                   
+                
+                <div class="color-grid-container">
+                    <p class="color-grid-title">Text Color</p>
+                    <div class="color-grid">
+                        <div class="color-group">
+                            <button id="textBlack" class="color-button" style="background-color: black;" onclick="changeTextColor('black')"></button>
+                            <button id="textWhite" class="color-button" style="background-color: white; border: 1px solid #ccc;" onclick="changeTextColor('white')"></button>
+                            <button id="textRed" class="color-button" style="background-color: red;" onclick="changeTextColor('red')"></button>
+                        </div>
+                        <div class="color-group">
+                            <button id="textOrange" class="color-button" style="background-color: orange;" onclick="changeTextColor('orange')"></button>
+                            <button id="textYellow" class="color-button" style="background-color: yellow;" onclick="changeTextColor('yellow')"></button>
+                            <button id="textGreen" class="color-button" style="background-color: green;" onclick="changeTextColor('green')"></button>
+                        </div>
+                        <div class="color-group">
+                            <button id="textBlue" class="color-button" style="background-color: blue;" onclick="changeTextColor('blue')"></button>
+                            <button id="textPurple" class="color-button" style="background-color: purple;" onclick="changeTextColor('purple')"></button>
+                            <button id="textColorDefault" class="color-button" style="background-color: gray;" onclick="changeTextColor('purple')"></button>
+                        </div>
                     </div>
                 </div>
-                <div class="right-content">
+            
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+            <!-- <div class="section" id="textSpacing"> -->
+                <!-- <h2>Text Spacing</h2> --->
+                <div class="grid-item">
+                    <button id="spaceBetweenLines" class="svg-button-larger">
+                        <img src="${chrome.runtime.getURL("images/BetweenLinesGray.svg")}" draggable = "false">
+                        <p>Between Lines</p> 
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="spaceBetweenWords" class="svg-button-larger">
+                        <img src="${chrome.runtime.getURL("images/BetweenWordsGray.svg")}" draggable = "false">
+                        <p>Between Words</p> 
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="spaceBetweenLetters" class="svg-button-larger">
+                        <img src="${chrome.runtime.getURL("images/BetweenLettersGray.svg")}" draggable = "false">
+                        <p>Between Words</p> 
+                    </button>
+                </div>
+            
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+                <div class="color-grid-container">
+                    <p class="color-grid-title">Tint Color</p>
+                    <div class="color-grid">
+                        <div class="color-group">
+                            <button class="color-button-alpha" style="background-color: black;" data-color="0, 0, 0"></button>
+                            <button class="color-button-alpha" style="background-color: white; border: 1px solid #ccc;" data-color="255, 255, 255"></button>
+                            <button class="color-button-alpha" style="background-color: red;" data-color="255, 0, 0"></button>
+                        </div>
+                        <div class="color-group">
+                            <button class="color-button-alpha" style="background-color: orange;" data-color="255, 165, 0"></button>
+                            <button class="color-button-alpha" style="background-color: yellow;" data-color="255, 255, 0"></button>
+                            <button class="color-button-alpha" style="background-color: green;" data-color="0, 128, 0"></button>
+                        </div>
+                        <div class="color-group">
+                            <button class="color-button-alpha" style="background-color: blue;" data-color="0, 0, 255"></button>
+                            <button class="color-button-alpha" style="background-color: purple;" data-color="128, 0, 128"></button>
+                            <button class="color-button-alpha" style="background-color: gray;" data-color="128,128,128"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-item" id = "slider-alpha">
                     <div class="slider-container">
                         <div class = "image-slider-pair">
-                            <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false" class="svg-icon">
+                            <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false" class="svg-icon" id = "brightnessAlpha">
+                            <p>Tint Brightness</p>
                             <input type="range" id="brightnessSliderAlpha" min="0" max="100" value="50">
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+            <!-- <div class="section" id="focusRulerMain"> -->
+                <div class="grid-item">
+                    <button id="toggleFocusRuler" class="svg-button-larger">
+                        <img src="${chrome.runtime.getURL("images/MaskTypeGray.svg")}" draggable="false">
+                        <p>Toggle Focus Ruler</p> 
+                    </button>
+                </div>
+                <div class="grid-item" id = "Line-Height-Border">
+                    <div class="slider-container">
+                        <div class = "image-slider-pair">
+                            <img src="${chrome.runtime.getURL("images/LineHeightGray.svg")}" draggable="false"  class="svg-icon" id="lineHeightIMG">
+                            <p>Ruler Height</p> 
+                            <input type="range" id="lineHeightSlider" min="0" max="200" value="50">
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-item" id = "slider-beta">
+                    <div class="slider-container">
+                        <div class = "image-slider-pair">
+                            <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false"  class="svg-icon" id = "brightnessBeta">
+                            <p>Ruler Brightness</p> 
+                            <input type="range" id="brightnessSliderBeta" min="0" max="100" value="50">
+                        </div>
+                    </div>
+                </div>
+                <div class="color-grid-container">
+                    <p class="color-grid-title">Mask Color</p>
+                    <div class="color-grid">
+                        <div class="color-group">
+                            <button class="color-button" style="background-color: black;" data-color="0, 0, 0"></button>
+                            <button class="color-button" style="background-color: white; border: 1px solid #ccc;" data-color="255, 255, 255"></button>
+                            <button class="color-button" style="background-color: red;" data-color="255, 0, 0"></button>
+                        </div>
+                        <div class="color-group">
+                            <button class="color-button" style="background-color: orange;" data-color="255, 165, 0"></button>
+                            <button class="color-button" style="background-color: yellow;" data-color="255, 255, 0"></button>
+                            <button class="color-button" style="background-color: green;" data-color="0, 128, 0"></button>
+                        </div>
+                        <div class="color-group">
+                            <button class="color-button" style="background-color: blue;" data-color="0, 0, 255"></button>
+                            <button class="color-button" style="background-color: purple;" data-color="128, 0, 128"></button>
+                            <button class="color-button" style="background-color: gray;" data-color="128,128,128"></button>
+                        </div>
+                    </div>
+                </div>
+            
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+            <!-- <div class="section" id="colorSchemes"> -->
+                <div class="grid-item">
+                    <button id="changeContrast" class="svg-button-larger">
+                        <img src="${chrome.runtime.getURL("images/DefaultContrast.svg")}" draggable = "false">
+                        <p>Contrast</p> 
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="changeSaturation" class="svg-button-larger"> 
+                        <img src="${chrome.runtime.getURL("images/DefaultSaturation.svg")}" draggable = "false">
+                        <p>Saturation</p> 
+                    </button>
+                </div>
+            
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
 
 
-    <div class="section" id="focusRulerMain">
-        <h2>Focus Ruler</h2>
-        <div class="section-content">
-            <button id="toggleFocusRuler">
-                <img src="${chrome.runtime.getURL("images/MaskTypeGray.svg")}" draggable="false" title="pain in my ass">
-            </button>
-            <div id="focusRuler"></div>
-            <div class="slider-container">
-                <img src="${chrome.runtime.getURL("images/LineHeightGray.svg")}" draggable="false">
-                <input type="range" id="lineHeightSlider" min="0" max="200" value="50">
-            </div>
-            <div class="slider-container">
-                <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false">
-                <input type="range" id="brightnessSliderBeta" min="0" max="100" value="50">
-            </div>
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+            <!-- <div class="section" id="misc"> -->
+                <div class="grid-item">
+                    <button id="highlightLinks" class="svg-button-larger">
+                        <img src="${chrome.runtime.getURL("images/HighlightLinkGray.svg")}" draggable = "false">
+                        <p>Hightlight Links</p> 
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="hideImages" class="svg-button-larger"> 
+                        <img src="${chrome.runtime.getURL("images/HideImagesGray.svg")}" draggable = "false">
+                        <p>Hide Images</p> 
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="cursorSize" class="svg-button-larger">
+                        <img src="${chrome.runtime.getURL("images/BigCursorGray.svg")}" draggable = "false">
+                        <p>Large Cursor</p> 
+                    </button>
+                </div>
+            
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
         </div>
-        <h3 class="centered-heading">Choose Mask Color</h3>
-        <div class="section-content">
-            <div class="color-buttons">
-                <button class="color-button" style="background-color: black;" data-color="0, 0, 0"></button>
-                <button class="color-button" style="background-color: white; border: 1px solid #ccc;" data-color="255, 255, 255"></button>
-                <button class="color-button" style="background-color: red;" data-color="255, 0, 0"></button>
-                <button class="color-button" style="background-color: orange;" data-color="255, 165, 0"></button>
-                <button class="color-button" style="background-color: yellow;" data-color="255, 255, 0"></button>
-                <button class="color-button" style="background-color: green;" data-color="0, 128, 0"></button>
-                <button class="color-button" style="background-color: blue;" data-color="0, 0, 255"></button>
-                <button class="color-button" style="background-color: purple;" data-color="128, 0, 128"></button>
-            </div>
-        </div>
-        <div id="focusRulerContainer"></div>
-    </div>
-
-    <div class="section" id="colorSchemes">
-        <h2>Color Schemes</h2>
-        <div class="section-content">
-            <button id="changeContrast" class="svg-button-larger">
-                <img src="${chrome.runtime.getURL("images/DefaultContrast.svg")}" draggable = "false"> 
-            </button>
-            <button id="changeSaturation" class="svg-button-larger"> 
-                <img src="${chrome.runtime.getURL("images/DefaultSaturation.svg")}" draggable = "false"> 
-            </button>
-        </div>
-    </div>
-
-    <div class="section" id="misc">
-        <h2>Miscellaneous</h2>
-        <div class="section-content">
-            <button id="highlightLinks" class="svg-button-larger">
-                <img src="${chrome.runtime.getURL("images/HighlightLinkGray.svg")}" draggable = "false"> 
-            </button>
-            <button id="hideImages" class="svg-button-larger"> 
-                <img src="${chrome.runtime.getURL("images/HideImagesGray.svg")}" draggable = "false"> 
-            </button>
-            <button id="cursorSize" class="svg-button-larger">
-                <img src="${chrome.runtime.getURL("images/BigCursorGray.svg")}" draggable = "false"> 
-            </button>
-        </div>
+        <div id="focusRuler"></div>
+        <div id="focusRulerContainer"></div> 
     </div>
 </div>
 `;
@@ -233,6 +322,9 @@ const sidebar = shadowRoot.getElementById('sidebar');
 let isDragging = false;
 let offsetX, offsetY;
 let clickTimer;
+const moveSidebarLeft = shadowRoot.getElementById('moveSidebarLeft');
+const moveSidebarRight = shadowRoot.getElementById('moveSidebarRight');
+
 
 chrome.storage.sync.get(["toolbarLeftStyle", "toolbarTopStyle"], (result) => {
     toolbar.style.left = result.toolbarLeftStyle ? result.toolbarLeftStyle + 'px' : '';
@@ -304,26 +396,48 @@ document.addEventListener('mouseup', () => {
     document.body.classList.remove('disable-text-selection');
 });
 
+
+// Move Sidebar
+moveSidebarLeft.addEventListener('click', () => {
+    sidebar.classList.add('left');
+    sidebar.style.left = 0;
+    sidebar.style.right = 'auto';
+    chrome.storage.sync.set({ sidebarPosition: 'left' });
+});
+
+moveSidebarRight.addEventListener('click', () => {
+    sidebar.classList.remove('left');
+    sidebar.classList.add('show');
+    sidebar.style.left = 'auto';
+    sidebar.style.right = 0;
+    chrome.storage.sync.set({ sidebarPosition: 'right' });
+});
+
 const toDefault = shadowRoot.getElementById('defaultButton');
 toDefault.addEventListener('click', defaultAll);
+
 
 function handleKeyboardShortcuts(event) {
     if (event.altKey && event.key === 'f') {
         event.preventDefault();
         toggleFocusRulerButton.click();
     }
+
     if (event.altKey && event.key === 's') {
         event.preventDefault();
         readPageButton.click();
     }
+
     if (event.altKey && event.key === 'd') {
         event.preventDefault();
         defaultAll();
     }
 }
+
 document.addEventListener('keydown', handleKeyboardShortcuts);
 
 //Accessibility Profiles
+
 function defaultAll(){
     currentTypeface = "arial";
     currentSaturationIndex = 3;
@@ -338,9 +452,7 @@ function defaultAll(){
     isHighlighted = true;
     imagesHidden = true;
     isCursorLarge = true;
-    
     //focus ruller
-
     arialButton.click();
     textSizeButton.click();
     toggleSaturation();
@@ -360,13 +472,13 @@ function defaultAll(){
         }
         toggleFocusRulerButton.click();
     }
-
-    const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');    
+    const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
     textElements.forEach(element => {
         if (element.style.fontWeight === 'bold') {
             element.style.fontWeight = element.dataset.originalFontWeight;
             updateButtonImageMisc(boldButton, "EmboldenText", true);
         }
+
         if (element.style.fontStyle === 'italic') { 
             if (element.dataset.originalFontStyle) {
                 element.style.fontStyle = element.dataset.originalFontStyle;
@@ -377,9 +489,7 @@ function defaultAll(){
                 element.style.fontStyle = 'normal';
             }
         }
-
     });
-    
     currentProfile = "none";
 }
 
@@ -535,6 +645,7 @@ readSpeedButton.addEventListener('click', () => {
     // Adjust the reading speed
     if (speechSynthesisUtterance) {
         speechSynthesisUtterance.rate = speedValues[currentSpeedIndex];
+        console.log('Speech rate changed to:', speechSynthesisUtterance.rate);
 
         if (isReading) {
             // Restart the speech with the new rate
@@ -558,14 +669,17 @@ function startReadingHighlightedText() {
     window.speechSynthesis.cancel();
     const highlightedText = getHighlightedText();
     if (highlightedText) {
+        console.log('Reading highlighted text:', highlightedText);
         speechSynthesisUtterance = new SpeechSynthesisUtterance(highlightedText);
         speechSynthesisUtterance.rate = speedValues[currentSpeedIndex]; // Set the current speech rate
         speechSynthesisUtterance.pitch = 1; // Set default pitch
 
         speechSynthesisUtterance.onend = () => {
+            console.log('Speech synthesis ended for highlighted text');
             isReading = false;
         };
 
+        console.log('About to speak highlighted text:', speechSynthesisUtterance);
         window.speechSynthesis.speak(speechSynthesisUtterance);
     }
 }
@@ -616,7 +730,6 @@ function WrapEveryWord() {
         return a;
     };
 
-
     const wrapWordsInSpan = (node) => {
         const parent = node.parentNode;
         const words = node.textContent.split(/(\s+)/); // Split on spaces while keeping the spaces
@@ -632,32 +745,26 @@ function WrapEveryWord() {
             } else {
                 fragment.appendChild(document.createTextNode(word)); // Add the space back
             }
-        });
 
+        });
         parent.replaceChild(fragment, node);
     };
 
-
     const textNodes = textNodesUnder(document.body);
-
     textNodes.forEach(node => {
         wrapWordsInSpan(node);
     });
-
 }
+
 WrapEveryWord();
-
-
 
 function toggleClassOnSelection(className, classType) {
     const selection = window.getSelection();
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
         const range = selection.getRangeAt(0);
-
         // Get the elements within the range
         const startContainer = range.startContainer;
         const endContainer = range.endContainer;
-
         const spans = document.querySelectorAll('span');
         let inSelection = false;
         let shouldToggleOff = false;
@@ -667,24 +774,19 @@ function toggleClassOnSelection(className, classType) {
             if (span.contains(startContainer) || span === startContainer) {
                 inSelection = true;
             }
-
             if (inSelection && span.classList.contains(className)) {
                 shouldToggleOff = true;
             }
-
             if (span.contains(endContainer) || span === endContainer) {
                 inSelection = false;
             }
         });
-
         inSelection = false;
-
         // Apply or remove the class as necessary
         spans.forEach(span => {
             if (span.contains(startContainer) || span === startContainer) {
                 inSelection = true;
             }
-
             if (inSelection) {
                 if (classType === "Typeface") {
                     span.classList.remove(
@@ -701,6 +803,8 @@ function toggleClassOnSelection(className, classType) {
                     );
                 }
 
+
+
                 if (shouldToggleOff) {
                     span.classList.remove(className);
                 } else {
@@ -714,7 +818,6 @@ function toggleClassOnSelection(className, classType) {
         });
     }
 }
-
 
 function toggleButtonBackground(button) {
     if (currentFontButton === button) {
@@ -1124,8 +1227,8 @@ storeOriginalFontSizes();
 
 ///////////////////////////////
 textSizeButton.addEventListener('click', () => {
-    const selection = window.getSelection();
 
+    const selection = window.getSelection();
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
         const range = selection.getRangeAt(0);
         const spans = document.querySelectorAll('span');
@@ -1136,13 +1239,10 @@ textSizeButton.addEventListener('click', () => {
                 if (!span.dataset.originalFontSize) {
                     span.dataset.originalFontSize = window.getComputedStyle(span).fontSize;
                 }
-
                 // Toggle size index
                 let sizeIndex = span.dataset.currentSizeIndex ? parseInt(span.dataset.currentSizeIndex) : 0;
                 sizeIndex = (sizeIndex + 1) % sizeValues.length;
-
                 span.dataset.currentSizeIndex = sizeIndex;
-
                 const originalFontSize = parseFloat(span.dataset.originalFontSize);
                 const newSize = originalFontSize * sizeValues[sizeIndex];
                 span.style.fontSize = `${newSize}px`;
@@ -1158,11 +1258,11 @@ textSizeButton.addEventListener('click', () => {
             if (!element.dataset.originalFontSize) {
                 element.dataset.originalFontSize = window.getComputedStyle(element).fontSize;
             }
-
             const originalFontSize = parseFloat(element.dataset.originalFontSize);
             const newSize = originalFontSize * scaleFactor;
             element.style.fontSize = `${newSize}px`;
         });
+        updateButtonImageText(textSizeButton, "TextSize", currentSizeIndex);
     }
 });
 //////////////////////////////
@@ -1741,6 +1841,7 @@ function storeOriginalLetterSpacing() {
     
     textElements.forEach(element => {
         const computedStyle = window.getComputedStyle(element);
+        console.log(computedStyle.letterSpacing);
         element.dataset.originalLetterSpacing = computedStyle.letterSpacing;
     });
 }
@@ -1756,6 +1857,7 @@ spaceBetweenLettersButton.addEventListener('click', () => {
     textElements.forEach(element => {
         const originalLetterSpacing = element.dataset.originalLetterSpacing;
         
+        console.log(originalLetterSpacing);
         if(originalLetterSpacing == "normal"){
             if(newLetterSpacing == 1){
                 element.style.letterSpacing = `normal`;
