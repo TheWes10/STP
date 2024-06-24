@@ -469,12 +469,12 @@ function defaultAll(){
     hideImagesButton.click();
     toggleCursorSizeButton.click();
     
-    /* if (focusRulerState !== 0) {
+     if (focusRulerState !== 0) {
         if (focusRulerState === 1) {
             toggleFocusRulerButton.click();
         }
         toggleFocusRulerButton.click();
-    } */
+    } 
     const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
     textElements.forEach(element => {
         if (element.style.fontWeight === 'bold') {
@@ -1959,7 +1959,7 @@ toggleFocusRulerButton.addEventListener('click', () => {
     toggleFocusRuler();
   } else if (focusRulerState === 1) {
     // Invert the focus ruler and overlay
-    focusRulerStrip.style.background = `rgba(${maskColor}, ${brightnessSlider.value / 100})`;
+    focusRulerStrip.style.background = `rgba(0, 0, 0, ${brightnessSlider.value / 100})`;
     focusOverlayTop.style.background = 'transparent';
     focusOverlayBottom.style.background = 'transparent';
 
