@@ -24,6 +24,13 @@ const MainHTML = `
             <img src="${chrome.runtime.getURL("images/closeSidebar.svg")}" draggable="false">
         </button>
 
+        <div class="section" id="translator">
+            <h2>Language</h2>
+            <div class="section-content">
+                <button id="defaultButton">To default</button>
+            </div>
+        </div>
+
         <div class="section" id="Accessibility Profiles">
             <h2>Accessibility Profiles</h2>
             <div class="section-content">
@@ -297,19 +304,81 @@ document.addEventListener('mouseup', () => {
     document.body.classList.remove('disable-text-selection');
 });
 
+const toDefault = shadowRoot.getElementById('defaultButton');
+toDefault.addEventListener('click', defaultAll);
+
+function handleKeyboardShortcuts(event) {
+    if (event.altKey && event.key === 'f') {
+        event.preventDefault();
+        toggleFocusRulerButton.click();
+    }
+    if (event.altKey && event.key === 's') {
+        event.preventDefault();
+        readPageButton.click();
+    }
+    if (event.altKey && event.key === 'd') {
+        event.preventDefault();
+        defaultAll();
+    }
+}
+document.addEventListener('keydown', handleKeyboardShortcuts);
+
 //Accessibility Profiles
 function defaultAll(){
     currentTypeface = "arial";
     currentSaturationIndex = 3;
     currentContrastIndex = 3;
     currentSizeIndex = 0;
-    focusRulerState = 2;
+    currentColor = 'black'
+    currentLineHeightIndex = 2;
+    currentWordSpacingIndex = 2;
+    currentLetterSpacingIndex = 2;
+    currentAlignmentIndex = 3;
+    screenShaderOverlay.style.background = 'rgba(0, 0, 0, 0)';
+    isHighlighted = true;
+    imagesHidden = true;
+    isCursorLarge = true;
+    
+    //focus ruller
 
     arialButton.click();
     textSizeButton.click();
     toggleSaturation();
     toggleContrast();
-    toggleFocusRulerButton.click();
+    blackTextButton.click();
+    spaceBetweenLinesButton.click();
+    spaceBetweenWordsButton.click();
+    spaceBetweenLettersButton.click();
+    alignmentButton.click();
+    toggleButtonBackground(arialButton);
+    highlightLinksButton.click();
+    hideImagesButton.click();
+    toggleCursorSizeButton.click();
+    if (focusRulerState !== 0) {
+        if (focusRulerState === 1) {
+            toggleFocusRulerButton.click();
+        }
+        toggleFocusRulerButton.click();
+    }
+
+    const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');    
+    textElements.forEach(element => {
+        if (element.style.fontWeight === 'bold') {
+            element.style.fontWeight = element.dataset.originalFontWeight;
+            updateButtonImageMisc(boldButton, "EmboldenText", true);
+        }
+        if (element.style.fontStyle === 'italic') { 
+            if (element.dataset.originalFontStyle) {
+                element.style.fontStyle = element.dataset.originalFontStyle;
+                element.removeAttribute('data-original-fontStyle');
+                isItalic = true;
+                updateButtonImageMisc(italicsButton, "ItalicizeText", true);
+            } else {
+                element.style.fontStyle = 'normal';
+            }
+        }
+
+    });
     
     currentProfile = "none";
 }
@@ -466,7 +535,6 @@ readSpeedButton.addEventListener('click', () => {
     // Adjust the reading speed
     if (speechSynthesisUtterance) {
         speechSynthesisUtterance.rate = speedValues[currentSpeedIndex];
-        console.log('Speech rate changed to:', speechSynthesisUtterance.rate);
 
         if (isReading) {
             // Restart the speech with the new rate
@@ -490,17 +558,14 @@ function startReadingHighlightedText() {
     window.speechSynthesis.cancel();
     const highlightedText = getHighlightedText();
     if (highlightedText) {
-        console.log('Reading highlighted text:', highlightedText);
         speechSynthesisUtterance = new SpeechSynthesisUtterance(highlightedText);
         speechSynthesisUtterance.rate = speedValues[currentSpeedIndex]; // Set the current speech rate
         speechSynthesisUtterance.pitch = 1; // Set default pitch
 
         speechSynthesisUtterance.onend = () => {
-            console.log('Speech synthesis ended for highlighted text');
             isReading = false;
         };
 
-        console.log('About to speak highlighted text:', speechSynthesisUtterance);
         window.speechSynthesis.speak(speechSynthesisUtterance);
     }
 }
@@ -544,43 +609,112 @@ function storeOriginalTypeface() {
 }
 storeOriginalTypeface();
 
-//Doesn't work for some fonts for some reason i.e. comic sans
-function typefaceHighlightConversion(selectedFont, selection) {
-    const range = selection.getRangeAt(0);
-    const selectedContent = range.extractContents();
-    const fragment = document.createDocumentFragment();
+function WrapEveryWord() {
+    const textNodesUnder = (el) => {
+        let n, a = [], walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+        while (n = walk.nextNode()) a.push(n);
+        return a;
+    };
 
-    selectedContent.childNodes.forEach(node => {
-        if (node.nodeType === Node.TEXT_NODE) {
-            const words = node.textContent.split(/(\s+)/); // Split on spaces while keeping the spaces
-            words.forEach(word => {
-                if (word.trim() !== "") {
-                    const span = document.createElement('span');
-                    span.style.fontFamily = selectedFont;
-                    span.textContent = word;
-                    fragment.appendChild(span);
-                } else {
-                    fragment.appendChild(document.createTextNode(word)); // Add the space back
-                }
-            });
-        } else if (node.nodeType === Node.ELEMENT_NODE && node.style.fontFamily === selectedFont) {
-            const textNodes = node.childNodes;
-            textNodes.forEach(textNode => {
-                if (textNode.nodeType === Node.TEXT_NODE) {
-                    fragment.appendChild(document.createTextNode(textNode.textContent));
-                } else {
-                    fragment.appendChild(textNode.cloneNode(true));
-                }
-            });
-        } else {
-            const clonedNode = node.cloneNode(true);
-            fragment.appendChild(clonedNode);
-        }
+
+    const wrapWordsInSpan = (node) => {
+        const parent = node.parentNode;
+        const words = node.textContent.split(/(\s+)/); // Split on spaces while keeping the spaces
+        const fragment = document.createDocumentFragment();
+
+        words.forEach(word => {
+            if (word.trim() !== "") {
+                const span = document.createElement('span');
+                span.textContent = word;
+                span.classList.add('highlightConversion');
+                span.style.whiteSpace = "pre"; // Preserve spaces
+                fragment.appendChild(span);
+            } else {
+                fragment.appendChild(document.createTextNode(word)); // Add the space back
+            }
+        });
+
+        parent.replaceChild(fragment, node);
+    };
+
+
+    const textNodes = textNodesUnder(document.body);
+
+    textNodes.forEach(node => {
+        wrapWordsInSpan(node);
     });
 
-    range.insertNode(fragment);
-    selection.removeAllRanges();
 }
+WrapEveryWord();
+
+
+
+function toggleClassOnSelection(className, classType) {
+    const selection = window.getSelection();
+    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+        const range = selection.getRangeAt(0);
+
+        // Get the elements within the range
+        const startContainer = range.startContainer;
+        const endContainer = range.endContainer;
+
+        const spans = document.querySelectorAll('span');
+        let inSelection = false;
+        let shouldToggleOff = false;
+
+        // Determine if the class should be toggled off
+        spans.forEach(span => {
+            if (span.contains(startContainer) || span === startContainer) {
+                inSelection = true;
+            }
+
+            if (inSelection && span.classList.contains(className)) {
+                shouldToggleOff = true;
+            }
+
+            if (span.contains(endContainer) || span === endContainer) {
+                inSelection = false;
+            }
+        });
+
+        inSelection = false;
+
+        // Apply or remove the class as necessary
+        spans.forEach(span => {
+            if (span.contains(startContainer) || span === startContainer) {
+                inSelection = true;
+            }
+
+            if (inSelection) {
+                if (classType === "Typeface") {
+                    span.classList.remove(
+                        'highlight-typeface-arial', 'highlight-typeface-calibri', 'highlight-typeface-century-gothic',
+                        'highlight-typeface-comic-sans-ms', 'highlight-typeface-courier', 'highlight-typeface-helvetica',
+                        'highlight-typeface-open-sans', 'highlight-typeface-opendyslexic', 'highlight-typeface-tahoma',
+                        'highlight-typeface-verdana'
+                    );
+                } else if (classType === "Color") {
+                    span.classList.remove(
+                        'highlight-color-black', 'highlight-color-white', 'highlight-color-red',
+                        'highlight-color-orange', 'highlight-color-yellow', 'highlight-color-green',
+                        'highlight-color-blue', 'highlight-color-purple'
+                    );
+                }
+
+                if (shouldToggleOff) {
+                    span.classList.remove(className);
+                } else {
+                    span.classList.add(className);
+                }
+            }
+
+            if (span.contains(endContainer) || span === endContainer) {
+                inSelection = false;
+            }
+        });
+    }
+}
+
 
 function toggleButtonBackground(button) {
     if (currentFontButton === button) {
@@ -602,7 +736,7 @@ arialButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        typefaceHighlightConversion(selectedFont, selection);
+        toggleClassOnSelection('highlight-typeface-arial', "Typeface");
     } else {
         if(currentTypeface != "arial"){
             currentTypeface = "arial"
@@ -636,7 +770,7 @@ calibriButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        typefaceHighlightConversion(selectedFont, selection);
+        toggleClassOnSelection('highlight-typeface-calibri', "Typeface");
     } else {
         if(currentTypeface != "calibri"){
             currentTypeface = "calibri"
@@ -670,7 +804,7 @@ gothicButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        typefaceHighlightConversion(selectedFont, selection);
+        toggleClassOnSelection('highlight-typeface-century-gothic', "Typeface");
     } else {
         if(currentTypeface != "gothic"){
             currentTypeface = "gothic"
@@ -704,7 +838,7 @@ comicButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        typefaceHighlightConversion(selectedFont, selection);
+        toggleClassOnSelection('highlight-typeface-comic-sans-ms', "Typeface");
     } else {
         if(currentTypeface != "comic"){
             currentTypeface = "comic"
@@ -738,7 +872,7 @@ courierButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        typefaceHighlightConversion(selectedFont, selection);
+        toggleClassOnSelection('highlight-typeface-courier', "Typeface");
     } else {
         if(currentTypeface != "courier"){
             currentTypeface = "courier"
@@ -772,7 +906,7 @@ helveticaButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        typefaceHighlightConversion(selectedFont, selection);
+        toggleClassOnSelection('highlight-typeface-helvetica', "Typeface");
     } else {
         if(currentTypeface != "helvetica"){
             currentTypeface = "helvetica"
@@ -806,7 +940,7 @@ openSansButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        typefaceHighlightConversion(selectedFont, selection);
+        toggleClassOnSelection('highlight-typeface-open-sans', "Typeface");
     } else {
         if(currentTypeface != "open sans"){
             currentTypeface = "open sans"
@@ -841,7 +975,7 @@ openDyslexiaButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        typefaceHighlightConversion(selectedFont, selection);
+        toggleClassOnSelection('highlight-typeface-opendyslexic', "Typeface");
     } else {
         if(currentTypeface != "dyslexia"){
             currentTypeface = "dyslexia"
@@ -876,7 +1010,7 @@ tahomaButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        typefaceHighlightConversion(selectedFont, selection);
+        toggleClassOnSelection('highlight-typeface-tahoma', "Typeface");
     } else {
         if(currentTypeface != "tahoma"){
             currentTypeface = "tahoma"
@@ -912,7 +1046,7 @@ verdanaButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        typefaceHighlightConversion(selectedFont, selection);
+        toggleClassOnSelection('highlight-typeface-verdana', "Typeface");
     } else {
         if(currentTypeface != "verdana"){
             currentTypeface = "verdana"
@@ -994,54 +1128,41 @@ textSizeButton.addEventListener('click', () => {
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
         const range = selection.getRangeAt(0);
-        const selectedContent = range.extractContents();
-        const fragment = document.createDocumentFragment();
+        const spans = document.querySelectorAll('span');
+        let inSelection = false;
 
-        selectedContent.childNodes.forEach(node => {
-            if (node.nodeType === Node.TEXT_NODE) {
-                const words = node.textContent.split(/(\s+)/); // Split on spaces while keeping the spaces
-                words.forEach(word => {
-                    if (word.trim() !== "") {
-                        const span = document.createElement('span');
-                        span.dataset.currentSizeIndex = (currentSizeIndex + 1) % sizeValues.length;
-                        span.textContent = word;
+        spans.forEach(span => {
+            if (range.intersectsNode(span)) {
+                if (!span.dataset.originalFontSize) {
+                    span.dataset.originalFontSize = window.getComputedStyle(span).fontSize;
+                }
 
-                        // Get the parent element's original font size
-                        const parentFontSize = parseFloat(window.getComputedStyle(range.commonAncestorContainer.parentElement).fontSize);
-                        span.style.fontSize = `${parentFontSize * sizeValues[span.dataset.currentSizeIndex]}px`; // Scale relative to parent font size
-                        fragment.appendChild(span);
-                    } else {
-                        fragment.appendChild(document.createTextNode(word)); // Add the space back
-                    }
-                });
-            } else if (node.nodeType === Node.ELEMENT_NODE && node.dataset.currentSizeIndex !== undefined) {
-                // If it's already wrapped and has a size index, update the span's size
-                const span = node.cloneNode(true);
-                span.dataset.currentSizeIndex = (parseInt(node.dataset.currentSizeIndex) + 1) % sizeValues.length;
-                const parentFontSize = parseFloat(window.getComputedStyle(range.commonAncestorContainer.parentElement).fontSize);
-                span.style.fontSize = `${parentFontSize * sizeValues[span.dataset.currentSizeIndex]}px`;
-                fragment.appendChild(span);
-            } else {
-                // Clone other types of nodes
-                fragment.appendChild(node.cloneNode(true));
+                // Toggle size index
+                let sizeIndex = span.dataset.currentSizeIndex ? parseInt(span.dataset.currentSizeIndex) : 0;
+                sizeIndex = (sizeIndex + 1) % sizeValues.length;
+
+                span.dataset.currentSizeIndex = sizeIndex;
+
+                const originalFontSize = parseFloat(span.dataset.originalFontSize);
+                const newSize = originalFontSize * sizeValues[sizeIndex];
+                span.style.fontSize = `${newSize}px`;
             }
         });
-
-        // Insert the modified fragment back into the range
-        range.insertNode(fragment);
-        selection.removeAllRanges();
     } else {
-        // Toggle through size values for all text elements
+        // Toggle through size values for all text elements if no selection is made
         currentSizeIndex = (currentSizeIndex + 1) % sizeValues.length;
         const scaleFactor = sizeValues[currentSizeIndex];
-        const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
-        
+        const textElements = document.querySelectorAll('span.highlightConversion');
+
         textElements.forEach(element => {
+            if (!element.dataset.originalFontSize) {
+                element.dataset.originalFontSize = window.getComputedStyle(element).fontSize;
+            }
+
             const originalFontSize = parseFloat(element.dataset.originalFontSize);
             const newSize = originalFontSize * scaleFactor;
             element.style.fontSize = `${newSize}px`;
         });
-        updateButtonImageText(textSizeButton, "TextSize", currentSizeIndex);
     }
 });
 //////////////////////////////
@@ -1101,7 +1222,7 @@ boldButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        boldHighlightConversion(selection);
+        toggleClassOnSelection('highlight-bold', "Bold");
     } else {
         const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
         
@@ -1162,7 +1283,7 @@ italicsButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        italicsHighlightConversion(selection);
+        toggleClassOnSelection('highlight-italics', "Italics");
     } else {
         const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
         
@@ -1245,48 +1366,11 @@ function storeOriginalFontColor() {
 }
 storeOriginalFontColor();
 
-function colorHighlightConversion(selectedColor, selection) {
-    const range = selection.getRangeAt(0);
-    const selectedContent = range.extractContents();
-    const fragment = document.createDocumentFragment();
-
-    selectedContent.childNodes.forEach(node => {
-        if (node.nodeType === Node.TEXT_NODE) {
-            const words = node.textContent.split(/(\s+)/); // Split on spaces while keeping the spaces
-            words.forEach(word => {
-                if (word.trim() !== "") {
-                    const span = document.createElement('span');
-                    span.style.color = selectedColor;
-                    span.textContent = word;
-                    fragment.appendChild(span);
-                } else {
-                    fragment.appendChild(document.createTextNode(word)); // Add the space back
-                }
-            });
-        } else if (node.nodeType === Node.ELEMENT_NODE && node.style.color === selectedColor) {
-            const textNodes = node.childNodes;
-            textNodes.forEach(textNode => {
-                if (textNode.nodeType === Node.TEXT_NODE) {
-                    fragment.appendChild(document.createTextNode(textNode.textContent));
-                } else {
-                    fragment.appendChild(textNode.cloneNode(true));
-                }
-            });
-        } else {
-            const clonedNode = node.cloneNode(true);
-            clonedNode.style.color = selectedColor;
-            fragment.appendChild(clonedNode);
-        }
-    });
-
-    range.insertNode(fragment);
-    selection.removeAllRanges();
-}
 blackTextButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        colorHighlightConversion('black', selection);
+        toggleClassOnSelection('highlight-color-black', "Color");
     } else {
         if (currentColor !== "black") {
             currentColor = "black";
@@ -1319,7 +1403,7 @@ whiteTextButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        colorHighlightConversion('white', selection);
+        toggleClassOnSelection('highlight-color-white', "Color");
     } else {
         if(currentColor != "white"){
             currentColor = "white";
@@ -1351,7 +1435,7 @@ redTextButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        colorHighlightConversion('red', selection);
+        toggleClassOnSelection('highlight-color-red', "Color");
     } else {
         if(currentColor != "red"){
             currentColor = "red";
@@ -1383,7 +1467,7 @@ orangeTextButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        colorHighlightConversion('orange', selection);
+        toggleClassOnSelection('highlight-color-orange', "Color");
     } else {
             if(currentColor != "orange"){
             currentColor = "orange";
@@ -1415,7 +1499,7 @@ yellowTextButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        colorHighlightConversion('yellow', selection);
+        toggleClassOnSelection('highlight-color-yellow', "Color");
     } else {
         if(currentColor != "yellow"){
             currentColor = "yellow";
@@ -1447,7 +1531,7 @@ greenTextButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        colorHighlightConversion('green', selection);
+        toggleClassOnSelection('highlight-color-green', "Color");
     } else {
         if(currentColor != "green"){
             currentColor = "green";
@@ -1479,7 +1563,7 @@ blueTextButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        colorHighlightConversion('blue', selection);
+        toggleClassOnSelection('highlight-color-blue', "Color");
     } else {
         if(currentColor != "blue"){
             currentColor = "blue";
@@ -1511,7 +1595,7 @@ purpleTextButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
     if (selection.rangeCount > 0 && !selection.isCollapsed) {
-        colorHighlightConversion('purple', selection);
+        toggleClassOnSelection('highlight-color-purple', "Color");
     } else {
         if(currentColor != "purple"){
             currentColor = "purple";
@@ -1657,7 +1741,6 @@ function storeOriginalLetterSpacing() {
     
     textElements.forEach(element => {
         const computedStyle = window.getComputedStyle(element);
-        console.log(computedStyle.letterSpacing);
         element.dataset.originalLetterSpacing = computedStyle.letterSpacing;
     });
 }
@@ -1673,7 +1756,6 @@ spaceBetweenLettersButton.addEventListener('click', () => {
     textElements.forEach(element => {
         const originalLetterSpacing = element.dataset.originalLetterSpacing;
         
-        console.log(originalLetterSpacing);
         if(originalLetterSpacing == "normal"){
             if(newLetterSpacing == 1){
                 element.style.letterSpacing = `normal`;
