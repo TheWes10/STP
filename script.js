@@ -43,14 +43,14 @@ const MainHTML = `
                 </div>
                 <div class="grid-item">
                     <button id="visuallyImpairedProfile" class="svg-button-larger">
-                        <img id="visuallyImpairedProfileImg" src="${chrome.runtime.getURL("images/DyslexiaGray.svg")}" draggable = "false">
-                        <p>Dyslexia</p>
+                        <img id="visuallyImpairedProfileImg" src="${chrome.runtime.getURL("images/VisuallyImpairedGray.svg")}" draggable = "false">
+                        <p>Visual Impariment</p>
                     </button>
                 </div>
                 <div class="grid-item">
                     <button id="dyslexiaProfile" class="svg-button-larger">
-                        <img id="dyslexiaProfileImg" src="${chrome.runtime.getURL("images/VisuallyImpairedGray.svg")}" draggable = "false">
-                        <p>Visual Impariment</p> 
+                        <img id="dyslexiaProfileImg" src="${chrome.runtime.getURL("images/DyslexiaGray.svg")}" draggable = "false">
+                        <p>Dyslexia</p> 
                     </button>
                 </div>
                 <div class="grid-item">
