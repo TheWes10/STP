@@ -43,14 +43,14 @@ const MainHTML = `
                 </div>
                 <div class="grid-item">
                     <button id="visuallyImpairedProfile" class="svg-button-larger">
-                        <img id="visuallyImpairedProfileImg" src="${chrome.runtime.getURL("images/VisuallyImpairedGray.svg")}" draggable = "false">
-                        <p>Visual Impariment</p>
+                        <img id="visuallyImpairedProfileImg" src="${chrome.runtime.getURL("images/DyslexiaGray.svg")}" draggable = "false">
+                        <p>Dyslexia</p>
                     </button>
                 </div>
                 <div class="grid-item">
                     <button id="dyslexiaProfile" class="svg-button-larger">
-                        <img id="dyslexiaProfileImg" src="${chrome.runtime.getURL("images/DyslexiaGray.svg")}" draggable = "false">
-                        <p>Dyslexia</p> 
+                        <img id="dyslexiaProfileImg" src="${chrome.runtime.getURL("images/VisuallyImpairedGray.svg")}" draggable = "false">
+                        <p>Visual Impariment</p> 
                     </button>
                 </div>
                 <div class="grid-item">
@@ -127,7 +127,7 @@ const MainHTML = `
                 </div>
                 <div class="grid-item">
                     <button id="textAlignment" class="svg-button-larger">
-                        <img src="${chrome.runtime.getURL("images/AlignGray.svg")}" draggable="false">
+                        <img src="${chrome.runtime.getURL("images/DefaultAlignGray.svg")}" draggable="false">
                         <p>Align Text</p> 
                     </button>
                 </div>                   
@@ -148,7 +148,7 @@ const MainHTML = `
                         <div class="color-group">
                             <button id="textBlue" class="color-button" style="background-color: blue;" onclick="changeTextColor('blue')"></button>
                             <button id="textPurple" class="color-button" style="background-color: purple;" onclick="changeTextColor('purple')"></button>
-                            <button id="textColor" class="color-button" style="background-color: gray;" onclick="changeTextColor('purple')"></button>
+                            <button id="textColorDefault" class="color-button" style="background-color: gray;" onclick="changeTextColor('purple')"></button>
                         </div>
                     </div>
                 </div>
@@ -266,13 +266,13 @@ const MainHTML = `
             <!-- <div class="section" id="colorSchemes"> -->
                 <div class="grid-item">
                     <button id="changeContrast" class="svg-button-larger">
-                        <img src="${chrome.runtime.getURL("images/Contrast.svg")}" draggable = "false">
+                        <img src="${chrome.runtime.getURL("images/DefaultContrast.svg")}" draggable = "false">
                         <p>Contrast</p> 
                     </button>
                 </div>
                 <div class="grid-item">
                     <button id="changeSaturation" class="svg-button-larger"> 
-                        <img src="${chrome.runtime.getURL("images/Saturation.svg")}" draggable = "false">
+                        <img src="${chrome.runtime.getURL("images/DefaultSaturation.svg")}" draggable = "false">
                         <p>Saturation</p> 
                     </button>
                 </div>
@@ -356,7 +356,7 @@ toolbar.addEventListener('mousedown', (e) => {
 });
 
 toolbar.addEventListener('dragover', (event) => {
-    event.prevent();
+    event.preventDefault();
     return false;
 });
 
@@ -445,7 +445,7 @@ function defaultAll(){
     currentSaturationIndex = 3;
     currentContrastIndex = 3;
     currentSizeIndex = 0;
-    currentColor = 'black';
+    currentColor = 'black'
     currentLineHeightIndex = 2;
     currentWordSpacingIndex = 2;
     currentLetterSpacingIndex = 2;
