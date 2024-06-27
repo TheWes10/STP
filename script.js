@@ -415,7 +415,7 @@ moveSidebarRight.addEventListener('click', () => {
     chrome.storage.sync.set({ sidebarPosition: 'right' });
 });
 
-const to = shadowRoot.getElementById('defaultButton');
+const toDefault = shadowRoot.getElementById('defaultButton');
 toDefault.addEventListener('click', defaultAll);
 
 
