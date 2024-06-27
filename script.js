@@ -82,11 +82,31 @@ const MainHTML = `
                         <p>Speed</p>  
                     </button>
                 </div>
-                <div class="grid-item">
-                    <button id="t2sHighlight" class="svg-button-larger">
-                        <img id="t2sHighlightImg" src="${chrome.runtime.getURL("images/Highlight Text.svg")}" draggable = "false">
+                <!--<div class="grid-item">
+                    <button id="HighlightTextButton" class="svg-button-larger">
+                        <img id="HighlightTextButtonImg" src="${chrome.runtime.getURL("images/Highlight Text.svg")}" draggable = "false">
                         <p>Highlight Text</p>
                     </button>
+                </div> --->
+                <div class="color-grid-container">
+                    <p class="color-grid-title">Highlight Color</p>
+                    <div class="color-grid">
+                        <div class="color-group">
+                            <button id="textHighlightBlack" class="color-button" style="background-color: black;"></button>
+                            <button id="textHighlightWhite" class="color-button" style="background-color: white;"></button>
+                            <button id="textHighlightRed" class="color-button" style="background-color: red;"></button>
+                        </div>
+                        <div class="color-group">
+                            <button id="textHighlightOrange" class="color-button" style="background-color: orange;"></button>
+                            <button id="textHighlightYellow" class="color-button" style="background-color: yellow;"></button>
+                            <button id="textHighlightGreen" class="color-button" style="background-color: green;""></button>
+                        </div>
+                        <div class="color-group">
+                            <button id="textHighlightBlue" class="color-button" style="background-color: blue;"></button>
+                            <button id="textHighlightPurple" class="color-button" style="background-color: purple;"></button>
+                            <button id="textHighlightColorDefault" class="color-button" style="background-color: gray;"></button>
+                        </div>
+                    </div>
                 </div>
             
             <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
@@ -136,19 +156,19 @@ const MainHTML = `
                     <p class="color-grid-title">Text Color</p>
                     <div class="color-grid">
                         <div class="color-group">
-                            <button id="textBlack" class="color-button" style="background-color: black;" onclick="changeTextColor('black')"></button>
-                            <button id="textWhite" class="color-button" style="background-color: white; border: 1px solid #ccc;" onclick="changeTextColor('white')"></button>
-                            <button id="textRed" class="color-button" style="background-color: red;" onclick="changeTextColor('red')"></button>
+                            <button id="textBlack" class="color-button" style="background-color: black;"></button>
+                            <button id="textWhite" class="color-button" style="background-color: white;"></button>
+                            <button id="textRed" class="color-button" style="background-color: red;"></button>
                         </div>
                         <div class="color-group">
-                            <button id="textOrange" class="color-button" style="background-color: orange;" onclick="changeTextColor('orange')"></button>
-                            <button id="textYellow" class="color-button" style="background-color: yellow;" onclick="changeTextColor('yellow')"></button>
-                            <button id="textGreen" class="color-button" style="background-color: green;" onclick="changeTextColor('green')"></button>
+                            <button id="textOrange" class="color-button" style="background-color: orange;"></button>
+                            <button id="textYellow" class="color-button" style="background-color: yellow;"></button>
+                            <button id="textGreen" class="color-button" style="background-color: green;"></button>
                         </div>
                         <div class="color-group">
-                            <button id="textBlue" class="color-button" style="background-color: blue;" onclick="changeTextColor('blue')"></button>
-                            <button id="textPurple" class="color-button" style="background-color: purple;" onclick="changeTextColor('purple')"></button>
-                            <button id="textColorDefault" class="color-button" style="background-color: gray;" onclick="changeTextColor('purple')"></button>
+                            <button id="textBlue" class="color-button" style="background-color: blue;"></button>
+                            <button id="textPurple" class="color-button" style="background-color: purple;"></button>
+                            <button id="textColorDefault" class="color-button" style="background-color: gray;"></button>
                         </div>
                     </div>
                 </div>
@@ -501,7 +521,10 @@ function defaultAll(){
             'highlight-typeface-open-sans', 'highlight-typeface-opendyslexic', 'highlight-typeface-tahoma',
             'highlight-typeface-verdana', 'highlight-color-black', 'highlight-color-white', 'highlight-color-red',
             'highlight-color-orange', 'highlight-color-yellow', 'highlight-color-green',
-            'highlight-color-blue', 'highlight-color-purple', 'highlight-bold', 'highlight-italics'
+            'highlight-color-blue', 'highlight-color-purple', 'highlight-bold', 'highlight-italics',
+            'highlight-highlight-black', 'highlight-highlight-white', 'highlight-highlight-red',
+            'highlight-highlight-orange', 'highlight-highlight-yellow', 'highlight-highlight-green',
+            'highlight-highlight-blue', 'highlight-highlight-purple' 
         );
     });
 
@@ -607,15 +630,10 @@ LearningProfile.addEventListener('click', () => {
 const readPageButton = shadowRoot.getElementById('readPage');
 const readPageImg = shadowRoot.getElementById('readPageImg');
 
-
 const readSpeedButton = shadowRoot.getElementById('readSpeed');
 const readSpeedImg = shadowRoot.getElementById('readSpeedImg');
 
-const t2sHighlightButton = shadowRoot.getElementById('t2sHighlight');
-const t2sHighlightImg = shadowRoot.getElementById('t2sHighlightImg');
-
 let isReading = false;
-let isReadingHighlighted = false;
 let currentSpeedIndex = 1;
 let speechSynthesisUtterance;
 const speedValues = [0.75, 1, 1.5]; // slow, normal, fast
@@ -630,26 +648,38 @@ readPageButton.addEventListener('click', () => {
     if (!isReading) {
         startReadingPage();
     } else {
-        stopReadingPage();
+        window.speechSynthesis.cancel();
     }
     isReading = !isReading;
 });
 
 function startReadingPage() {
     window.speechSynthesis.cancel();
-    isReadingHighlighted = false;
-    const textToRead = document.body.innerText;
+    const highlightedText = getHighlightedText();
 
-    speechSynthesisUtterance = new SpeechSynthesisUtterance(textToRead);
+    if(highlightedText){
+        if (highlightedText && highlightedText.trim() !== "") {
+            speechSynthesisUtterance = new SpeechSynthesisUtterance(highlightedText);
+            speechSynthesisUtterance.rate = speedValues[currentSpeedIndex]; // Set the current speech rate
+            speechSynthesisUtterance.pitch = 1; // Set default pitch
     
-    speechSynthesisUtterance.rate = speedValues[currentSpeedIndex]; // Set the current speech rate
-    speechSynthesisUtterance.pitch = 1; // Set default pitch
+            speechSynthesisUtterance.onend = () => {
+                isReading = false;
+            };
+    
+            window.speechSynthesis.speak(speechSynthesisUtterance);
+        }
+    }
+    else{
+        const textToRead = document.body.innerText;
 
-    window.speechSynthesis.speak(speechSynthesisUtterance);
-}
+        speechSynthesisUtterance = new SpeechSynthesisUtterance(textToRead);
+        
+        speechSynthesisUtterance.rate = speedValues[currentSpeedIndex]; // Set the current speech rate
+        speechSynthesisUtterance.pitch = 1; // Set default pitch
 
-function stopReadingPage() {
-    window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(speechSynthesisUtterance);
+    }
 }
 
 readSpeedButton.addEventListener('click', () => {
@@ -663,42 +693,11 @@ readSpeedButton.addEventListener('click', () => {
         speechSynthesisUtterance.rate = speedValues[currentSpeedIndex];
 
         if (isReading) {
-            // Restart the speech with the new rate
             stopReadingPage();
             startReadingPage();
         }
     }
 });
-
-t2sHighlightButton.addEventListener('click', () => {
-    isReadingHighlighted = !isReadingHighlighted;
-    if (isReadingHighlighted) {
-        startReadingHighlightedText();
-    } else {
-        stopReadingPage();
-    }
-});
-
-function startReadingHighlightedText() {
-    isReading = false;
-    window.speechSynthesis.cancel();
-    const highlightedText = getHighlightedText();
-    if (highlightedText) {
-        speechSynthesisUtterance = new SpeechSynthesisUtterance(highlightedText);
-        speechSynthesisUtterance.rate = speedValues[currentSpeedIndex]; // Set the current speech rate
-        speechSynthesisUtterance.pitch = 1; // Set default pitch
-
-        speechSynthesisUtterance.onend = () => {
-            isReading = false;
-        };
-
-        window.speechSynthesis.speak(speechSynthesisUtterance);
-    }
-}
-
-function stopReadingHighlightedText() {
-    window.speechSynthesis.cancel();
-}
 
 function getHighlightedText() {
     const selection = window.getSelection();
@@ -708,6 +707,45 @@ function getHighlightedText() {
     }
     return null;
 }
+// Text Highlighting
+/* const HighlightTextButton = shadowRoot.getElementById('HighlightTextButton');
+const HighlightTextButtonImg = shadowRoot.getElementById('HighlightTextButtonImg');
+ */
+const blackTextHighlightButton = shadowRoot.getElementById('textHighlightBlack');
+const whiteTextHighlightButton = shadowRoot.getElementById('textHighlightWhite');
+const redTextHighlightButton = shadowRoot.getElementById('textHighlightRed');
+const orangeTextHighlightButton = shadowRoot.getElementById('textHighlightOrange');
+const yellowTextHighlightButton = shadowRoot.getElementById('textHighlightYellow');
+const greenTextHighlightButton = shadowRoot.getElementById('textHighlightGreen');
+const blueTextHighlightButton = shadowRoot.getElementById('textHighlightBlue');
+const purpleTextHighlightButton = shadowRoot.getElementById('textHighlightPurple');
+const defaultTextHighlightColorButton = shadowRoot.getElementById('textHighlightColorDefault');
+
+let currentTextHighlightColor = "yellow";
+
+// Add event listeners to highlight buttons
+blackTextHighlightButton.addEventListener('click', () => toggleClassOnSelection('highlight-highlight-black','Highlight'));
+whiteTextHighlightButton.addEventListener('click', () => toggleClassOnSelection('highlight-highlight-white','Highlight'));
+redTextHighlightButton.addEventListener('click', () => toggleClassOnSelection('highlight-highlight-red','Highlight'));
+orangeTextHighlightButton.addEventListener('click', () => toggleClassOnSelection('highlight-highlight-orange','Highlight'));
+yellowTextHighlightButton.addEventListener('click', () => toggleClassOnSelection('highlight-highlight-yellow','Highlight'));
+greenTextHighlightButton.addEventListener('click', () => toggleClassOnSelection('highlight-highlight-green','Highlight'));
+blueTextHighlightButton.addEventListener('click', () => toggleClassOnSelection('highlight-highlight-blue','Highlight'));
+purpleTextHighlightButton.addEventListener('click', () => toggleClassOnSelection('highlight-highlight-purple','Highlight'));
+//defaultTextHighlightColorButton.addEventListener('click', () => toggleClassOnSelection('default'));
+
+// Store original text highlight color
+function storeOriginalTextHighlightColor() {
+    const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+    textElements.forEach(element => {
+        if (!element.closest('#FocusUp')) {
+            const highlightColor = window.getComputedStyle(element).backgroundColor;
+            element.dataset.originalTextHighlightColor = highlightColor;
+        }
+    });
+}
+storeOriginalTextHighlightColor();
+
 
 //Typeface Changers
 const arialButton = shadowRoot.getElementById('arialButton');
@@ -817,6 +855,14 @@ function toggleClassOnSelection(className, classType) {
                         'highlight-color-blue', 'highlight-color-purple'
                     );
                 }
+                else if (classType === "Highlight") {
+                    span.classList.remove(
+                        'highlight-highlight-black', 'highlight-highlight-white', 'highlight-highlight-red',
+                        'highlight-highlight-orange', 'highlight-highlight-yellow', 'highlight-highlight-green',
+                        'highlight-highlight-blue', 'highlight-highlight-purple' 
+                    );
+                }
+                
 
                 if (shouldToggleOff) {
                     span.classList.remove(className);
