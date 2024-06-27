@@ -493,6 +493,19 @@ function defaultAll(){
             }
         }
     });
+    const spans = document.querySelectorAll('body > *:not(div.STP) span');
+    spans.forEach(span => {
+        span.classList.remove(
+            'highlight-typeface-arial', 'highlight-typeface-calibri', 'highlight-typeface-century-gothic',
+            'highlight-typeface-comic-sans-ms', 'highlight-typeface-courier', 'highlight-typeface-helvetica',
+            'highlight-typeface-open-sans', 'highlight-typeface-opendyslexic', 'highlight-typeface-tahoma',
+            'highlight-typeface-verdana', 'highlight-color-black', 'highlight-color-white', 'highlight-color-red',
+            'highlight-color-orange', 'highlight-color-yellow', 'highlight-color-green',
+            'highlight-color-blue', 'highlight-color-purple', 'highlight-bold', 'highlight-italics'
+        );
+    });
+
+
     currentProfile = "none";
 }
 
@@ -1275,45 +1288,6 @@ function storeOriginalStyles() {
 }
 storeOriginalStyles();
 
-function boldHighlightConversion(selection) {
-    const range = selection.getRangeAt(0);
-    const selectedContent = range.extractContents();
-    const fragment = document.createDocumentFragment();
-
-    selectedContent.childNodes.forEach(node => {
-        if (node.nodeType === Node.TEXT_NODE) {
-            const words = node.textContent.split(/(\s+)/); // Split on spaces while keeping the spaces
-            words.forEach(word => {
-                if (word.trim() !== "") {
-                    const span = document.createElement('span');
-                    span.style.fontWeight = 'bold';
-                    span.textContent = word;
-                    fragment.appendChild(span);
-                } else {
-                    fragment.appendChild(document.createTextNode(word)); // Add the space back
-                }
-            });
-        } else if (node.nodeType === Node.ELEMENT_NODE && node.style.fontWeight === 'bold') {
-            const textNodes = node.childNodes;
-            textNodes.forEach(textNode => {
-                if (textNode.nodeType === Node.TEXT_NODE) {
-                    fragment.appendChild(document.createTextNode(textNode.textContent));
-                } else {
-                    fragment.appendChild(textNode.cloneNode(true));
-                }
-            });
-        } else {
-            const clonedNode = node.cloneNode(true);
-            clonedNode.style.fontWeight = 'bold';
-            fragment.appendChild(clonedNode);
-        }
-    });
-
-    range.insertNode(fragment);
-    selection.removeAllRanges();
-}
-
-
 boldButton.addEventListener('click', () => {
     const selection = window.getSelection();
 
@@ -1335,44 +1309,6 @@ boldButton.addEventListener('click', () => {
         });
     }
 });
-
-function italicsHighlightConversion(selection) {
-    const range = selection.getRangeAt(0);
-    const selectedContent = range.extractContents();
-    const fragment = document.createDocumentFragment();
-
-    selectedContent.childNodes.forEach(node => {
-        if (node.nodeType === Node.TEXT_NODE) {
-            const words = node.textContent.split(/(\s+)/); // Split on spaces while keeping the spaces
-            words.forEach(word => {
-                if (word.trim() !== "") {
-                    const span = document.createElement('span');
-                    span.style.fontStyle = 'italic';
-                    span.textContent = word;
-                    fragment.appendChild(span);
-                } else {
-                    fragment.appendChild(document.createTextNode(word)); // Add the space back
-                }
-            });
-        } else if (node.nodeType === Node.ELEMENT_NODE && node.style.fontStyle === 'italic') {
-            const textNodes = node.childNodes;
-            textNodes.forEach(textNode => {
-                if (textNode.nodeType === Node.TEXT_NODE) {
-                    fragment.appendChild(document.createTextNode(textNode.textContent));
-                } else {
-                    fragment.appendChild(textNode.cloneNode(true));
-                }
-            });
-        } else {
-            const clonedNode = node.cloneNode(true);
-            clonedNode.style.fontStyle = 'italic';
-            fragment.appendChild(clonedNode);
-        }
-    });
-
-    range.insertNode(fragment);
-    selection.removeAllRanges();
-}
 
 italicsButton.addEventListener('click', () => {
     let isItalic = false;
