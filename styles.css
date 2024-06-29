@@ -192,12 +192,14 @@ button:hover {
     margin-bottom: 10px; /* Add some space below the heading */
     color: #000000;
 }
+
 .color-grid-container {
     text-align: center; /* Center the title */
     box-sizing: border-box;
     border: 1px solid rgb(0, 0, 0);
     border-radius: 10%;
     background-color: rgb(255, 255, 255);
+    overflow: auto;
     
 }
 
@@ -205,9 +207,10 @@ button:hover {
     font-family: Arial, sans-serif;
     font-size: 20px;
     color: #000000;
-    margin-bottom: 0px; /* Add some space between the title and the grid */
+    margin: 0px; /* Add some space between the title and the grid */
     font-weight: bold;
-    padding-bottom: 10%;
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
 
 .color-grid {
@@ -226,14 +229,13 @@ button:hover {
 }
 
 .color-button {
-    width: 100%; /* Set a fixed width for the buttons */
-    height: 20px; /* Set a fixed height for the buttons */
     aspect-ratio: 1/1;
     border-radius: 50%;
     border: none;
     cursor: pointer;
     transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
     border: 1px solid rgb(0, 0, 0); 
+    width: 30px; /* Increase the width to make the buttons larger */
 }
 
 .color-button:hover {
@@ -245,14 +247,13 @@ button:hover {
 }
 
 .color-button-alpha {
-    width: 100%; /* Set a fixed width for the buttons */
-    height: 20px; /* Set a fixed height for the buttons */
     aspect-ratio: 1/1;
     border-radius: 50%;
     border: none;
     cursor: pointer;
     transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
     border: 1px solid rgb(0, 0, 0); 
+    width: 30px; /* Increase the width to make the buttons larger */
 }
 
 .color-button-alpha:hover {
@@ -382,6 +383,7 @@ button:hover {
  .font-button{
     padding: 1px;
     font-size: 12px;
+    font-weight: bold;
 
 }
 
@@ -439,3 +441,15 @@ button:hover {
 .highlight-color-green { color: green; }
 .highlight-color-blue { color: blue; }
 .highlight-color-purple { color: purple; }
+
+/* Contrast Classes */
+.contrast-default { filter: none; }
+.contrast-light { filter: brightness(120%) contrast(90%); }
+.contrast-dark { filter: brightness(80%) contrast(130%); }
+.contrast-invert { filter: invert(100%); }
+
+/* Saturation Classes */
+.saturation-default { filter: none; }
+.saturation-low { filter: saturate(50%); }
+.saturation-high { filter: saturate(150%); }
+.saturation-desaturate { filter: grayscale(100%); }
