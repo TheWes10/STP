@@ -1999,8 +1999,7 @@ function toggleContrast() {
 
 // Function to apply contrast mode
 function applyContrast(contrastMode) {
-    document.body.classList.remove(...contrastLevels.map(level => `contrast-${level}`));
-    document.body.classList.add(`contrast-${contrastMode}`);
+    document.body.style.filter = getFilterValue(contrastMode);
     updateButtonImage(changeContrastBtn, contrastMode + "Contrast");
 }
 
@@ -2012,11 +2011,31 @@ function toggleSaturation() {
 
 // Function to apply saturation level
 function applySaturation(saturationLevel) {
-    document.body.classList.remove(...saturationLevels.map(level => `saturation-${level}`));
-    document.body.classList.add(`saturation-${saturationLevel}`);
+    document.body.style.filter = getFilterValue(saturationLevel);
     updateButtonImage(changeSaturationBtn, saturationLevel + "Saturation");
 }
 
+// Helper function to get filter value based on mode
+function getFilterValue(mode) {
+    switch (mode) {
+        case 'default':
+            return 'none';
+        case 'light':
+            return 'brightness(120%) contrast(90%)';
+        case 'dark':
+            return 'brightness(80%) contrast(130%)';
+        case 'invert':
+            return 'invert(100%)';
+        case 'low':
+            return 'saturate(50%)';
+        case 'high':
+            return 'saturate(150%)';
+        case 'desaturate':
+            return 'grayscale(100%)'; // Apply grayscale for desaturation
+        default:
+            return 'none';
+    }
+}
 // Helper function to update button image based on mode
 function updateButtonImage(button, imageName) {
     button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + ".svg")}`;
