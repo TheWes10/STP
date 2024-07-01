@@ -91,6 +91,9 @@
     width: 97%; /* Make the buttons take up the full width of the grid cell */
     height: 100%; /* Make the buttons take up the full height of the grid cell */
     font-weight: bold;
+
+    font-size: clamp(0.9rem, 0.9vw, 4rem); /* Adjust font size based on viewport width */
+    line-height: 1.2; /* Adjust line height to ensure proper spacing */
 }
 
 #button-container {
@@ -128,18 +131,6 @@
     margin-bottom: 10px; /* Space between image and text */
 }
 
-#brightnessAlpha{
-    padding-right: 15%;
-}
-
-#brightnessBeta{
-    padding-right: 15%;
-}
-
-#lineHeightIMG{
-    padding-right: 15%;
-}
-
 .grid-item p {
     font-family: Arial, sans-serif;
     color: #000000;
@@ -148,12 +139,13 @@
     font-weight: bold;
     max-width: 100%;
     max-height: 100%;
-    overflow: hidden; 
+    overflow: hidden; /* Ensure any overflow content is hidden */
     text-overflow: ellipsis;
 
-    font-size: clamp(0.1rem, 0.9vw, 4rem); 
-    line-height: 1.2;
+    font-size: clamp(0.1rem, 0.9vw, 4rem); /* Adjust font size based on viewport width */
+    line-height: 1.2; /* Adjust line height to ensure proper spacing */
 }
+
 
 .grid-item button {
     display: block; /* Add this */
@@ -166,13 +158,6 @@
     border-radius: 10px; /* Add border-radius if needed */
 }
 
-#closeSidebar {
-    background-color: #ffffff;
-    border-radius: 50%;
-    padding: 10px;
-    width: auto;
-    height: auto;
-}
 
 button:hover {
     box-shadow: 0 0 10px 2px blue; /* Blue highlight on hover */
@@ -183,6 +168,12 @@ button:hover {
     top: 10px; /* Adjust the top position as needed */ 
     right: 10px; /* Adjust the right position as needed */
     cursor: pointer;
+
+    background-color: #ffffff;
+    border-radius: 50%;
+    padding: 10px;
+    width: auto;
+    height: auto;
 }
 
 #textOptions {
@@ -257,13 +248,9 @@ button:hover {
     row-gap: 2%;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
 
-.color-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
 .color-button {
     aspect-ratio: 1/1;
@@ -272,7 +259,9 @@ button:hover {
     cursor: pointer;
     transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
     border: 1px solid rgb(0, 0, 0); 
-    width: 30px; /* Increase the width to make the buttons larger */
+    width: 100%; /* Ensure button takes full grid column width */
+    max-width: 100px; /* Set a maximum width for larger screens */
+    max-height: 100px; /* Set a maximum height for larger screens */
 }
 
 .color-button:hover {
@@ -290,7 +279,9 @@ button:hover {
     cursor: pointer;
     transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
     border: 1px solid rgb(0, 0, 0); 
-    width: 30px; /* Increase the width to make the buttons larger */
+    width: 100%; /* Ensure button takes full grid column width */
+    max-width: 100px; /* Set a maximum width for larger screens */
+    max-height: 100px; /* Set a maximum height for larger screens */
 }
 
 .color-button-alpha:hover {
@@ -301,30 +292,37 @@ button:hover {
     border: 1px solid #ccc; /* Add border to make white button visible */
 }
 
-.slider-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    margin-left: 20px; /* Add margin to separate from color buttons */
-}
-
 #slider-beta{
-    border: 1px solid rgb(0, 0, 0); 
-    border-radius: 10%; /* Add border-radius if needed */
+    display: block; /* Add this */
+    width: 100%;
+    height: 100%;
     background-color: rgb(255, 255, 255);
+    text-align: center; /* Add this */
+    align-items: center;
+    border: 1px solid rgb(0, 0, 0); 
+    border-radius: 10px; /* Add border-radius if needed */
 }
 
 #slider-alpha{
-    border: 1px solid rgb(0, 0, 0); 
-    border-radius: 10%; /* Add border-radius if needed */
+    display: block; /* Add this */
+    width: 100%;
+    height: 100%;
     background-color: rgb(255, 255, 255);
+    text-align: center; /* Add this */
+    align-items: center;
+    border: 1px solid rgb(0, 0, 0); 
+    border-radius: 10px; /* Add border-radius if needed */
 }
 
 #Line-Height-Border{
-    border: 1px solid rgb(0, 0, 0); 
-    border-radius: 10%; /* Add border-radius if needed */
+    display: block; /* Add this */
+    width: 100%;
+    height: 100%;
     background-color: rgb(255, 255, 255);
+    text-align: center; /* Add this */
+    align-items: center;
+    border: 1px solid rgb(0, 0, 0); 
+    border-radius: 10px; /* Add border-radius if needed */
 }
 
 .slider {
@@ -332,6 +330,7 @@ button:hover {
     max-width: 85%; /* Ensure it doesn't exceed the container width */
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
+
 
 .left-content {
     display: flex;
@@ -404,17 +403,12 @@ button:hover {
     background: rgba(0, 0, 0, 0); /* Initial background color with opacity */
     transition: background-color 0.3s ease; /* Optional: Add transition effect */
 }
-
-.image-slider-pair {
-    display: flex;
-    flex-direction: column;
-    gap: 1px; /* Adjust gap to control the space between the image and the slider */
-}
   
  .font-button{
     padding: 1px;
     font-size: 12px;
     font-weight: bold;
+    height: 100%;
 
 }
 
@@ -472,6 +466,14 @@ button:hover {
 .highlight-color-green { color: green; }
 .highlight-color-blue { color: blue; }
 .highlight-color-purple { color: purple; }
+.highlight-highlight-black { background-color: black; }
+.highlight-highlight-white { background-color: white; }
+.highlight-highlight-red { background-color: red; }
+.highlight-highlight-orange { background-color: orange; }
+.highlight-highlight-yellow { background-color: yellow; }
+.highlight-highlight-green { background-color: green; }
+.highlight-highlight-blue { background-color: blue; }
+.highlight-highlight-purple { background-color: purple; }
 
 /* Contrast Classes */
 .contrast-default { filter: none; }
