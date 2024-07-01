@@ -21,7 +21,7 @@ const MainHTML = `
     </div>
     <div id="sidebar">
         <div id="menu">
-            <p>Accessibility Menu</p>
+            <p id = "temp">Accessibility Menu</p>
         </div>
         <div id="button-container-alpha">
              <button class = "myButtons" id="defaultButton">Reset to Default</button>
