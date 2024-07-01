@@ -228,13 +228,13 @@ const MainHTML = `
                 </div>
 
                 <div class="grid-item" id = "slider-alpha">
-                    <div class="slider-container">
-                        <div class = "image-slider-pair">
+      
+
                             <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false" class="svg-icon" id = "brightnessAlpha">
                             <p>Tint Brightness</p>
                             <input type="range" id="brightnessSliderAlpha" min="0" max="100" value="50">
-                        </div>
-                    </div>
+
+    
                 </div>
             
             <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
@@ -248,22 +248,20 @@ const MainHTML = `
                     </button>
                 </div>
                 <div class="grid-item" id = "Line-Height-Border">
-                    <div class="slider-container">
-                        <div class = "image-slider-pair">
+
+
                             <img src="${chrome.runtime.getURL("images/LineHeightGray.svg")}" draggable="false"  class="svg-icon" id="lineHeightIMG">
                             <p>Ruler Height</p> 
                             <input type="range" id="lineHeightSlider" min="0" max="200" value="50">
-                        </div>
-                    </div>
+
+
                 </div>
                 <div class="grid-item" id = "slider-beta">
-                    <div class="slider-container">
-                        <div class = "image-slider-pair">
+
                             <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false"  class="svg-icon" id = "brightnessBeta">
                             <p>Ruler Brightness</p> 
                             <input type="range" id="brightnessSliderBeta" min="0" max="100" value="50">
-                        </div>
-                    </div>
+
                 </div>
                 <div class="color-grid-container">
                     <p class="color-grid-title">Mask Color</p>
