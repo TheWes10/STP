@@ -114,17 +114,23 @@ const MainHTML = `
 
             <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
             <!-- <div class="section" id="textConfig"> -->
-                <div class="grid-item" id = "textOptions">
-                    <button class="font-button" id="arialButton" style="font-family: Arial;">Arial</button>
-                    <button class="font-button" id="calibriButton" style="font-family: Calibri;">Calibri</button>
-                    <button class="font-button" id="centuryGothicButton" style="font-family: Century Gothic;">Century Gothic</button>
-                    <button class="font-button" id="comicSansButton" style="font-family: 'Comic Sans MS';">Comic Sans</button>
-                    <button class="font-button" id="courierButton" style="font-family: Courier;">Courier</button>
-                    <button class="font-button" id="helveticaButton" style="font-family: Helvetica;">Helvetica</button>
-                    <button class="font-button" id="openSansButton" style="font-family: 'Open Sans';">Open Sans</button>
-                    <button class="font-button" id="openDyslexia"  sytle='OpenDyslexoc';>OpenDyslexic</button>
-                    <button class="font-button" id="tahomaButton" style="font-family: Tahoma;">Tahoma</button>
-                    <button class="font-button" id="verdanaButton" style="font-family: Verdana;">Verdana</button>
+               <div class="grid-item">
+                    <button id="typefaceButton">
+                        <img src="${chrome.runtime.getURL("images/Typeface.svg")}" draggable="false">
+                        <p>Typeface Conversions</p> 
+                    </button>
+                    <div id="textOptions" class="hide">
+                        <button class="font-button" id="arialButton" style="font-family: Arial;">Arial</button>
+                        <button class="font-button" id="calibriButton" style="font-family: Calibri;">Calibri</button>
+                        <button class="font-button" id="centuryGothicButton" style="font-family: Century Gothic;">Century Gothic</button>
+                        <button class="font-button" id="comicSansButton" style="font-family: 'Comic Sans MS';">Comic Sans</button>
+                        <button class="font-button" id="courierButton" style="font-family: Courier;">Courier</button>
+                        <button class="font-button" id="helveticaButton" style="font-family: Helvetica;">Helvetica</button>
+                        <button class="font-button" id="openSansButton" style="font-family: 'Open Sans';">Open Sans</button>
+                        <button class="font-button" id="openDyslexia" style="font-family: 'OpenDyslexic';">OpenDyslexic</button>
+                        <button class="font-button" id="tahomaButton" style="font-family: Tahoma;">Tahoma</button>
+                        <button class="font-button" id="verdanaButton" style="font-family: Verdana;">Verdana</button>
+                    </div>
                 </div>
                 <!-- <h3 class="centered-heading">Edit Website Text</h3> -->
                 <div class="grid-item">
