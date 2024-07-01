@@ -24,7 +24,7 @@ const MainHTML = `
             <p id = "temp">Accessibility Menu</p>
         </div>
         <div id="button-container-alpha">
-             <button class = "myButtons" id="defaultButton">Reset to Default</button>
+             <button class = "myButtons" id="defaultButton">Reset to default</button>
         </div>
         <div id="button-container">
             <button class = "myButtons" id="moveSidebarLeft">Left</button>
@@ -90,6 +90,7 @@ const MainHTML = `
                 </div> --->
                 <div class="color-grid-container">
                     <p class="color-grid-title">Highlight Color</p>
+                    <div>
                     <div class="color-grid">
                         <div class="color-group">
                             <button id="textHighlightBlack" class="color-button" style="background-color: black;"></button>
@@ -107,14 +108,14 @@ const MainHTML = `
                             <button id="textHighlightColorDefault" class="color-button" style="background-color: gray;"></button>
                         </div>
                     </div>
+                    </div>
                 </div>
             
             <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
 
 
             <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
-            <!-- <div class="section" id="textConfig"> -->
-               <div class="grid-item">
+                <div class="grid-item">
                     <button id="typefaceButton">
                         <img src="${chrome.runtime.getURL("images/Typeface.svg")}" draggable="false">
                         <p>Typeface Conversions</p> 
@@ -228,13 +229,9 @@ const MainHTML = `
                 </div>
 
                 <div class="grid-item" id = "slider-alpha">
-      
-
-                            <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false" class="svg-icon" id = "brightnessAlpha">
-                            <p>Tint Brightness</p>
-                            <input type="range" id="brightnessSliderAlpha" min="0" max="100" value="50">
-
-    
+                    <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false" id = "brightnessAlpha">
+                    <p>Tint Brightness</p>
+                    <input type="range" id="brightnessSliderAlpha" min="0" max="100" value="50" class = "slider">
                 </div>
             
             <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
@@ -248,20 +245,14 @@ const MainHTML = `
                     </button>
                 </div>
                 <div class="grid-item" id = "Line-Height-Border">
-
-
-                            <img src="${chrome.runtime.getURL("images/LineHeightGray.svg")}" draggable="false"  class="svg-icon" id="lineHeightIMG">
-                            <p>Ruler Height</p> 
-                            <input type="range" id="lineHeightSlider" min="0" max="200" value="50">
-
-
+                    <img src="${chrome.runtime.getURL("images/LineHeightGray.svg")}" draggable="false"  class="svg-icon" id="lineHeightIMG">
+                    <p>Ruler Height</p> 
+                    <input type="range" id="lineHeightSlider" min="0" max="200" value="50" class = "slider">
                 </div>
                 <div class="grid-item" id = "slider-beta">
-
-                            <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false"  class="svg-icon" id = "brightnessBeta">
-                            <p>Ruler Brightness</p> 
-                            <input type="range" id="brightnessSliderBeta" min="0" max="100" value="50">
-
+                    <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false"  class="svg-icon" id = "brightnessBeta">
+                    <p>Ruler Brightness</p> 
+                    <input type="range" id="brightnessSliderBeta" min="0" max="100" value="50" class="slider">
                 </div>
                 <div class="color-grid-container">
                     <p class="color-grid-title">Mask Color</p>
@@ -365,6 +356,7 @@ openSidebarButton.addEventListener('click', () => {
         sidebar.style.right = 0;
     }
 });
+
 closeSidebarButton.addEventListener('click', () => {
     sidebar.classList.remove('show');
     toolbar.classList.remove('hide');
@@ -752,6 +744,8 @@ storeOriginalTextHighlightColor();
 
 
 //Typeface Changers
+const typefaceButton = shadowRoot.getElementById('typefaceButton');
+const textOptions = shadowRoot.getElementById('textOptions');
 const arialButton = shadowRoot.getElementById('arialButton');
 const calibriButton = shadowRoot.getElementById('calibriButton');
 const gothicButton = shadowRoot.getElementById('centuryGothicButton');
@@ -765,6 +759,11 @@ const verdanaButton = shadowRoot.getElementById('verdanaButton');
 
 let currentTypeface = "original";
 let currentButton = null;
+
+typefaceButton.addEventListener('click', () => {
+    typefaceButton.classList.add('hide'); // Hide typefaceButton
+    textOptions.classList.remove('hide'); // Show textOptions
+});
 
 
 let orignalTypeface;
@@ -2000,7 +1999,8 @@ function toggleContrast() {
 
 // Function to apply contrast mode
 function applyContrast(contrastMode) {
-    document.body.style.filter = getFilterValue(contrastMode);
+    document.body.classList.remove(...contrastLevels.map(level => `contrast-${level}`));
+    document.body.classList.add(`contrast-${contrastMode}`);
     updateButtonImage(changeContrastBtn, contrastMode + "Contrast");
 }
 
@@ -2012,31 +2012,11 @@ function toggleSaturation() {
 
 // Function to apply saturation level
 function applySaturation(saturationLevel) {
-    document.body.style.filter = getFilterValue(saturationLevel);
+    document.body.classList.remove(...saturationLevels.map(level => `saturation-${level}`));
+    document.body.classList.add(`saturation-${saturationLevel}`);
     updateButtonImage(changeSaturationBtn, saturationLevel + "Saturation");
 }
 
-// Helper function to get filter value based on mode
-function getFilterValue(mode) {
-    switch (mode) {
-        case 'default':
-            return 'none';
-        case 'light':
-            return 'brightness(120%) contrast(90%)';
-        case 'dark':
-            return 'brightness(80%) contrast(130%)';
-        case 'invert':
-            return 'invert(100%)';
-        case 'low':
-            return 'saturate(50%)';
-        case 'high':
-            return 'saturate(150%)';
-        case 'desaturate':
-            return 'grayscale(100%)'; // Apply grayscale for desaturation
-        default:
-            return 'none';
-    }
-}
 // Helper function to update button image based on mode
 function updateButtonImage(button, imageName) {
     button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + ".svg")}`;
