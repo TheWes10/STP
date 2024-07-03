@@ -1994,32 +1994,47 @@ changeSaturationBtn.addEventListener('click', toggleSaturation);
 // Function to toggle contrast mode
 function toggleContrast() {
     currentContrastIndex = (currentContrastIndex + 1) % contrastLevels.length;
-    applyContrast(contrastLevels[currentContrastIndex]);
+    applyFilters();
 }
 
 // Function to apply contrast mode
-function applyContrast(contrastMode) {
-    document.body.style.filter = getFilterValue(contrastMode);
+function applyContrast() {
+    const contrastMode = contrastLevels[currentContrastIndex];
     updateButtonImage(changeContrastBtn, contrastMode + "Contrast");
 }
 
 // Function to toggle saturation level
 function toggleSaturation() {
     currentSaturationIndex = (currentSaturationIndex + 1) % saturationLevels.length;
-    applySaturation(saturationLevels[currentSaturationIndex]);
+    applyFilters();
 }
 
 // Function to apply saturation level
-function applySaturation(saturationLevel) {
-    document.body.style.filter = getFilterValue(saturationLevel);
-    updateButtonImage(changeSaturationBtn, saturationLevel + "Saturation");
+function applySaturation() {
+    const saturationMode = saturationLevels[currentSaturationIndex];
+    updateButtonImage(changeSaturationBtn, saturationMode + "Saturation");
+}
+
+// Function to apply both contrast and saturation filters
+function applyFilters() {
+    const contrastMode = contrastLevels[currentContrastIndex];
+    const saturationMode = saturationLevels[currentSaturationIndex];
+
+    const contrastFilter = getFilterValue(contrastMode, 'contrast');
+    const saturationFilter = getFilterValue(saturationMode, 'saturation');
+
+    const combinedFilter = combineFilters(contrastFilter, saturationFilter);
+    document.documentElement.style.filter = combinedFilter;
+
+    applyContrast();
+    applySaturation();
 }
 
 // Helper function to get filter value based on mode
-function getFilterValue(mode) {
+function getFilterValue(mode, type) {
     switch (mode) {
         case 'default':
-            return 'none';
+            return type === 'contrast' ? 'none' : 'none';
         case 'light':
             return 'brightness(120%) contrast(90%)';
         case 'dark':
@@ -2036,10 +2051,20 @@ function getFilterValue(mode) {
             return 'none';
     }
 }
+
+// Helper function to combine contrast and saturation filters
+function combineFilters(contrastFilter, saturationFilter) {
+    const filters = [contrastFilter, saturationFilter].filter(filter => filter !== 'none');
+    return filters.join(' ');
+}
+
 // Helper function to update button image based on mode
 function updateButtonImage(button, imageName) {
     button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + ".svg")}`;
 }
+
+// Initial application of filters
+applyFilters();
 
 
 let screenShaderOverlay;
