@@ -29,13 +29,13 @@ const MainHTML = `
 
 
         <div id="button-container-alpha">
-             <button id="defaultButton">Reset to default</button>
+             <button id="defaultButton" title="Turns off all widget changes">Reset to default</button>
         </div>
 
  
         <div id="button-container">
             <div class="dropdown">
-                <button class="myButtons dropdown-toggle" id="move-widget">Move Widget</button>
+                <button class="myButtons dropdown-toggle" id="move-widget" title="Changes which side the sidebar is on">Move Widget</button>
                 <ul class="dropdown-menu">
                     <li><a href="#" id="moveSidebarLeft">Left</a></li>
                     <li><a href="#" id="moveSidebarRight">Right</a></li>
@@ -49,38 +49,38 @@ const MainHTML = `
         </button>
 
 
-        <button id="toggleAccessibilityProfiles" class="collapsibleMenu" title="Toggle Accessibility Profiles">
+        <button id="toggleAccessibilityProfiles" class="collapsibleMenu" title="Toggle visibility of accessibility profiles">
             <p>Accessibility Profiles</p>
             <img id="toggleAccessibilityProfilesImg" src="${chrome.runtime.getURL('images/profilesCollapsed.svg')}" draggable="false">
         </button>
 
         <div id = "accessibilityGridSetUp" class="hide">
             <div class="grid-item" id = "colorBlindProfileStyle">
-                <button id="colorBlindProfile">
+                <button id="colorBlindProfile" title="Toggle Color Blind Settings">
                     <img id="colorBlindProfileImg" src="${chrome.runtime.getURL('images/ColorblindGray.svg')}" draggable="false">  
                     <p>Color Blind</p>
                 </button>
             </div>
             <div class="grid-item">
-                <button id="visuallyImpairedProfile" class="svg-button-larger">
+                <button id="visuallyImpairedProfile" title="Toggle Visually Impaired Settings">
                     <img id="visuallyImpairedProfileImg" src="${chrome.runtime.getURL("images/VisuallyImpairedGray.svg")}" draggable = "false">
                     <p>Visual Impariment</p>
                 </button>
             </div>
             <div class="grid-item">
-                <button id="dyslexiaProfile" class="svg-button-larger">
+                <button id="dyslexiaProfile" title="Toggle Dyslexia Settings">
                     <img id="dyslexiaProfileImg" src="${chrome.runtime.getURL("images/DyslexiaGray.svg")}" draggable = "false">
                     <p>Dyslexia</p> 
                 </button>
             </div>
             <div class="grid-item">
-                <button id="ADHDProfile" class="svg-button-larger">
+                <button id="ADHDProfile" title="Toggle ADHD Settings">
                     <img id="ADHDProfileImg" src="${chrome.runtime.getURL("images/ADHDGray.svg")}" draggable = "false">
                     <p>ADHD</p> 
                 </button>
             </div>
             <div class="grid-item">
-                <button id="LearningProfile" class="svg-button-larger">
+                <button id="LearningProfile" title="Toggle Cognitive and Learning Settings">
                     <img id="LearningProfileImg" src="${chrome.runtime.getURL("images/CognitiveGray.svg")}" draggable = "false">
                     <p>Cognitive & Learning</p> 
                 </button>
@@ -89,7 +89,7 @@ const MainHTML = `
             
         <div class = "gridSetUp" id = "mainSetUp">
             <div class="grid-item">
-                <button id="readPage" class="svg-button-larger">
+                <button id="readPage" title="Reads the enitire page or a highlighted selection if available">
                     <img id="readPageImg" src="${chrome.runtime.getURL("images/ReadPage.svg")}" draggable = "false">
                     <p>Read This Page</p>  
                 </button>
@@ -97,16 +97,16 @@ const MainHTML = `
 
 
             <div class="grid-item">
-                <button id="readSpeed" title="Screen Reader Speed" class="svg-button-larger">
+                <button id="readSpeed" title="Changes the screen reader speed">
                     <img id="readSpeedImg" src="${chrome.runtime.getURL("images/SpeedNormalGray.svg")}" draggable = "false">
                     <p>Speed</p>  
                 </button>
             </div>
 
 
-            <div class="color-grid-container">
+            <div class="color-grid-container" title="Changes the highlighted selection to the chosen color">
                 <p class="color-grid-title">Highlight Color</p>
-                <div class="color-grid">
+                <div class="color-grid" >
                     <div class="color-group">
                         <button id="textHighlightBlack" class="color-button" style="background-color: black;"></button>
                         <button id="textHighlightWhite" class="color-button" style="background-color: white;"></button>
@@ -127,11 +127,11 @@ const MainHTML = `
 
             
             <div class="grid-item">
-                <button id="typefaceButton">
+                <button id="typefaceButton" title="Click to reveal typefaces">
                     <img src="${chrome.runtime.getURL('images/Typeface.svg')}" draggable="false">
                     <p>Typeface Conversions</p> 
                 </button>
-                <div class = "grid-item-alpha">
+                <div class = "grid-item-alpha" title="Converts an entire website's text or a highlighted selection to the chosen typeface">
                     <div id="textOptions" class="hide">
                         <button class="font-button" id="arialButton" style="font-family: Arial;">Arial</button>
                         <button class="font-button" id="calibriButton" style="font-family: Calibri;">Calibri</button>
@@ -149,7 +149,7 @@ const MainHTML = `
 
 
             <div class="grid-item">
-                <button id="textSize" class="svg-button-larger">
+                <button id="textSize" title="Scales an entire website's or a highlighted selection's text size">
                     <img src="${chrome.runtime.getURL("images/TextSizeGray.svg")}" draggable="false">
                     <p>Text Size</p> 
                 </button>
@@ -157,7 +157,7 @@ const MainHTML = `
 
 
             <div class="grid-item">
-                <button id="emboldenText" class="svg-button-larger">
+                <button id="emboldenText" title="Emboldens an entire website's or a highlighted selection's text">
                     <img src="${chrome.runtime.getURL("images/EmboldenTextGray.svg")}" draggable="false">
                     <p>Embolden Text</p> 
                 </button>
@@ -165,7 +165,7 @@ const MainHTML = `
 
 
             <div class="grid-item">
-                <button id="italicizeText" class="svg-button-larger">
+                <button id="italicizeText" title="Italicizes an entire website's or a highlighted selection's text">
                     <img src="${chrome.runtime.getURL("images/ItalicizeTextGray.svg")}" draggable="false">
                     <p>Italicize Text</p> 
                 </button>
@@ -173,14 +173,14 @@ const MainHTML = `
 
 
             <div class="grid-item">
-                <button id="textAlignment" class="svg-button-larger">
+                <button id="textAlignment" title="Changes the alignment of an entire website's text">
                     <img src="${chrome.runtime.getURL("images/DefaultAlignGray.svg")}" draggable="false">
                     <p>Align Text</p> 
                 </button>
             </div>
 
 
-            <div class="color-grid-container">
+            <div class="color-grid-container" title="Converts an entire website's text or a highlighted selection to the chosen color">
                 <p class="color-grid-title">Text Color</p>
                 <div class="color-grid">
                     <div class="color-group">
@@ -203,7 +203,7 @@ const MainHTML = `
 
 
             <div class="grid-item">
-                <button id="spaceBetweenLines" class="svg-button-larger">
+                <button id="spaceBetweenLines" title="Changes the spacing between lines of an entire website">
                     <img src="${chrome.runtime.getURL("images/BetweenLinesGray.svg")}" draggable = "false">
                     <p>Between Lines</p> 
                 </button>
@@ -211,7 +211,7 @@ const MainHTML = `
 
 
             <div class="grid-item">
-                <button id="spaceBetweenWords" class="svg-button-larger">
+                <button id="spaceBetweenWords" title="Changes the spacing between words of an entire website">
                     <img src="${chrome.runtime.getURL("images/BetweenWordsGray.svg")}" draggable = "false">
                     <p>Between Words</p> 
                 </button>
@@ -219,14 +219,14 @@ const MainHTML = `
 
 
             <div class="grid-item">
-                <button id="spaceBetweenLetters" class="svg-button-larger">
+                <button id="spaceBetweenLetters" title="Changes the spacing between letters of an entire website">
                     <img src="${chrome.runtime.getURL("images/BetweenLettersGray.svg")}" draggable = "false">
                     <p>Between Letters</p> 
                 </button>
             </div>
 
 
-            <div class="color-grid-container">
+            <div class="color-grid-container" title="Adds a screen shader to tint the website in the selected color">
                 <p class="color-grid-title">Tint Color</p>
                 <div class="color-grid">
                     <div class="color-group">
@@ -248,7 +248,7 @@ const MainHTML = `
             </div>
 
 
-            <div class="grid-item" id = "slider-alpha">
+            <div class="grid-item" id = "slider-alpha" title="Changes the opacity of the screen shader">
                 <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false" id = "brightnessAlpha">
                 <p>Tint Brightness</p>
                 <input type="range" id="brightnessSliderAlpha" min="0" max="100" value="50" class = "slider">
@@ -256,28 +256,28 @@ const MainHTML = `
 
 
             <div class="grid-item">
-                <button id="toggleFocusRuler" class="svg-button-larger">
+                <button id="toggleFocusRuler" class="svg-button-larger" title="Cycles between modes for a focus ruler">
                     <img src="${chrome.runtime.getURL("images/MaskTypeGray.svg")}" draggable="false">
                     <p>Toggle Focus Ruler</p> 
                 </button>
             </div>
 
 
-            <div class="grid-item" id="Line-Height-Border">
+            <div class="grid-item" id="Line-Height-Border" title="Adjust the height of the focus ruler">
                 <img src="${chrome.runtime.getURL("images/LineHeightGray.svg")}" draggable="false"  class="svg-icon" id="lineHeightIMG">
                 <p>Ruler Height</p> 
                 <input type="range" id="lineHeightSlider" min="0" max="200" value="50" class = "slider">
             </div>
 
 
-            <div class="grid-item" id="slider-beta">
+            <div class="grid-item" id="slider-beta" title="Adjust the opacity of the focus ruler mask">
                 <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false"  class="svg-icon" id = "brightnessBeta">
                 <p>Ruler Brightness</p> 
                 <input type="range" id="brightnessSliderBeta" min="0" max="100" value="50" class="slider">
             </div>
 
 
-            <div class="color-grid-container">
+            <div class="color-grid-container" title="Adjust the color of the focus ruler mask">
                 <p class="color-grid-title">Mask Color</p>
                 <div class="color-grid">
                     <div class="color-group">
@@ -300,13 +300,13 @@ const MainHTML = `
 
 
             <div class="grid-item">
-                <button id="changeContrast" class="svg-button-larger">
+                <button id="changeContrast" title="Cycles between different contrast modes">
                     <img src="${chrome.runtime.getURL("images/DefaultContrast.svg")}" draggable = "false">
                     <p>Contrast</p> 
                 </button>
             </div>
             <div class="grid-item">
-                <button id="changeSaturation" class="svg-button-larger"> 
+                <button id="changeSaturation" title="Cycles between different saturation modes"> 
                     <img src="${chrome.runtime.getURL("images/DefaultSaturation.svg")}" draggable = "false">
                     <p>Saturation</p> 
                 </button>
@@ -314,7 +314,7 @@ const MainHTML = `
 
 
             <div class="grid-item">
-                <button id="highlightLinks" class="svg-button-larger">
+                <button id="highlightLinks" title="Highlights all links on a website">
                     <img src="${chrome.runtime.getURL("images/HighlightLinkGray.svg")}" draggable = "false">
                     <p>Hightlight Links</p> 
                 </button>
@@ -322,7 +322,7 @@ const MainHTML = `
 
 
             <div class="grid-item">
-                <button id="hideImages" class="svg-button-larger"> 
+                <button id="hideImages" title="Toggles the visibility of all images on a website"> 
                     <img src="${chrome.runtime.getURL("images/HideImagesGray.svg")}" draggable = "false">
                     <p>Hide Images</p> 
                 </button>
@@ -330,7 +330,7 @@ const MainHTML = `
 
 
             <div class="grid-item">
-                <button id="cursorSize" class="svg-button-larger">
+                <button id="cursorSize" title="Toggles the cursor size">
                     <img src="${chrome.runtime.getURL("images/BigCursorGray.svg")}" draggable = "false">
                     <p>Large Cursor</p> 
                 </button>
