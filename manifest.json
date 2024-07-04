@@ -1,7 +1,7 @@
 {
   "name": "STP",
   "version": "1.0.0",
-  "description": "This is a Google Chrome extension for out CSCE Software Testing class.",
+  "description": "This is a Google Chrome extension for our CSCE Software Testing class.",
   "manifest_version": 3,
   "author": "Weston Leonard, Hector Ruiz",
   "permissions": [

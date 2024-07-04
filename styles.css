@@ -15,8 +15,6 @@
     z-index: 9999;
 }
 
-
-
 .toolbar button {
     background-color: transparent;
     border: none;
@@ -33,78 +31,187 @@
     box-shadow: 0 0 10px 2px blue; /* Blue highlight on hover */
 }
 
-.fontAlterationButtons {
-    display: none;
-}
-
-.fontAlterationButtons:hover{
-    box-shadow: 0 0 10px 2px blue; /* Blue highlight on hover */
-}
-
 #sidebar {
     display: none; 
     position: fixed;
     top: 0;
     right: 0;
-    width: 50%;
+    width: 30%;
     height: 100%;
-    background-color: white;
-    padding: 20px;
+    background-color:rgba(239,241,245,255);
+    padding: 1px;
     box-sizing: border-box;
     z-index: 9999;
     overflow-y: auto; /* Add vertical scrollbar */
-    color: black; /* Ensure text is visible on dark background */
-    box-shadow: -10px 0 15px #00000033;
+    border: 1px solid rgb(0, 0, 0);   
 }
 
-#sidebar .section {
-    margin-bottom: 20px; /* Space between sections */
+#sidebar.left {
+    left: 0;
+    right: auto;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.5);
 }
 
-#sidebar .section h2 {
+#menu {
+    border-radius: 10px;
+    color: white;
+    height: 10%;
+    text-align: center;
+    font-weight: bold;
+    background-color: rgba(33,37,41,255);
+    align-content: center;
+    display: flex; /* Use flexbox to center the text */
+    justify-content: center; /* Center the text horizontally */
+    align-items: center; /* Center the text vertically */
+    overflow: hidden; /* Prevent content from overflowing */
     margin-bottom: 10px;
-    font-size: 95;
 }
 
-#sidebar .section-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-}
-
-#sidebar .section-content-alpha {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    border: 2px solid black;
-}
-
-#sidebar .section-content button {
-    background-color: #ffffff;
-    border: none;
+#temp {
+    font-size: clamp(1rem, 2.5vw, 4rem); /* Adjust font size based on viewport width */
+    line-height: 1.2; /* Adjust line height to ensure proper spacing */
+    color: white;
     border-radius: 10px;
-    padding: 10px;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    align-content: center;
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide overflow content */
+    text-overflow: ellipsis; /* Display ellipsis for overflow text */
+}
+
+.myButtons{
+    background-color: rgb(255, 255, 255);
+    text-align: center;
+    align-items: center;
+    border: 1px solid rgb(0, 0, 0); 
+    border-radius: 10px; /* Increase the border-radius to round all corners */
+    font-size: 30px;
+    width: 97%; /* Make the buttons take up the full width of the grid cell */
+    height: 100%; /* Make the buttons take up the full height of the grid cell */
+    font-weight: bold;
+
+    font-size: clamp(0.9rem, 0.9vw, 4rem); /* Adjust font size based on viewport width */
+    line-height: 1.2; /* Adjust line height to ensure proper spacing */
+}
+
+#button-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Define two columns of equal width */
+    gap: 1%; /* Add a gap between the columns */
+    background-color: rgba(255, 255, 255, 0);
+    padding-left: 1.5%;
+    margin-bottom: 10px;
+}
+
+#button-container-alpha {
+    background-color: rgba(255, 255, 255, 0);
+    padding-left: 1.5%;
+    margin-bottom: 10px;
+}
+
+#accessibilityGridSetUp {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr)); /* Adjust minmax as needed */
+    grid-template-rows: repeat(2, minmax(0, 1fr)); /* Create 10 rows */
+    grid-auto-rows: minmax(100px, auto); /* Adjust row height */
+    gap: 1%; /* Adjust gap as needed */
+    justify-content: center;
+    padding: 1%; /* Add padding around the grid */
+}
+
+.collapsibleMenu {
+    padding: 0;
+    font-size: 0.875rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
     cursor: pointer;
-}
-
-#sidebar button {
-    background-color: #ffffff;
-    border: none;
+    position: relative;
+    background-color: rgb(204, 204, 204);
     border-radius: 10px;
+    border: 1px solid rgb(0, 0, 0); 
+}
+.collapsibleMenu img{
+    width: 30px;
+    height: 30px;
+    display: block;
+    margin-left: 0.6875rem;
+    margin-top: -0.0625rem;
 }
 
-#sidebar button:hover {
+.gridSetUp {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr)); /* Adjust minmax as needed */
+    grid-template-rows: repeat(8, minmax(0, 1fr)); /* Create 10 rows */
+    grid-auto-rows: minmax(100px, auto); /* Adjust row height */
+    gap: 1%; /* Adjust gap as needed */
+    justify-content: center;
+    padding: 1%; /* Add padding around the grid */
+}
+
+.grid-item {
+    padding: 1%; /* Adjust padding as needed*/
+}
+
+.grid-item img {
+    max-width: 100%; /* Adjust max-width as needed */
+    max-height: 50%; /* Adjust max-height as needed */
+    margin-bottom: 10px; /* Space between image and text */
+}
+
+.grid-item p {
+    font-family: Arial, sans-serif;
+    color: #000000;
+    text-align: center;
+    margin: 0; /* Remove default margin */
+    font-weight: bold;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden; /* Ensure any overflow content is hidden */
+    text-overflow: ellipsis;
+
+    font-size: clamp(0.1rem, 0.9vw, 4rem); /* Adjust font size based on viewport width */
+    line-height: 1.2; /* Adjust line height to ensure proper spacing */
+}
+
+
+.grid-item button {
+    display: block; /* Add this */
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    text-align: center; /* Add this */
+    align-items: center;
+    border: 1px solid rgb(0, 0, 0); 
+    border-radius: 10px; /* Add border-radius if needed */
+}
+
+
+button:hover {
     box-shadow: 0 0 10px 2px blue; /* Blue highlight on hover */
 }
 
 #closeSidebar {
     position: absolute;
-    top: 10px; /* Adjust the top position as needed */
+    top: 10px; /* Adjust the top position as needed */ 
     right: 10px; /* Adjust the right position as needed */
-    border: black;
     cursor: pointer;
+
+    background-color: #ffffff;
+    border-radius: 50%;
+    padding: 10px;
+    width: auto;
+    height: auto;
+}
+
+#textOptions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns, each taking 1 fractional unit */
+    grid-template-rows: repeat(5, 3fr);
+    column-gap: 1px; /* Adjust gap as needed */
+    height: 100%;
 }
 
 .show {
@@ -125,17 +232,66 @@
 .centered-heading {
     text-align: center; /* Center-align the heading */
     margin-bottom: 10px; /* Add some space below the heading */
+    color: #000000;
 }
 
+.color-grid-container {
+    text-align: center; /* Center the title */
+    box-sizing: border-box;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 10%;
+    background-color: rgb(255, 255, 255);
+    overflow: auto;
+    
+}
+
+.color-grid-container p{
+    font-family: Arial, sans-serif;
+    color: #000000;
+    text-align: center;
+    margin: 0; /* Remove default margin */
+    font-weight: bold;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden; /* Ensure any overflow content is hidden */
+    text-overflow: ellipsis;
+
+    font-size: clamp(0.1rem, 0.9vw, 4rem); /* Adjust font size based on viewport width */
+    line-height: 1.2; /* Adjust line height to ensure proper spacing */
+    
+}
+
+.color-grid-title {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    color: #000000;
+    margin: 0px; /* Add some space between the title and the grid */
+    font-weight: bold;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.color-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, .2fr));
+    column-gap: 2%;
+    row-gap: 2%;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+
 .color-button {
-    width: 30px;
-    height: 30px;
+    aspect-ratio: 1/1;
     border-radius: 50%;
     border: none;
     cursor: pointer;
     transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
-    justify-content: center;
-    margin: 0px;
+    border: 1px solid rgb(0, 0, 0); 
+    width: 100%; /* Ensure button takes full grid column width */
+    max-width: 100px; /* Set a maximum width for larger screens */
+    max-height: 100px; /* Set a maximum height for larger screens */
 }
 
 .color-button:hover {
@@ -147,14 +303,15 @@
 }
 
 .color-button-alpha {
-    width: 30px;
-    height: 30px;
+    aspect-ratio: 1/1;
     border-radius: 50%;
     border: none;
     cursor: pointer;
     transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
-    justify-content: center;
-    margin: 0px;
+    border: 1px solid rgb(0, 0, 0); 
+    width: 100%; /* Ensure button takes full grid column width */
+    max-width: 100px; /* Set a maximum width for larger screens */
+    max-height: 100px; /* Set a maximum height for larger screens */
 }
 
 .color-button-alpha:hover {
@@ -165,17 +322,45 @@
     border: 1px solid #ccc; /* Add border to make white button visible */
 }
 
-.slider-container {
-    display: flex;
-    flex-direction: column;
+#slider-beta{
+    display: block; /* Add this */
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    text-align: center; /* Add this */
     align-items: center;
-    gap: 10px;
-    margin-left: 20px; /* Add margin to separate from color buttons */
-  }
-
-#brightnessSlider {
-    width: 200px;
+    border: 1px solid rgb(0, 0, 0); 
+    border-radius: 10px; /* Add border-radius if needed */
 }
+
+#slider-alpha{
+    display: block; /* Add this */
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    text-align: center; /* Add this */
+    align-items: center;
+    border: 1px solid rgb(0, 0, 0); 
+    border-radius: 10px; /* Add border-radius if needed */
+}
+
+#Line-Height-Border{
+    display: block; /* Add this */
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    text-align: center; /* Add this */
+    align-items: center;
+    border: 1px solid rgb(0, 0, 0); 
+    border-radius: 10px; /* Add border-radius if needed */
+}
+
+.slider {
+    width: 85vw; /* 85% of the viewport width */
+    max-width: 85%; /* Ensure it doesn't exceed the container width */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
 
 .left-content {
     display: flex;
@@ -237,7 +422,6 @@
     src: url('chrome-extension://__MSG_@@extension_id__/fonts/verdana.ttf') format('truetype');
 }
 
-
 #screenShaderOverlay {
     position: fixed;
     top: 0;
@@ -249,74 +433,18 @@
     background: rgba(0, 0, 0, 0); /* Initial background color with opacity */
     transition: background-color 0.3s ease; /* Optional: Add transition effect */
 }
-
-/* Target the buttons containing SVGs */
-.svg-button img {
-    width: 150px;
-    height: 150px; 
-  }
-
-  .svg-button-larger img {
-    width: 100px;
-    height: 100px; 
-  }
-
-
-.image-slider-pair {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1px; /* Adjust gap to control the space between the image and the slider */
-}
-
-.svg-icon {
-    width: auto; /* Adjust size as needed */
-    height: auto;
-}
   
- #textOptions .font-button {
-    display: inline-block;
-    width: 15%; /* Adjust the width to fit five buttons in a row */
-    margin: 1px;
+ .font-button{
     padding: 1px;
-    font-size: 16px;
-  }
+    font-size: 12px;
+    font-weight: bold;
+    height: 100%;
 
-
-#changeContrast {
-    margin-right: 100px;
-}
-
-#changeSaturation {
-    margin-left: 100px;
 }
 
 .font-button.active {
     background-color: lightblue; /* or any shade of blue you prefer */
 }
-
-.highlight-bold { font-weight: bold !important;}
-.highlight-italics { font-style: italic !important; }
-
-.highlight-typeface-arial { font-family: Arial; }
-.highlight-typeface-calibri { font-family: 'Calibri'; }
-.highlight-typeface-century-gothic { font-family: 'Century Gothic'; }
-.highlight-typeface-comic-sans-ms { font-family: 'Comic Sans MS'; }
-.highlight-typeface-courier { font-family: Courier; }
-.highlight-typeface-helvetica { font-family: Helvetica; }
-.highlight-typeface-open-sans { font-family: 'Open Sans'; }
-.highlight-typeface-opendyslexic { font-family: 'OpenDyslexic'; }
-.highlight-typeface-tahoma { font-family: Tahoma; }
-.highlight-typeface-verdana { font-family: Verdana; }
-
-.highlight-color-black { color: black; }
-.highlight-color-white { color: white; }
-.highlight-color-red { color: red; }
-.highlight-color-orange { color: orange; }
-.highlight-color-yellow { color: yellow; }
-.highlight-color-green { color: green; }
-.highlight-color-blue { color: blue; }
-.highlight-color-purple { color: purple; }
 
 @font-face {
     font-family: 'OpenDyslexic';
@@ -342,3 +470,49 @@
     font-family: 'Verdana';
     src: url('chrome-extension://__MSG_@@extension_id__/fonts/verdana.ttf') format('truetype');
 }
+
+
+.fontAlterationButtons {
+    display: none;
+}
+
+.highlight-bold { font-weight: bold !important;}
+.highlight-italics { font-style: italic !important; }
+.highlight-typeface-arial { font-family: Arial; }
+.highlight-typeface-calibri { font-family: 'Calibri'; }
+.highlight-typeface-century-gothic { font-family: 'Century Gothic'; }
+.highlight-typeface-comic-sans-ms { font-family: 'Comic Sans MS'; }
+.highlight-typeface-courier { font-family: Courier; }
+.highlight-typeface-helvetica { font-family: Helvetica; }
+.highlight-typeface-open-sans { font-family: 'Open Sans'; }
+.highlight-typeface-opendyslexic { font-family: 'OpenDyslexic'; }
+.highlight-typeface-tahoma { font-family: Tahoma; }
+.highlight-typeface-verdana { font-family: Verdana; }
+.highlight-color-black { color: black; }
+.highlight-color-white { color: white; }
+.highlight-color-red { color: red; }
+.highlight-color-orange { color: orange; }
+.highlight-color-yellow { color: yellow; }
+.highlight-color-green { color: green; }
+.highlight-color-blue { color: blue; }
+.highlight-color-purple { color: purple; }
+.highlight-highlight-black { background-color: black; }
+.highlight-highlight-white { background-color: white; }
+.highlight-highlight-red { background-color: red; }
+.highlight-highlight-orange { background-color: orange; }
+.highlight-highlight-yellow { background-color: yellow; }
+.highlight-highlight-green { background-color: green; }
+.highlight-highlight-blue { background-color: blue; }
+.highlight-highlight-purple { background-color: purple; }
+
+/* Contrast Classes */
+.contrast-default { filter: none; }
+.contrast-light { filter: brightness(120%) contrast(90%); }
+.contrast-dark { filter: brightness(80%) contrast(130%); }
+.contrast-invert { filter: invert(100%); }
+
+/* Saturation Classes */
+.saturation-default { filter: none; }
+.saturation-low { filter: saturate(50%); }
+.saturation-high { filter: saturate(150%); }
+.saturation-desaturate { filter: grayscale(100%); }

@@ -1,7 +1,6 @@
 <svg width="213" height="142" viewBox="0 0 213 142" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="213" height="142" rx="15" fill="white" fill-opacity="0.21"/>
 <rect x="78" y="67" width="51" height="3" fill="black"/>
-<rect x="73" y="68.7762" width="15.2424" height="3.92139" transform="rotate(-44.99 73 68.7762)" fill="black"/>
+<rect x="73" y="68.7761" width="15.2424" height="3.92139" transform="rotate(-44.99 73 68.7761)" fill="black"/>
 <rect x="130.566" y="68.7547" width="15.2424" height="3.92139" transform="rotate(134.914 130.566 68.7547)" fill="black"/>
 <rect x="75.7722" y="66" width="15.2424" height="3.92139" transform="rotate(44.9864 75.7722 66)" fill="black"/>
 <rect x="127.799" y="71.5355" width="15.2424" height="3.92139" transform="rotate(-135.11 127.799 71.5355)" fill="black"/>
