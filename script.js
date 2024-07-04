@@ -14,112 +14,124 @@ linkElement.href = extensionCSS;
 
 const MainHTML = `
 <div class="STP" id="STP" style="font-family: Arial;">
+
     <div class="toolbar" id="toolbarMain">
         <button id="openSidebar" title="Open Sidebar">
             <img src="${chrome.runtime.getURL("images/openSidebar.svg")}" draggable = "false">
         </button>
     </div>
+
+
     <div id="sidebar">
         <div id="menu">
             <p id = "temp">Accessibility Menu</p>
         </div>
+
+
         <div id="button-container-alpha">
-             <button class = "myButtons" id="defaultButton">Reset to default</button>
+             <button id="defaultButton">Reset to default</button>
         </div>
+
+ 
         <div id="button-container">
-            <button class = "myButtons" id="moveSidebarLeft">Left</button>
-            <button class = "myButtons" id="moveSidebarRight">Right</button>
+            <div class="dropdown">
+                <button class="myButtons dropdown-toggle" id="move-widget">Move Widget</button>
+                <ul class="dropdown-menu">
+                    <li><a href="#" id="moveSidebarLeft">Left</a></li>
+                    <li><a href="#" id="moveSidebarRight">Right</a></li>
+                </ul>
+            </div>
         </div>
+
+
         <button id="closeSidebar" title="Close Sidebar">
             <img src="${chrome.runtime.getURL("images/closeSidebar.svg")}" draggable="false">
         </button>
+
+
+        <button id="toggleAccessibilityProfiles" class="collapsibleMenu" title="Toggle Accessibility Profiles">
+            <p>Accessibility Profiles</p>
+            <img id="toggleAccessibilityProfilesImg" src="${chrome.runtime.getURL('images/profilesCollapsed.svg')}" draggable="false">
+        </button>
+
+        <div id = "accessibilityGridSetUp" class="hide">
+            <div class="grid-item" id = "colorBlindProfileStyle">
+                <button id="colorBlindProfile">
+                    <img id="colorBlindProfileImg" src="${chrome.runtime.getURL('images/ColorblindGray.svg')}" draggable="false">  
+                    <p>Color Blind</p>
+                </button>
+            </div>
+            <div class="grid-item">
+                <button id="visuallyImpairedProfile" class="svg-button-larger">
+                    <img id="visuallyImpairedProfileImg" src="${chrome.runtime.getURL("images/VisuallyImpairedGray.svg")}" draggable = "false">
+                    <p>Visual Impariment</p>
+                </button>
+            </div>
+            <div class="grid-item">
+                <button id="dyslexiaProfile" class="svg-button-larger">
+                    <img id="dyslexiaProfileImg" src="${chrome.runtime.getURL("images/DyslexiaGray.svg")}" draggable = "false">
+                    <p>Dyslexia</p> 
+                </button>
+            </div>
+            <div class="grid-item">
+                <button id="ADHDProfile" class="svg-button-larger">
+                    <img id="ADHDProfileImg" src="${chrome.runtime.getURL("images/ADHDGray.svg")}" draggable = "false">
+                    <p>ADHD</p> 
+                </button>
+            </div>
+            <div class="grid-item">
+                <button id="LearningProfile" class="svg-button-larger">
+                    <img id="LearningProfileImg" src="${chrome.runtime.getURL("images/CognitiveGray.svg")}" draggable = "false">
+                    <p>Cognitive & Learning</p> 
+                </button>
+            </div>
+        </div>
+            
         <div class = "gridSetUp" id = "mainSetUp">
-            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
-                <div class="grid-item" id = "colorBlindProfileStyle">
-                    <button id="colorBlindProfile">
-                        <img id="colorBlindProfileImg" src="${chrome.runtime.getURL('images/ColorblindGray.svg')}" draggable="false">  
-                        <p>Color Blind</p>
-                    </button>
-                </div>
-                <div class="grid-item">
-                    <button id="visuallyImpairedProfile" class="svg-button-larger">
-                        <img id="visuallyImpairedProfileImg" src="${chrome.runtime.getURL("images/VisuallyImpairedGray.svg")}" draggable = "false">
-                        <p>Visual Impariment</p>
-                    </button>
-                </div>
-                <div class="grid-item">
-                    <button id="dyslexiaProfile" class="svg-button-larger">
-                        <img id="dyslexiaProfileImg" src="${chrome.runtime.getURL("images/DyslexiaGray.svg")}" draggable = "false">
-                        <p>Dyslexia</p> 
-                    </button>
-                </div>
-                <div class="grid-item">
-                    <button id="ADHDProfile" class="svg-button-larger">
-                        <img id="ADHDProfileImg" src="${chrome.runtime.getURL("images/ADHDGray.svg")}" draggable = "false">
-                        <p>ADHD</p> 
-                    </button>
-                </div>
-                <div class="grid-item">
-                    <button id="LearningProfile" class="svg-button-larger">
-                        <img id="LearningProfileImg" src="${chrome.runtime.getURL("images/CognitiveGray.svg")}" draggable = "false">
-                        <p>Cognitive & Learning</p> 
-                    </button>
-                </div>
-            
-            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+            <div class="grid-item">
+                <button id="readPage" class="svg-button-larger">
+                    <img id="readPageImg" src="${chrome.runtime.getURL("images/ReadPage.svg")}" draggable = "false">
+                    <p>Read This Page</p>  
+                </button>
+            </div>
 
-            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ ---> 
-            <!-- <div class="section" id="T2S"> -->
-                <div class="grid-item">
-                    <button id="readPage" class="svg-button-larger">
-                        <img id="readPageImg" src="${chrome.runtime.getURL("images/ReadPage.svg")}" draggable = "false">
-                        <p>Read This Page</p>  
-                    </button>
-                </div>
-                <div class="grid-item">
-                    <button id="readSpeed" title="Screen Reader Speed" class="svg-button-larger">
-                        <img id="readSpeedImg" src="${chrome.runtime.getURL("images/SpeedNormalGray.svg")}" draggable = "false">
-                        <p>Speed</p>  
-                    </button>
-                </div>
-                <!--<div class="grid-item">
-                    <button id="HighlightTextButton" class="svg-button-larger">
-                        <img id="HighlightTextButtonImg" src="${chrome.runtime.getURL("images/Highlight Text.svg")}" draggable = "false">
-                        <p>Highlight Text</p>
-                    </button>
-                </div> --->
-                <div class="color-grid-container">
-                    <p class="color-grid-title">Highlight Color</p>
-                    <div>
-                    <div class="color-grid">
-                        <div class="color-group">
-                            <button id="textHighlightBlack" class="color-button" style="background-color: black;"></button>
-                            <button id="textHighlightWhite" class="color-button" style="background-color: white;"></button>
-                            <button id="textHighlightRed" class="color-button" style="background-color: red;"></button>
-                        </div>
-                        <div class="color-group">
-                            <button id="textHighlightOrange" class="color-button" style="background-color: orange;"></button>
-                            <button id="textHighlightYellow" class="color-button" style="background-color: yellow;"></button>
-                            <button id="textHighlightGreen" class="color-button" style="background-color: green;""></button>
-                        </div>
-                        <div class="color-group">
-                            <button id="textHighlightBlue" class="color-button" style="background-color: blue;"></button>
-                            <button id="textHighlightPurple" class="color-button" style="background-color: purple;"></button>
-                            <button id="textHighlightColorDefault" class="color-button" style="background-color: gray;"></button>
-                        </div>
+
+            <div class="grid-item">
+                <button id="readSpeed" title="Screen Reader Speed" class="svg-button-larger">
+                    <img id="readSpeedImg" src="${chrome.runtime.getURL("images/SpeedNormalGray.svg")}" draggable = "false">
+                    <p>Speed</p>  
+                </button>
+            </div>
+
+
+            <div class="color-grid-container">
+                <p class="color-grid-title">Highlight Color</p>
+                <div class="color-grid">
+                    <div class="color-group">
+                        <button id="textHighlightBlack" class="color-button" style="background-color: black;"></button>
+                        <button id="textHighlightWhite" class="color-button" style="background-color: white;"></button>
+                        <button id="textHighlightRed" class="color-button" style="background-color: red;"></button>
                     </div>
+                    <div class="color-group">
+                        <button id="textHighlightOrange" class="color-button" style="background-color: orange;"></button>
+                        <button id="textHighlightYellow" class="color-button" style="background-color: yellow;"></button>
+                        <button id="textHighlightGreen" class="color-button" style="background-color: green;""></button>
+                    </div>
+                    <div class="color-group">
+                        <button id="textHighlightBlue" class="color-button" style="background-color: blue;"></button>
+                        <button id="textHighlightPurple" class="color-button" style="background-color: purple;"></button>
+                        <button id="textHighlightColorDefault" class="color-button" style="background-color: gray;"></button>
                     </div>
                 </div>
+            </div>
+
             
-            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
-
-
-            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
-                <div class="grid-item">
-                    <button id="typefaceButton">
-                        <img src="${chrome.runtime.getURL("images/Typeface.svg")}" draggable="false">
-                        <p>Typeface Conversions</p> 
-                    </button>
+            <div class="grid-item">
+                <button id="typefaceButton">
+                    <img src="${chrome.runtime.getURL('images/Typeface.svg')}" draggable="false">
+                    <p>Typeface Conversions</p> 
+                </button>
+                <div class = "grid-item-alpha">
                     <div id="textOptions" class="hide">
                         <button class="font-button" id="arialButton" style="font-family: Arial;">Arial</button>
                         <button class="font-button" id="calibriButton" style="font-family: Calibri;">Calibri</button>
@@ -133,190 +145,196 @@ const MainHTML = `
                         <button class="font-button" id="verdanaButton" style="font-family: Verdana;">Verdana</button>
                     </div>
                 </div>
-                <!-- <h3 class="centered-heading">Edit Website Text</h3> -->
-                <div class="grid-item">
-                    <button id="textSize" class="svg-button-larger">
-                        <img src="${chrome.runtime.getURL("images/TextSizeGray.svg")}" draggable="false">
-                        <p>Text Size</p> 
-                    </button>
-                </div>
-                <div class="grid-item">
-                    <button id="emboldenText" class="svg-button-larger">
-                        <img src="${chrome.runtime.getURL("images/EmboldenTextGray.svg")}" draggable="false">
-                        <p>Embolden Text</p> 
-                    </button>
-                </div>
-                <div class="grid-item">
-                    <button id="italicizeText" class="svg-button-larger">
-                        <img src="${chrome.runtime.getURL("images/ItalicizeTextGray.svg")}" draggable="false">
-                        <p>Italicize Text</p> 
-                    </button>
-                </div>
-                <div class="grid-item">
-                    <button id="textAlignment" class="svg-button-larger">
-                        <img src="${chrome.runtime.getURL("images/DefaultAlignGray.svg")}" draggable="false">
-                        <p>Align Text</p> 
-                    </button>
-                </div>                   
-                
-                <div class="color-grid-container">
-                    <p class="color-grid-title">Text Color</p>
-                    <div class="color-grid">
-                        <div class="color-group">
-                            <button id="textBlack" class="color-button" style="background-color: black;"></button>
-                            <button id="textWhite" class="color-button" style="background-color: white;"></button>
-                            <button id="textRed" class="color-button" style="background-color: red;"></button>
-                        </div>
-                        <div class="color-group">
-                            <button id="textOrange" class="color-button" style="background-color: orange;"></button>
-                            <button id="textYellow" class="color-button" style="background-color: yellow;"></button>
-                            <button id="textGreen" class="color-button" style="background-color: green;"></button>
-                        </div>
-                        <div class="color-group">
-                            <button id="textBlue" class="color-button" style="background-color: blue;"></button>
-                            <button id="textPurple" class="color-button" style="background-color: purple;"></button>
-                            <button id="textColorDefault" class="color-button" style="background-color: gray;"></button>
-                        </div>
+            </div>
+
+
+            <div class="grid-item">
+                <button id="textSize" class="svg-button-larger">
+                    <img src="${chrome.runtime.getURL("images/TextSizeGray.svg")}" draggable="false">
+                    <p>Text Size</p> 
+                </button>
+            </div>
+
+
+            <div class="grid-item">
+                <button id="emboldenText" class="svg-button-larger">
+                    <img src="${chrome.runtime.getURL("images/EmboldenTextGray.svg")}" draggable="false">
+                    <p>Embolden Text</p> 
+                </button>
+            </div>
+
+
+            <div class="grid-item">
+                <button id="italicizeText" class="svg-button-larger">
+                    <img src="${chrome.runtime.getURL("images/ItalicizeTextGray.svg")}" draggable="false">
+                    <p>Italicize Text</p> 
+                </button>
+            </div>
+
+
+            <div class="grid-item">
+                <button id="textAlignment" class="svg-button-larger">
+                    <img src="${chrome.runtime.getURL("images/DefaultAlignGray.svg")}" draggable="false">
+                    <p>Align Text</p> 
+                </button>
+            </div>
+
+
+            <div class="color-grid-container">
+                <p class="color-grid-title">Text Color</p>
+                <div class="color-grid">
+                    <div class="color-group">
+                        <button id="textBlack" class="color-button" style="background-color: black;"></button>
+                        <button id="textWhite" class="color-button" style="background-color: white;"></button>
+                        <button id="textRed" class="color-button" style="background-color: red;"></button>
+                    </div>
+                    <div class="color-group">
+                        <button id="textOrange" class="color-button" style="background-color: orange;"></button>
+                        <button id="textYellow" class="color-button" style="background-color: yellow;"></button>
+                        <button id="textGreen" class="color-button" style="background-color: green;"></button>
+                    </div>
+                    <div class="color-group">
+                        <button id="textBlue" class="color-button" style="background-color: blue;"></button>
+                        <button id="textPurple" class="color-button" style="background-color: purple;"></button>
+                        <button id="textColorDefault" class="color-button" style="background-color: gray;"></button>
                     </div>
                 </div>
-            
-            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+            </div>
 
-            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
-            <!-- <div class="section" id="textSpacing"> -->
-                <!-- <h2>Text Spacing</h2> --->
-                <div class="grid-item">
-                    <button id="spaceBetweenLines" class="svg-button-larger">
-                        <img src="${chrome.runtime.getURL("images/BetweenLinesGray.svg")}" draggable = "false">
-                        <p>Between Lines</p> 
-                    </button>
-                </div>
-                <div class="grid-item">
-                    <button id="spaceBetweenWords" class="svg-button-larger">
-                        <img src="${chrome.runtime.getURL("images/BetweenWordsGray.svg")}" draggable = "false">
-                        <p>Between Words</p> 
-                    </button>
-                </div>
-                <div class="grid-item">
-                    <button id="spaceBetweenLetters" class="svg-button-larger">
-                        <img src="${chrome.runtime.getURL("images/BetweenLettersGray.svg")}" draggable = "false">
-                        <p>Between Letters</p> 
-                    </button>
-                </div>
-            
-            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
 
-            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
-                <div class="color-grid-container">
-                    <p class="color-grid-title">Tint Color</p>
-                    <div class="color-grid">
-                        <div class="color-group">
-                            <button class="color-button-alpha" style="background-color: black;" data-color="0, 0, 0"></button>
-                            <button class="color-button-alpha" style="background-color: white; border: 1px solid #ccc;" data-color="255, 255, 255"></button>
-                            <button class="color-button-alpha" style="background-color: red;" data-color="255, 0, 0"></button>
-                        </div>
-                        <div class="color-group">
-                            <button class="color-button-alpha" style="background-color: orange;" data-color="255, 165, 0"></button>
-                            <button class="color-button-alpha" style="background-color: yellow;" data-color="255, 255, 0"></button>
-                            <button class="color-button-alpha" style="background-color: green;" data-color="0, 128, 0"></button>
-                        </div>
-                        <div class="color-group">
-                            <button class="color-button-alpha" style="background-color: blue;" data-color="0, 0, 255"></button>
-                            <button class="color-button-alpha" style="background-color: purple;" data-color="128, 0, 128"></button>
-                            <button class="color-button-alpha" style="background-color: gray;" data-color="128,128,128"></button>
-                        </div>
+            <div class="grid-item">
+                <button id="spaceBetweenLines" class="svg-button-larger">
+                    <img src="${chrome.runtime.getURL("images/BetweenLinesGray.svg")}" draggable = "false">
+                    <p>Between Lines</p> 
+                </button>
+            </div>
+
+
+            <div class="grid-item">
+                <button id="spaceBetweenWords" class="svg-button-larger">
+                    <img src="${chrome.runtime.getURL("images/BetweenWordsGray.svg")}" draggable = "false">
+                    <p>Between Words</p> 
+                </button>
+            </div>
+
+
+            <div class="grid-item">
+                <button id="spaceBetweenLetters" class="svg-button-larger">
+                    <img src="${chrome.runtime.getURL("images/BetweenLettersGray.svg")}" draggable = "false">
+                    <p>Between Letters</p> 
+                </button>
+            </div>
+
+
+            <div class="color-grid-container">
+                <p class="color-grid-title">Tint Color</p>
+                <div class="color-grid">
+                    <div class="color-group">
+                        <button class="color-button-alpha" style="background-color: black;" data-color="0, 0, 0"></button>
+                        <button class="color-button-alpha" style="background-color: white; border: 1px solid #ccc;" data-color="255, 255, 255"></button>
+                        <button class="color-button-alpha" style="background-color: red;" data-color="255, 0, 0"></button>
+                    </div>
+                    <div class="color-group">
+                        <button class="color-button-alpha" style="background-color: orange;" data-color="255, 165, 0"></button>
+                        <button class="color-button-alpha" style="background-color: yellow;" data-color="255, 255, 0"></button>
+                        <button class="color-button-alpha" style="background-color: green;" data-color="0, 128, 0"></button>
+                    </div>
+                    <div class="color-group">
+                        <button class="color-button-alpha" style="background-color: blue;" data-color="0, 0, 255"></button>
+                        <button class="color-button-alpha" style="background-color: purple;" data-color="128, 0, 128"></button>
+                        <button class="color-button-alpha" style="background-color: gray;" data-color="128,128,128"></button>
                     </div>
                 </div>
+            </div>
 
-                <div class="grid-item" id = "slider-alpha">
-                    <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false" id = "brightnessAlpha">
-                    <p>Tint Brightness</p>
-                    <input type="range" id="brightnessSliderAlpha" min="0" max="100" value="50" class = "slider">
-                </div>
-            
-            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
 
-            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
-            <!-- <div class="section" id="focusRulerMain"> -->
-                <div class="grid-item">
-                    <button id="toggleFocusRuler" class="svg-button-larger">
-                        <img src="${chrome.runtime.getURL("images/MaskTypeGray.svg")}" draggable="false">
-                        <p>Toggle Focus Ruler</p> 
-                    </button>
-                </div>
-                <div class="grid-item" id = "Line-Height-Border">
-                    <img src="${chrome.runtime.getURL("images/LineHeightGray.svg")}" draggable="false"  class="svg-icon" id="lineHeightIMG">
-                    <p>Ruler Height</p> 
-                    <input type="range" id="lineHeightSlider" min="0" max="200" value="50" class = "slider">
-                </div>
-                <div class="grid-item" id = "slider-beta">
-                    <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false"  class="svg-icon" id = "brightnessBeta">
-                    <p>Ruler Brightness</p> 
-                    <input type="range" id="brightnessSliderBeta" min="0" max="100" value="50" class="slider">
-                </div>
-                <div class="color-grid-container">
-                    <p class="color-grid-title">Mask Color</p>
-                    <div class="color-grid">
-                        <div class="color-group">
-                            <button class="color-button" style="background-color: black;" data-color="0, 0, 0"></button>
-                            <button class="color-button" style="background-color: white; border: 1px solid #ccc;" data-color="255, 255, 255"></button>
-                            <button class="color-button" style="background-color: red;" data-color="255, 0, 0"></button>
-                        </div>
-                        <div class="color-group">
-                            <button class="color-button" style="background-color: orange;" data-color="255, 165, 0"></button>
-                            <button class="color-button" style="background-color: yellow;" data-color="255, 255, 0"></button>
-                            <button class="color-button" style="background-color: green;" data-color="0, 128, 0"></button>
-                        </div>
-                        <div class="color-group">
-                            <button class="color-button" style="background-color: blue;" data-color="0, 0, 255"></button>
-                            <button class="color-button" style="background-color: purple;" data-color="128, 0, 128"></button>
-                            <button class="color-button" style="background-color: gray;" data-color="128,128,128"></button>
-                        </div>
+            <div class="grid-item" id = "slider-alpha">
+                <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false" id = "brightnessAlpha">
+                <p>Tint Brightness</p>
+                <input type="range" id="brightnessSliderAlpha" min="0" max="100" value="50" class = "slider">
+            </div>
+
+
+            <div class="grid-item">
+                <button id="toggleFocusRuler" class="svg-button-larger">
+                    <img src="${chrome.runtime.getURL("images/MaskTypeGray.svg")}" draggable="false">
+                    <p>Toggle Focus Ruler</p> 
+                </button>
+            </div>
+
+
+            <div class="grid-item" id="Line-Height-Border">
+                <img src="${chrome.runtime.getURL("images/LineHeightGray.svg")}" draggable="false"  class="svg-icon" id="lineHeightIMG">
+                <p>Ruler Height</p> 
+                <input type="range" id="lineHeightSlider" min="0" max="200" value="50" class = "slider">
+            </div>
+
+
+            <div class="grid-item" id="slider-beta">
+                <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false"  class="svg-icon" id = "brightnessBeta">
+                <p>Ruler Brightness</p> 
+                <input type="range" id="brightnessSliderBeta" min="0" max="100" value="50" class="slider">
+            </div>
+
+
+            <div class="color-grid-container">
+                <p class="color-grid-title">Mask Color</p>
+                <div class="color-grid">
+                    <div class="color-group">
+                        <button class="color-button" style="background-color: black;" data-color="0, 0, 0"></button>
+                        <button class="color-button" style="background-color: white; border: 1px solid #ccc;" data-color="255, 255, 255"></button>
+                        <button class="color-button" style="background-color: red;" data-color="255, 0, 0"></button>
+                    </div>
+                    <div class="color-group">
+                        <button class="color-button" style="background-color: orange;" data-color="255, 165, 0"></button>
+                        <button class="color-button" style="background-color: yellow;" data-color="255, 255, 0"></button>
+                        <button class="color-button" style="background-color: green;" data-color="0, 128, 0"></button>
+                    </div>
+                    <div class="color-group">
+                        <button class="color-button" style="background-color: blue;" data-color="0, 0, 255"></button>
+                        <button class="color-button" style="background-color: purple;" data-color="128, 0, 128"></button>
+                        <button class="color-button" style="background-color: gray;" data-color="128,128,128"></button>
                     </div>
                 </div>
-            
-            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
-
-            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
-            <!-- <div class="section" id="colorSchemes"> -->
-                <div class="grid-item">
-                    <button id="changeContrast" class="svg-button-larger">
-                        <img src="${chrome.runtime.getURL("images/DefaultContrast.svg")}" draggable = "false">
-                        <p>Contrast</p> 
-                    </button>
-                </div>
-                <div class="grid-item">
-                    <button id="changeSaturation" class="svg-button-larger"> 
-                        <img src="${chrome.runtime.getURL("images/DefaultSaturation.svg")}" draggable = "false">
-                        <p>Saturation</p> 
-                    </button>
-                </div>
-            
-            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+            </div>
 
 
-            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
-            <!-- <div class="section" id="misc"> -->
-                <div class="grid-item">
-                    <button id="highlightLinks" class="svg-button-larger">
-                        <img src="${chrome.runtime.getURL("images/HighlightLinkGray.svg")}" draggable = "false">
-                        <p>Hightlight Links</p> 
-                    </button>
-                </div>
-                <div class="grid-item">
-                    <button id="hideImages" class="svg-button-larger"> 
-                        <img src="${chrome.runtime.getURL("images/HideImagesGray.svg")}" draggable = "false">
-                        <p>Hide Images</p> 
-                    </button>
-                </div>
-                <div class="grid-item">
-                    <button id="cursorSize" class="svg-button-larger">
-                        <img src="${chrome.runtime.getURL("images/BigCursorGray.svg")}" draggable = "false">
-                        <p>Large Cursor</p> 
-                    </button>
-                </div>
-            
-            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+            <div class="grid-item">
+                <button id="changeContrast" class="svg-button-larger">
+                    <img src="${chrome.runtime.getURL("images/DefaultContrast.svg")}" draggable = "false">
+                    <p>Contrast</p> 
+                </button>
+            </div>
+            <div class="grid-item">
+                <button id="changeSaturation" class="svg-button-larger"> 
+                    <img src="${chrome.runtime.getURL("images/DefaultSaturation.svg")}" draggable = "false">
+                    <p>Saturation</p> 
+                </button>
+            </div>
+
+
+            <div class="grid-item">
+                <button id="highlightLinks" class="svg-button-larger">
+                    <img src="${chrome.runtime.getURL("images/HighlightLinkGray.svg")}" draggable = "false">
+                    <p>Hightlight Links</p> 
+                </button>
+            </div>
+
+
+            <div class="grid-item">
+                <button id="hideImages" class="svg-button-larger"> 
+                    <img src="${chrome.runtime.getURL("images/HideImagesGray.svg")}" draggable = "false">
+                    <p>Hide Images</p> 
+                </button>
+            </div>
+
+
+            <div class="grid-item">
+                <button id="cursorSize" class="svg-button-larger">
+                    <img src="${chrome.runtime.getURL("images/BigCursorGray.svg")}" draggable = "false">
+                    <p>Large Cursor</p> 
+                </button>
+            </div>
         </div>
         <div id="focusRuler"></div>
         <div id="focusRulerContainer"></div> 
@@ -528,6 +546,11 @@ function defaultAll(){
     currentProfile = "none";
 }
 
+
+const toggleAccessibilityProfiles = shadowRoot.getElementById('toggleAccessibilityProfiles');
+const toggleAccessibilityProfilesImg = shadowRoot.getElementById('toggleAccessibilityProfilesImg');
+const accessibilityGridSetUp = shadowRoot.getElementById('accessibilityGridSetUp');
+
 const colorBlindProfile = shadowRoot.getElementById('colorBlindProfile');
 const colorBlindProfileImg = shadowRoot.getElementById('colorBlindProfileImg');
 
@@ -544,6 +567,16 @@ const LearningProfile = shadowRoot.getElementById('LearningProfile');
 const LearningProfileImg = shadowRoot.getElementById('LearningProfileImg');
 
 let currentProfile = "none";
+
+
+toggleAccessibilityProfiles.addEventListener('click', () => {
+    accessibilityGridSetUp.classList.toggle('hide');
+    if (accessibilityGridSetUp.classList.contains('hide')) {
+        toggleAccessibilityProfilesImg.src = `${chrome.runtime.getURL('images/profilesCollapsed.svg')}`;
+    } else {
+        toggleAccessibilityProfilesImg.src = `${chrome.runtime.getURL('images/profilesExpanded.svg')}`;
+    }
+});
 
 colorBlindProfile.addEventListener('click', () => {
     if(currentProfile != "colorBlind"){
