@@ -506,6 +506,9 @@ function defaultAll(){
     highlightLinksButton.click();
     hideImagesButton.click();
     toggleCursorSizeButton.click();
+    if(isEnlarged){
+        enlargeIconsButton.click();
+    }
     
      if (focusRulerState !== 0) {
         if (focusRulerState === 1) {
@@ -2240,6 +2243,7 @@ toggleCursorSizeButton.addEventListener('click', () => {
 
 const enlargeIconsButton = shadowRoot.getElementById('enlargeIconsButton');
 const gridSetup = shadowRoot.querySelector('.gridSetUp');
+let isEnlarged = false;
 
 function toggleEnlargeIcons() {
     const elementsToEnlarge = shadowRoot.querySelectorAll('.grid-item img, .grid-item p, .color-grid-container p');
@@ -2256,6 +2260,7 @@ function toggleEnlargeIcons() {
 
     gridSetup.classList.toggle('enlarged-grid-setup');
     accessibilityGridSetUp.classList.toggle('enlarged-grid-setup');
+    isEnlarged = !isEnlarged;
 }
 
 enlargeIconsButton.addEventListener('click', toggleEnlargeIcons);
