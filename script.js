@@ -32,6 +32,10 @@ const MainHTML = `
              <button id="defaultButton" title="Turns off all widget changes">Reset to default</button>
         </div>
 
+        <div id="button-container-beta">
+            <button id="enlargeIconsButton" title="Enlarges all icons by 25%">Enlarge Icons</button>
+        </div>
+
  
         <div id="button-container">
             <div class="dropdown">
@@ -278,7 +282,7 @@ const MainHTML = `
 
 
             <div class="color-grid-container" title="Adjust the color of the focus ruler mask">
-                <p class="color-grid-title">Mask Color</p>
+                <p class="color-grid-title">Ruler Color</p>
                 <div class="color-grid">
                     <div class="color-group">
                         <button class="color-button" style="background-color: black;" data-color="0, 0, 0"></button>
@@ -2233,3 +2237,24 @@ toggleCursorSizeButton.addEventListener('click', () => {
     // Toggle the cursor state
     isCursorLarge = !isCursorLarge;
 });
+
+const enlargeIconsButton = shadowRoot.getElementById('enlargeIconsButton');
+const gridSetup = shadowRoot.querySelector('.gridSetUp');
+
+function toggleEnlargeIcons() {
+    const elementsToEnlarge = shadowRoot.querySelectorAll('.grid-item img, .grid-item p, .color-grid-container p');
+    const itemsToEnlarge = shadowRoot.querySelectorAll('.grid-item button, .color-grid-container, #slider-beta, #slider-alpha, #Line-Height-Border');
+
+    elementsToEnlarge.forEach(element => {
+        element.classList.toggle('enlarged');
+    });
+
+    itemsToEnlarge.forEach(element => {
+        element.classList.toggle('enlarged-height');
+    });
+
+    gridSetup.classList.toggle('enlarged-grid-setup');
+}
+
+enlargeIconsButton.addEventListener('click', toggleEnlargeIcons);
+

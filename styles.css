@@ -37,6 +37,7 @@
     top: 0;
     right: 0;
     width: 30%;
+    min-width: 200px;
     height: 100%;
     background-color:rgba(239,241,245,255);
     padding: 1px;
@@ -44,6 +45,7 @@
     z-index: 9999;
     overflow-y: auto; /* Add vertical scrollbar */
     border: 1px solid rgb(0, 0, 0);   
+    transition: width 0.3s ease; /* Smooth transition for width changes */
 }
 
 #sidebar.left {
@@ -51,6 +53,7 @@
     right: auto;
     box-shadow: 2px 0 5px rgba(0,0,0,0.5);
 }
+
 
 #menu {
     border-radius: 10px;
@@ -87,11 +90,11 @@
     width: 100%;
   }
   
-  .dropdown-toggle {
+.dropdown-toggle {
     width: 100%;
-  }
-  
-  .dropdown-menu {
+}
+
+.dropdown-menu {
     position: absolute;
     top: 100%;
     left: 0;
@@ -107,18 +110,18 @@
     max-width: 200px; /* Optional: set a maximum width to prevent the menu from getting too wide */
     box-sizing: border-box;
 }
-  
-  .dropdown:hover .dropdown-menu {
+
+.dropdown:hover .dropdown-menu {
     opacity: 1; /* Show the menu on hover */
     visibility: visible; /* Show the menu on hover */
-  }
-  
-  .dropdown-menu li {
+}
+
+.dropdown-menu li {
     list-style: none;
     margin-bottom: 10px;
-  }
-  
-  .dropdown-menu li a {
+}
+
+.dropdown-menu li a {
     text-decoration: none;
     color: #333;
     display: block;
@@ -127,13 +130,13 @@
     transition: background-color 0.3s ease;
     background-color: rgba(204,204,204,255);
     font-weight: bold;
-  }
-  
-  .dropdown-menu li a:hover {
-    background-color: #f0f0f0;
-  }
+}
 
-#button-container{
+.dropdown-menu li a:hover {
+    background-color: #f0f0f0;
+}
+
+#button-container, #button-container-alpha, #button-container-beta {
     width: 100%;
     padding-left: 2%;
 }
@@ -152,12 +155,7 @@
     justify-content: center;
 }
   
-#button-container-alpha{
-    width: 100%;
-    padding-left: 2%;
-}
-
-#defaultButton {
+#defaultButton, #enlargeIconsButton {
     border-radius: 10px;
     background-color: rgb(204, 204, 204);
     color: rgb(0, 0, 0);
@@ -220,6 +218,7 @@
     padding: 1%; /* Add padding around the grid */
     border: 1px dashed rgb(0, 0, 0);
 }
+
 .gridSetUp {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr)); /* Adjust minmax as needed */
@@ -228,6 +227,12 @@
     gap: 2.5%;
     justify-content: center;
     padding: 1%; /* Add padding around the grid */
+}
+
+.gridSetUp.enlarged-grid-setup {
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* Enlarged: 2 columns */
+    grid-template-rows: repeat(13, minmax(0, 1.5fr)); /* Enlarged: 14 rows */
+    transition: transform 0.3s ease;
 }
 
 .grid-item {
@@ -496,6 +501,19 @@ button:hover {
     z-index: 1001; /* Ensure it's on top of the overlay */
 }
 
+#screenShaderOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1005;
+    pointer-events: none;
+    background: rgba(0, 0, 0, 0); /* Initial background color with opacity */
+    transition: background-color 0.3s ease; /* Optional: Add transition effect */
+}
+  
+
 @font-face {
     font-family: 'OpenDyslexic';
     src: url('chrome-extension://__MSG_@@extension_id__/fonts/OpenDyslexic3-Regular.ttf') format('truetype');
@@ -520,19 +538,6 @@ button:hover {
     font-family: 'Verdana';
     src: url('chrome-extension://__MSG_@@extension_id__/fonts/verdana.ttf') format('truetype');
 }
-
-#screenShaderOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1005;
-    pointer-events: none;
-    background: rgba(0, 0, 0, 0); /* Initial background color with opacity */
-    transition: background-color 0.3s ease; /* Optional: Add transition effect */
-}
-  
  
 
 @font-face {
@@ -605,3 +610,20 @@ button:hover {
 .saturation-low { filter: saturate(50%); }
 .saturation-high { filter: saturate(150%); }
 .saturation-desaturate { filter: grayscale(100%); }
+
+/* enlarged for gridItem (img, p) and p for .color-grid-container */
+.enlarged{
+    transform: scale(1.25);
+    transition: width 0.3s ease;
+
+}
+
+/* real target */
+.grid-item button.enlarged-height,
+#slider-beta.enlarged-height,
+#slider-alpha.enlarged-height,
+#Line-Height-Border.enlarged-height,
+.color-grid-container.enlarged-height {
+    height: 150px;
+    transition: height 0.3s ease; 
+}
