@@ -219,6 +219,13 @@
     border: 1px dashed rgb(0, 0, 0);
 }
 
+#accessibilityGridSetUp.enlarged-grid-setup {
+    grid-template-columns: repeat(2, minmax(0, 1fr)); 
+    grid-template-rows: repeat(3, minmax(0, 1fr)); 
+    transition: transform 0.3s ease;
+}
+
+
 .gridSetUp {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr)); /* Adjust minmax as needed */

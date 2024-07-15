@@ -2244,6 +2244,7 @@ const gridSetup = shadowRoot.querySelector('.gridSetUp');
 function toggleEnlargeIcons() {
     const elementsToEnlarge = shadowRoot.querySelectorAll('.grid-item img, .grid-item p, .color-grid-container p');
     const itemsToEnlarge = shadowRoot.querySelectorAll('.grid-item button, .color-grid-container, #slider-beta, #slider-alpha, #Line-Height-Border');
+    
 
     elementsToEnlarge.forEach(element => {
         element.classList.toggle('enlarged');
@@ -2254,6 +2255,7 @@ function toggleEnlargeIcons() {
     });
 
     gridSetup.classList.toggle('enlarged-grid-setup');
+    accessibilityGridSetUp.classList.toggle('enlarged-grid-setup');
 }
 
 enlargeIconsButton.addEventListener('click', toggleEnlargeIcons);
