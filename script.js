@@ -17,7 +17,7 @@ const MainHTML = `
 
     <div class="toolbar" id="toolbarMain">
         <button id="openSidebar" title="Open Sidebar">
-            <img src="${chrome.runtime.getURL("images/openSidebar.svg")}" draggable = "false">
+            <img src="${chrome.runtime.getURL("images/Eyedapt.svg")}" draggable = "false">
         </button>
     </div>
 
