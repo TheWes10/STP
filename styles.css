@@ -31,6 +31,13 @@
     box-shadow: 0 0 10px 2px blue; /* Blue highlight on hover */
 }
 
+#openSidebar{
+    height: 70px;
+    width: 70px;
+    background-color:#EFF1F5;
+    border-radius: 10px;
+}
+
 #sidebar {
     display: none; 
     position: fixed;
