@@ -13,280 +13,300 @@ linkElement.type = 'text/css';
 linkElement.href = extensionCSS;
 
 const MainHTML = `
-<div id="FocusUp" style="font-family: Arial;">
+<div class="STP" id="STP" style="font-family: Arial;">
     <div class="toolbar" id="toolbarMain">
-        <button id="collapse" title="Toggle Toolbar">
-            <img src="${chrome.runtime.getURL("images/collapse.svg")}" draggable = "false">
-            <span class="buttonText">Toggle Toolbar</span>
+        <button id="openSidebar" title="Open Sidebar">
+            <img src="${chrome.runtime.getURL("images/openSidebar.svg")}" draggable = "false">
         </button>
-        <button class="mainButtons" title="Font Alteration" id="fontAlterationButton">
-            <img src="${chrome.runtime.getURL("images/fontAlteration.svg")}" draggable = "false">
-            <span class="buttonText">Font Alteration</span>
-        </button>
-        <button class="mainButtons" title="Task List" id="taskListButton">
-            <img src="${chrome.runtime.getURL("images/taskList.svg")}" draggable = "false" >
-            <span class="buttonText">Task List</span>
-        </button>
-        <button class="mainButtons" title="Progress Bar" id="PBButton">
-            <img src="${chrome.runtime.getURL("images/progressBar.svg")}" draggable = "false" >
-            <span class="buttonText">Progress Bar</span>
-        </button>
-        <button class="mainButtons" title="Timers" id="timerButton">
-            <img src="${chrome.runtime.getURL("images/timers.svg")}" draggable = "false">
-            <span class="buttonText">Timers</span>
-        </button>
-        <button class="mainButtons" title="Fidget Tool" id="FDButton">
-            <img src="${chrome.runtime.getURL("images/fidget.svg")}" draggable = "false">
-            <span class="buttonText">Fidget Tool</span>
-        </button>
-        <button class="mainButtons" title="Toggle Attention Grabbing Elements" id="AGEButton">
-            <img src="${chrome.runtime.getURL("images/AGE.svg")}" draggable = "false">
-            <span class="buttonText">Toggle AGE</span>
-        </button>
-        <button class="mainButtons" title="Personalization Settings" id="PSButton">
-            <img src="${chrome.runtime.getURL("images/settings.svg")}" draggable = "false">
-            <span class="buttonText">Settings</span>
-        </button>
-
-
-
-        <button class="backButtons fontAlterationButtons" title="Back" id="backButtonFA">
-            <img src="${chrome.runtime.getURL("images/back.svg")}" draggable = "false">
-            <span class="buttonText">Back</span>
-        </button>
-        <button class="fontAlterationButtons" title="Conversion Menu" id="fontConversionButton">
-            <img src="${chrome.runtime.getURL("images/convert.svg")}" draggable = "false">
-            <span class="buttonText">Conversion Menu</span>
-        </button>
-        <button class="fontAlterationButtons" title="Bionic Reading" id="bionicButton">
-            <img src="${chrome.runtime.getURL("images/bionic.svg")}" draggable = "false">
-            <span class="buttonText">Bionic Reading</span>
-        </button>
-        <button class="fontAlterationButtons" title="Apply Default Conversion" id="toDefaultButton">
-            <img src="${chrome.runtime.getURL("images/defaultConvert.svg")}" draggable = "false">
-            <span class="buttonText">Apply Default Conversion</span>
-        </button>
-
-
-
-        <button class="backButtons taskButtons" title="Back" id="backButtonTask">
-            <img src="${chrome.runtime.getURL("images/back.svg")}" draggable = "false">
-            <span class="buttonText">Back</span>
-        </button>
-        <button class="taskButtons" title="Task List" id="addTasksButton">
-            <img src="${chrome.runtime.getURL("images/addTask.svg")}" draggable = "false">
-            <span class="buttonText">Task List</span>
-        </button>
-        <button class="taskButtons" title="View All Tasks" id="viewAllTasks">
-            <img src="${chrome.runtime.getURL("images/viewTasks.svg")}" draggable = "false">
-            <span class="buttonText">View All Tasks</span>
-        </button>
-
-        <button class="backButtons timerButtons" title="Back" id="backButtonT">
-            <img src="${chrome.runtime.getURL("images/back.svg")}" draggable = "false">
-            <span class="buttonText">Back</span>
-        </button>
-        <button class="timerButtons" title="Timer Menu" id="timerMenuButton">
-            <img src="${chrome.runtime.getURL("images/timer.svg")}" draggable = "false">
-            <span class="buttonText">Timer Menu</span>
-        </button>
-
-
-        <button class="backButtons PBButtons" title="Back" id="backButtonPB">
-            <img src="${chrome.runtime.getURL("images/back.svg")}" draggable="false">
-            <span class="buttonText">Back</span>
-        </button>
-        <button class="PBButtons" title="Add Flags" id="PBSelectStartEnd">
-            <img src="${chrome.runtime.getURL("images/StartEnd.svg")}" draggable="false">
-            <span class="buttonText">Add Flags</span>
-        </button>
-        <button class="PBButtons" title="Reset Flags" id="PBReset">
-            <img src="${chrome.runtime.getURL("images/Reset.svg")}" draggable="false">
-            <span class="buttonText">Reset Flags</span>
-        </button>
-        <button class="PBButtons" title="Delete Flags" id="PBDelete">
-            <img src="${chrome.runtime.getURL("images/trashIcon.svg")}" draggable="false">
-            <span class="buttonText">Delete Flags</span>
-        </button>
-
-        <div id="progressContainer" class="PBButtons" draggable="false">
-        <div id="progressBar" draggable="false">
-            <div class="progress" id="progress" draggable="false"></div>
-            <span class="progressText" id="progressText"></span> <!-- Add this element here -->
+    </div>
+    <div id="sidebar">
+        <div id="menu">
+            <p>Accessibility Menu</p>
         </div>
-    </div>
-
-        <div class="menu" id="PBMenu">
-            <p class="popUpText">Please select a starting and ending area to track your progress by dragging and dropping the <span class="highlightText">start</span> and <span class="highlightText">end</span> images on the page.</p>
-            <img id="start" src="${chrome.runtime.getURL("images/Start.svg")}" draggable="true" class = "">
-            <img id="end" src="${chrome.runtime.getURL("images/End.svg")}" draggable="true" class = "">
+        <div id="button-container-alpha">
+             <button class = "myButtons" id="defaultButton">To default</button>
         </div>
-
-
-
-
-        <button class="backButtons PSButtons" title="Back" id="backButtonPS">
-            <img src="${chrome.runtime.getURL("images/back.svg")}" draggable = "false">
-            <span class="buttonText">Back</span>
-        </button>
-        <button class="PSButtons" title="Default Conversion Menu" id="defaultConversionButton">
-            <img src="${chrome.runtime.getURL("images/convert.svg")}" draggable = "false">
-            <span class="buttonText">Default Conversion</span>
-        </button>
-        <button class="PSButtons" title="AGE Parameters" id="AGESettingsButton">
-            <img src="${chrome.runtime.getURL("images/AGE.svg")}" draggable = "false">
-            <br>
-            <span class="buttonText">AGE Parameters</span>
-        </button>
-        <button class="PSButtons" title="Toggle Motivational Messages" id="MWM">
-            <img src="${chrome.runtime.getURL("images/mwm.svg")}" draggable = "false">
-            <span class="buttonText">Toggle Motivational Messages</span>
-        </button>
-
-
-
-        <button class="backButtons FDButtons" title="Back" id="backButtonFD">
-        	<img src="${chrome.runtime.getURL("images/back.svg")}" draggable = "false">
-            <span class="buttonText">Back</span>
-        </button>
-        <button class="FDButtons" title="Fidget Menu" id="FDMenuStart">
-            <img src="${chrome.runtime.getURL("images/FDMenu.svg")}" draggable = "false">
-            <span class="buttonText">Fidget Menu</span>
-         </button>
-         <button class = "FDButtons" title = "Reset Fidget" id = "FDDelete">
-          	<img src="${chrome.runtime.getURL("images/Reset.svg")}" draggable = "false">
-              <span class="buttonText">Reset Fidget</span>
-        </button>
-    </div>
-
-
-    <div class="menu" id="fontAlterationMenu">
-        <button id="increaseFont">
-            A+
-        </button>
-        <button id="decreaseFont">
-            A-
-        </button>
-        <button id="originalSize">
-            Original Size
-        </button>
-        <p style="font-size: 15px; margin-top:10px; color:#EAEAEA"><strong>Change Font Color</strong></p>
-        <input type="color" id="fontColor" name="fontColor" value="#ff0000">
-        <button id="originalFColor">
-            Original Color
-        </button>
-        <p style="font-size: 15px; margin-top: 10px; color: #EAEAEA"><strong>Change Background Color</strong></p>
-        <input type="color" id="backColor" name="backColor" value="#ff0000">
-        <button id="originalBColor">
-            Original Color
-        </button>
-        <p style="font-size: 15px; margin-top:10px; color:#EAEAEA"><strong>Change Typeface</strong></p>
-        <select id="typeface">
-            <option value="Arial, sans-serif">Arial</option>
-            <option value="Verdana, sans-serif">Verdana</option>
-            <option value="Helvetica, sans-serif">Helvetica</option>
-            <option value="Tahoma, sans-serif">Tahoma</option>
-            <option value="Georgia, serif">Georgia</option>
-            <option value="Times New Roman, serif">Times New Roman</option>
-            <option value="Courier New, monospace">Courier New</option>
-            <option value="OpenDyslexic, sans-serif">OpenDyslexic</option>
-        </select>
-        <button style="margin-top:5px" id="originalTypeface">
-            Original Typeface
-        </button>
-    </div>
-
-    <div class="menu" id="taskListMenu" style="width: auto; min-width: 257.55px; overflow: auto; max-height: 620px;">
-        <div id="addTaskMenu">
-            <p style="font-size: 27px; color:#EAEAEA; height: 9px;"><strong>Add Task</strong></p>
-            <select id="taskScope" style="font-size: larger; margin-bottom: 10px; border-radius: 10px;">
-                <option value="url">This URL</option>
-                <option value="domain">This Domain</option>
-                <option value="all">All Websites</option>
-            </select>
-            <div style="vertical-align: top; display: flex; align-items: flex-start;">
-                <textarea id="addTaskBox" placeholder="Write your task here..."></textarea>
-                <button class="taskButtons" title="Add Task" id="addTaskCheck" style="margin-left: 8px; width: 80px; display: flex; align-items: center; justify-content: center;">
-                    <p style="margin: 0; padding-right: 5px;">Add</p>
-                    <img src="${chrome.runtime.getURL("images/addTaskCheck.svg")}" draggable="false">
-                </button>
-            </div>
+        <div id="button-container">
+            <button class = "myButtons" id="moveSidebarLeft">Left</button>
+            <button class = "myButtons" id="moveSidebarRight">Right</button>
         </div>
-        <p style="font-size: 27px; color:#EAEAEA; height: 9px;"><strong>Task List</strong></p>
-    </div>
-
-
-    <div class="menu" id="viewAllTasksMenu" style="min-width: 304.46px; width: auto; overflow: auto; max-height: 620px; vertical-align: top;">
-        <p id="SavedTasksStyled"><strong>Saved Tasks</strong></p>
-    </div>
-
-
-    <div class="menu" id="timerMenu">
-        <p style="font-size: 15px; color:#EAEAEA"><strong>Alarm Time</strong></p>
-        <input type="text" id="timeFU" pattern="\d{2}:\d{2}" placeholder="MINUTES:SECONDS">
-        <label for="doSound">Sound?</label>
-        <input type="checkbox" id="doSound">
-        <button id="setTimer" style="margin-top: 8px;">
-            Set Timer
+        <button id="closeSidebar" title="Close Sidebar">
+            <img src="${chrome.runtime.getURL("images/closeSidebar.svg")}" draggable="false">
         </button>
-        <div id="countdown" style="margin-top: 10px; background: #FFD700; border-radius: 15px; width: 180px; text-align: center;"></div>
-    </div>
+        <div class = "gridSetUp" id = "mainSetUp">
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+                <div class="grid-item" id = "colorBlindProfileStyle">
+                    <button id="colorBlindProfile">
+                        <img id="colorBlindProfileImg" src="${chrome.runtime.getURL('images/ColorblindGray.svg')}" draggable="false">  
+                        <p>Color Blind</p>
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="visuallyImpairedProfile" class="svg-button-larger">
+                        <img id="visuallyImpairedProfileImg" src="${chrome.runtime.getURL("images/DyslexiaGray.svg")}" draggable = "false">
+                        <p>Dyslexia</p>
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="dyslexiaProfile" class="svg-button-larger">
+                        <img id="dyslexiaProfileImg" src="${chrome.runtime.getURL("images/VisuallyImpairedGray.svg")}" draggable = "false">
+                        <p>Visual Impariment</p> 
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="ADHDProfile" class="svg-button-larger">
+                        <img id="ADHDProfileImg" src="${chrome.runtime.getURL("images/ADHDGray.svg")}" draggable = "false">
+                        <p>ADHD</p> 
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="LearningProfile" class="svg-button-larger">
+                        <img id="LearningProfileImg" src="${chrome.runtime.getURL("images/CognitiveGray.svg")}" draggable = "false">
+                        <p>Cognitive & Learning</p> 
+                    </button>
+                </div>
+            
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
 
-    <div class="menu" id="PSFontMenu">
-        <p style="font-size: 15px; margin-top:10px; color:#EAEAEA"><strong>Default Font Size</strong></p>
-        <input type="number" id="defaultFontSize" min="1" name="defaultFontSize">
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ ---> 
+            <!-- <div class="section" id="T2S"> -->
+                <div class="grid-item">
+                    <button id="readPage" class="svg-button-larger">
+                        <img id="readPageImg" src="${chrome.runtime.getURL("images/ReadPage.svg")}" draggable = "false">
+                        <p>Read This Page</p>  
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="readSpeed" title="Screen Reader Speed" class="svg-button-larger">
+                        <img id="readSpeedImg" src="${chrome.runtime.getURL("images/SpeedNormalGray.svg")}" draggable = "false">
+                        <p>Speed</p>  
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="t2sHighlight" class="svg-button-larger">
+                        <img id="t2sHighlightImg" src="${chrome.runtime.getURL("images/Highlight Text.svg")}" draggable = "false">
+                        <p>Highlight Text</p>
+                    </button>
+                </div>
+            
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
 
-        <p style="font-size: 15px; margin-top:10px; color:#EAEAEA"><strong>Default Font Color</strong></p>
-        <input type="color" id="defaultFontColor" name="defaultFontColor">
-       
-        <p style="font-size: 15px; margin-top:10px; color:#EAEAEA"><strong>Default Background Color</strong></p>
-        <input type="color" id="defaultBackColor" name="defaultBackColor">
-        
-        <p style="font-size: 15px; margin-top:10px; color:#EAEAEA"><strong>Default Typeface</strong></p>
-        <select id="defaultTypeface">
-            <option value="Arial, sans-serif">Arial</option>
-            <option value="Verdana, sans-serif">Verdana</option>
-            <option value="Helvetica, sans-serif">Helvetica</option>
-            <option value="Tahoma, sans-serif">Tahoma</option>
-            <option value="Georgia, serif">Georgia</option>
-            <option value="Times New Roman, serif">Times New Roman</option>
-            <option value="Courier New, monospace">Courier New</option>
-            <option value="OpenDyslexic, sans-serif">OpenDyslexic</option>
-        </select>
-    </div>
 
-    <div class="menu" id="PSAGEMenu">
-    	<p style="font-size: 15px; margin-top:10px; color:#EAEAEA"><strong>Flash Frequency (seconds)</strong></p>
-        <input type="number" id="flashFrequency" name="flashFrequency" min="0" max="10" step="0.1" value="0.5">
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+            <!-- <div class="section" id="textConfig"> -->
+                <div class="grid-item" id = "textOptions">
+                    <button class="font-button" id="arialButton" style="font-family: Arial;">Arial</button>
+                    <button class="font-button" id="calibriButton" style="font-family: Calibri;">Calibri</button>
+                    <button class="font-button" id="centuryGothicButton" style="font-family: Century Gothic;">Century Gothic</button>
+                    <button class="font-button" id="comicSansButton" style="font-family: 'Comic Sans MS';">Comic Sans</button>
+                    <button class="font-button" id="courierButton" style="font-family: Courier;">Courier</button>
+                    <button class="font-button" id="helveticaButton" style="font-family: Helvetica;">Helvetica</button>
+                    <button class="font-button" id="openSansButton" style="font-family: 'Open Sans';">Open Sans</button>
+                    <button class="font-button" id="openDyslexia"  sytle='OpenDyslexoc';>OpenDyslexic</button>
+                    <button class="font-button" id="tahomaButton" style="font-family: Tahoma;">Tahoma</button>
+                    <button class="font-button" id="verdanaButton" style="font-family: Verdana;">Verdana</button>
+                </div>
+                <!-- <h3 class="centered-heading">Edit Website Text</h3> -->
+                <div class="grid-item">
+                    <button id="textSize" class="svg-button-larger">
+                        <img src="${chrome.runtime.getURL("images/TextSizeGray.svg")}" draggable="false">
+                        <p>Text Size</p> 
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="emboldenText" class="svg-button-larger">
+                        <img src="${chrome.runtime.getURL("images/EmboldenTextGray.svg")}" draggable="false">
+                        <p>Embolden Text</p> 
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="italicizeText" class="svg-button-larger">
+                        <img src="${chrome.runtime.getURL("images/ItalicizeTextGray.svg")}" draggable="false">
+                        <p>Italicize Text</p> 
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="textAlignment" class="svg-button-larger">
+                        <img src="${chrome.runtime.getURL("images/DefaultAlignGray.svg")}" draggable="false">
+                        <p>Align Text</p> 
+                    </button>
+                </div>                   
+                
+                <div class="color-grid-container">
+                    <p class="color-grid-title">Text Color</p>
+                    <div class="color-grid">
+                        <div class="color-group">
+                            <button id="textBlack" class="color-button" style="background-color: black;" onclick="changeTextColor('black')"></button>
+                            <button id="textWhite" class="color-button" style="background-color: white; border: 1px solid #ccc;" onclick="changeTextColor('white')"></button>
+                            <button id="textRed" class="color-button" style="background-color: red;" onclick="changeTextColor('red')"></button>
+                        </div>
+                        <div class="color-group">
+                            <button id="textOrange" class="color-button" style="background-color: orange;" onclick="changeTextColor('orange')"></button>
+                            <button id="textYellow" class="color-button" style="background-color: yellow;" onclick="changeTextColor('yellow')"></button>
+                            <button id="textGreen" class="color-button" style="background-color: green;" onclick="changeTextColor('green')"></button>
+                        </div>
+                        <div class="color-group">
+                            <button id="textBlue" class="color-button" style="background-color: blue;" onclick="changeTextColor('blue')"></button>
+                            <button id="textPurple" class="color-button" style="background-color: purple;" onclick="changeTextColor('purple')"></button>
+                            <button id="textColorDefault" class="color-button" style="background-color: gray;" onclick="changeTextColor('purple')"></button>
+                        </div>
+                    </div>
+                </div>
+            
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
 
-        <p style="font-size: 15px; margin-top: 10px; color: #EAEAEA;"><strong>Change Cursor Color</strong></p>
-        <input type="color" id="cursorColor" name="cursorColor" value="#ff0000">
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+            <!-- <div class="section" id="textSpacing"> -->
+                <!-- <h2>Text Spacing</h2> --->
+                <div class="grid-item">
+                    <button id="spaceBetweenLines" class="svg-button-larger">
+                        <img src="${chrome.runtime.getURL("images/BetweenLinesGray.svg")}" draggable = "false">
+                        <p>Between Lines</p> 
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="spaceBetweenWords" class="svg-button-larger">
+                        <img src="${chrome.runtime.getURL("images/BetweenWordsGray.svg")}" draggable = "false">
+                        <p>Between Words</p> 
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="spaceBetweenLetters" class="svg-button-larger">
+                        <img src="${chrome.runtime.getURL("images/BetweenLettersGray.svg")}" draggable = "false">
+                        <p>Between Letters</p> 
+                    </button>
+                </div>
+            
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
 
-        <p style="font-size: 15px; margin-top: 10px; color: #EAEAEA;"><strong>Inactivity Duration (minutes)</strong></p>
-        <input type="number" id="inactivityDuration" name="inactivityDuration" min="1" max="20" value="1">
-    </div>
-	<div class="cursor-circle" id = "cursor-circle"></div>
-    <div class="menu" id="MWMState"></div>
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+                <div class="color-grid-container">
+                    <p class="color-grid-title">Tint Color</p>
+                    <div class="color-grid">
+                        <div class="color-group">
+                            <button class="color-button-alpha" style="background-color: black;" data-color="0, 0, 0"></button>
+                            <button class="color-button-alpha" style="background-color: white; border: 1px solid #ccc;" data-color="255, 255, 255"></button>
+                            <button class="color-button-alpha" style="background-color: red;" data-color="255, 0, 0"></button>
+                        </div>
+                        <div class="color-group">
+                            <button class="color-button-alpha" style="background-color: orange;" data-color="255, 165, 0"></button>
+                            <button class="color-button-alpha" style="background-color: yellow;" data-color="255, 255, 0"></button>
+                            <button class="color-button-alpha" style="background-color: green;" data-color="0, 128, 0"></button>
+                        </div>
+                        <div class="color-group">
+                            <button class="color-button-alpha" style="background-color: blue;" data-color="0, 0, 255"></button>
+                            <button class="color-button-alpha" style="background-color: purple;" data-color="128, 0, 128"></button>
+                            <button class="color-button-alpha" style="background-color: gray;" data-color="128,128,128"></button>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="FDPopUp" id="FDMenu">
-        <h2 class="instructions">Instructions</h2>
-        <ul class="whiteBullets">
-            <li class="popUpText">Click the <strong>"Toggle Fidget Tool"</strong> to display/hide the fidget tool.</li>
-            <li class="popUpText">You may drag this tool anywhere.</li>
-            <li class="popUpText">Click the <strong>"Reset"</strong> button to reset the position of the fidget tool.</li>
-            <li class="popUpText">After attempting to drag the tool, the fidget icon will follow the mouse. To set it in place, simply <strong>left click</strong> over the desired area.</li>
-            <li class="popUpText">You may still scroll using the bar on the right side of the page.</li>
-        </ul>
-        <div style="text-align: center;">
-            <button id="toggleFidgetButton">Toggle Fidget Tool</button>
+                <div class="grid-item" id = "slider-alpha">
+                    <div class="slider-container">
+                        <div class = "image-slider-pair">
+                            <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false" class="svg-icon" id = "brightnessAlpha">
+                            <p>Tint Brightness</p>
+                            <input type="range" id="brightnessSliderAlpha" min="0" max="100" value="50">
+                        </div>
+                    </div>
+                </div>
+            
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+            <!-- <div class="section" id="focusRulerMain"> -->
+                <div class="grid-item">
+                    <button id="toggleFocusRuler" class="svg-button-larger">
+                        <img src="${chrome.runtime.getURL("images/MaskTypeGray.svg")}" draggable="false">
+                        <p>Toggle Focus Ruler</p> 
+                    </button>
+                </div>
+                <div class="grid-item" id = "Line-Height-Border">
+                    <div class="slider-container">
+                        <div class = "image-slider-pair">
+                            <img src="${chrome.runtime.getURL("images/LineHeightGray.svg")}" draggable="false"  class="svg-icon" id="lineHeightIMG">
+                            <p>Ruler Height</p> 
+                            <input type="range" id="lineHeightSlider" min="0" max="200" value="50">
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-item" id = "slider-beta">
+                    <div class="slider-container">
+                        <div class = "image-slider-pair">
+                            <img src="${chrome.runtime.getURL("images/Brightness.svg")}" draggable="false"  class="svg-icon" id = "brightnessBeta">
+                            <p>Ruler Brightness</p> 
+                            <input type="range" id="brightnessSliderBeta" min="0" max="100" value="50">
+                        </div>
+                    </div>
+                </div>
+                <div class="color-grid-container">
+                    <p class="color-grid-title">Mask Color</p>
+                    <div class="color-grid">
+                        <div class="color-group">
+                            <button class="color-button" style="background-color: black;" data-color="0, 0, 0"></button>
+                            <button class="color-button" style="background-color: white; border: 1px solid #ccc;" data-color="255, 255, 255"></button>
+                            <button class="color-button" style="background-color: red;" data-color="255, 0, 0"></button>
+                        </div>
+                        <div class="color-group">
+                            <button class="color-button" style="background-color: orange;" data-color="255, 165, 0"></button>
+                            <button class="color-button" style="background-color: yellow;" data-color="255, 255, 0"></button>
+                            <button class="color-button" style="background-color: green;" data-color="0, 128, 0"></button>
+                        </div>
+                        <div class="color-group">
+                            <button class="color-button" style="background-color: blue;" data-color="0, 0, 255"></button>
+                            <button class="color-button" style="background-color: purple;" data-color="128, 0, 128"></button>
+                            <button class="color-button" style="background-color: gray;" data-color="128,128,128"></button>
+                        </div>
+                    </div>
+                </div>
+            
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+            <!-- <div class="section" id="colorSchemes"> -->
+                <div class="grid-item">
+                    <button id="changeContrast" class="svg-button-larger">
+                        <img src="${chrome.runtime.getURL("images/DefaultContrast.svg")}" draggable = "false">
+                        <p>Contrast</p> 
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="changeSaturation" class="svg-button-larger"> 
+                        <img src="${chrome.runtime.getURL("images/DefaultSaturation.svg")}" draggable = "false">
+                        <p>Saturation</p> 
+                    </button>
+                </div>
+            
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+
+
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
+            <!-- <div class="section" id="misc"> -->
+                <div class="grid-item">
+                    <button id="highlightLinks" class="svg-button-larger">
+                        <img src="${chrome.runtime.getURL("images/HighlightLinkGray.svg")}" draggable = "false">
+                        <p>Hightlight Links</p> 
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="hideImages" class="svg-button-larger"> 
+                        <img src="${chrome.runtime.getURL("images/HideImagesGray.svg")}" draggable = "false">
+                        <p>Hide Images</p> 
+                    </button>
+                </div>
+                <div class="grid-item">
+                    <button id="cursorSize" class="svg-button-larger">
+                        <img src="${chrome.runtime.getURL("images/BigCursorGray.svg")}" draggable = "false">
+                        <p>Large Cursor</p> 
+                    </button>
+                </div>
+            
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --->
         </div>
+        <div id="focusRuler"></div>
+        <div id="focusRulerContainer"></div> 
     </div>
-
-    <div id="fidgetContainer" class="fidgetContainer" style="position: fixed; left: 0; top: 0; transform: translate(-50%, -50%); pointer-events: none; display: none;">
-        <img id="moveFidget" src="${chrome.runtime.getURL("images/moveFidget.svg")}" draggable="true" style="pointer-events: all;">
-    </div>
-
-
+</div>
 `;
 shadowRoot.innerHTML = MainHTML; 
 shadowRoot.appendChild(linkElement);
@@ -297,116 +317,42 @@ document.body.appendChild(container);
 
 //Toolbar
 const toolbar = shadowRoot.getElementById('toolbarMain');
-const MainButtons = shadowRoot.querySelectorAll('.mainButtons');
-const menus = shadowRoot.querySelectorAll('.menu');
-const fontAlterationMenu = shadowRoot.getElementById('fontAlterationMenu');
-const PSFontMenu = shadowRoot.getElementById('PSFontMenu');
-const PSAGEMenu = shadowRoot.getElementById('PSAGEMenu');
-const FDMenu = shadowRoot.getElementById('FDMenu');
-const PBMenu = shadowRoot.getElementById('PBMenu');
-const collapseButton = shadowRoot.getElementById('collapse');
-const collapseImg = collapseButton.querySelector('img');
+const openSidebarButton = shadowRoot.getElementById('openSidebar');
+const closeSidebarButton = shadowRoot.getElementById('closeSidebar');
 const allButtons = shadowRoot.querySelectorAll('.toolbar button');
+const sidebar = shadowRoot.getElementById('sidebar');
 let isDragging = false;
 let offsetX, offsetY;
-let doMWM = true;
+let clickTimer;
+const moveSidebarLeft = shadowRoot.getElementById('moveSidebarLeft');
+const moveSidebarRight = shadowRoot.getElementById('moveSidebarRight');
 
-chrome.storage.sync.get(["toolbarLeftStyle", "toolbarTopStyle", "FontMenuLeftStyle", "FontMenuTopStyle", "PSFontMenuLeftStyle", "PSFontMenuTopStyle", "PSAGEMenuLeftStyle", "PSAGEMenuTopStyle" , "PBMenuLeftStyle", "PBMenuTopStyle", "FDMenuLeftStyle", "FDMenuTopStyle", "doMWM"], (result) => {
+
+chrome.storage.sync.get(["toolbarLeftStyle", "toolbarTopStyle"], (result) => {
     toolbar.style.left = result.toolbarLeftStyle ? result.toolbarLeftStyle + 'px' : '';
     toolbar.style.top = result.toolbarTopStyle ? result.toolbarTopStyle + 'px' : '';
-    fontAlterationMenu.style.left = result.FontMenuLeftStyle || '';
-    fontAlterationMenu.style.top = result.FontMenuTopStyle || '';
-    PSFontMenu.style.left = result.PSFontMenuLeftStyle || '';
-    PSFontMenu.style.top = result.PSFontMenuTopStyle || '';
-    PSAGEMenu.style.left = result.PSAGEMenuLeftStyle || '';
-    PSAGEMenu.style.top = result.PSAGEMenuTopStyle || '';
-  	PBMenu.style.left = result.FontMenuLeftStyle || '';
-    PBMenu.style.top = result.FontMenuTopStyle || '';
-    timerMenu.style.left = result.FontMenuLeftStyle || '';
-    timerMenu.style.top = result.FontMenuTopStyle || '';
-    addTaskMenu.style.left = result.FontMenuLeftStyle || '';
-    addTaskMenu.style.top = result.FontMenuTopStyle || '';
-    taskListMenu.style.left = result.FontMenuLeftStyle || '';
-    taskListMenu.style.top = result.FontMenuTopStyle || '';
-    viewAllTasksMenu.style.left = result.FontMenuLeftStyle || '';
-    viewAllTasksMenu.style.top = result.FontMenuTopStyle || '';
-    FDMenu.style.left = result.FDMenuLeftStyle || '';
-    FDMenu.style.top = result.FDMenuTopStyle || '';
-    doMWM = result.doMWM;
 });
 
-function updateTaskNotifications() {
-    const getImageSrc = (baseName) => {
-        if (tasksInList >= 1 && tasksInList < 10)
-            return chrome.runtime.getURL(`images/${baseName}${tasksInList}.svg`);
-        else if (tasksInList > 9)
-            return chrome.runtime.getURL(`images/${baseName}9+.svg`);
-        else
-            return chrome.runtime.getURL(`images/${baseName}.svg`);
-    };
-
-    if (isCollapsed) {
-        collapseImg.src = getImageSrc('collapse');
-        collapseImg.style.paddingLeft = '10px';
+openSidebarButton.addEventListener('click', () => {
+    if((Date.now() - clickTimer) < 200){
+        sidebar.classList.add('show');
+        toolbar.classList.add('hide');
+        sidebar.style.top = 0;
+        sidebar.style.right = 0;
     }
-    else {
-        collapseImg.src = chrome.runtime.getURL('images/collapse.svg');
-        collapseImg.style.paddingLeft = '0';
-    }
-
-    taskListImg.src = getImageSrc('taskList');
-    taskListImg.style.paddingLeft = tasksInList >= 1 ? '10px' : '0';
-
-    addTasksImg.src = getImageSrc('addTask');
-    addTasksImg.style.paddingLeft = tasksInList >= 1 ? '10px' : '0';
-}
-
-/*this makes the circle invisible at first, kinda fixes it */
-const tempDisplayCircle = shadowRoot.getElementById("cursor-circle");
-
-//toggle the 'show' class to either display or hide the circle
-tempDisplayCircle.classList.toggle('hide');
-
-
-let isCollapsed = true;
-collapseButton.addEventListener('click', () => {
-    if(isCollapsed){
-        for (let button of MainButtons) {
-            button.classList.add('show');
-        }
-        collapseImg.src = chrome.runtime.getURL('images/collapse.svg');
-        collapseImg.style.paddingLeft = '0';
-    }
-    else {
-        for (let button of allButtons) {
-            button.classList.remove('show');
-        }
-
-        for (let menu of menus) {
-            menu.classList.remove('show');
-        }
-        FDMenu.classList.remove('show');
-        PBMenu.classList.remove('show');
-    }
-
-    toolbar.style.height = isCollapsed ? "655px" : "115px";
-    isCollapsed = !isCollapsed;
-    updateTaskNotifications();
 });
-
+closeSidebarButton.addEventListener('click', () => {
+    sidebar.classList.remove('show');
+    toolbar.classList.remove('hide');
+});
 
 toolbar.addEventListener('mousedown', (e) => {
-    const isToolbarButton = e.target.closest('button');
-    const isPBMenu = e.target.closest('#PBMenu');
-    const isFDMenu = e.target.closest('#FDMenu');
-
-    if (!isToolbarButton && !isPBMenu && !isFDMenu) {	//changed foo
-        isDragging = true;
-        offsetX = e.clientX - toolbar.getBoundingClientRect().left;
-        offsetY = e.clientY - toolbar.getBoundingClientRect().top;
-        toolbar.style.cursor = 'grabbing';
-        document.body.classList.add('disable-text-selection');
-    }
+    clickTimer = Date.now();
+    isDragging = true;
+    offsetX = e.clientX - toolbar.getBoundingClientRect().left;
+    offsetY = e.clientY - toolbar.getBoundingClientRect().top;
+    toolbar.style.cursor = 'grabbing';
+    document.body.classList.add('disable-text-selection');
 });
 
 toolbar.addEventListener('dragover', (event) => {
@@ -414,147 +360,1096 @@ toolbar.addEventListener('dragover', (event) => {
     return false;
 });
 
-
 let toolbarLeft;
 let toolbarTop;
 
-
 document.addEventListener('mousemove', (e) => {
     if (isDragging) {
-        let newX = e.clientX - offsetX;
-        let newY = e.clientY - offsetY;
+        const newX = e.clientX - offsetX;
+        const newY = e.clientY - offsetY;
 
         const toolbarWidth = toolbar.offsetWidth;
         const toolbarHeight = toolbar.offsetHeight;
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
 
-        // Store the original position of the toolbar
-        toolbarLeft = toolbar.offsetLeft; // Update toolbarLeft
-        toolbarTop = toolbar.offsetTop;   // Update toolbarTop
+        toolbarLeft = toolbar.offsetLeft; 
+        toolbarTop = toolbar.offsetTop;   
 
-        // Calculate the potential new position of the toolbar
         const potentialNewX = Math.max(0, Math.min(windowWidth - toolbarWidth, newX));
         const potentialNewY = Math.max(0, Math.min(windowHeight - toolbarHeight, newY));
-
-        // Check if any menu is against the boundary in the direction of movement
-        const menus = [fontAlterationMenu, PSFontMenu, PSAGEMenu, PBMenu, timerMenu, addTaskMenu, viewAllTasksMenu, taskListMenu, FDMenu];
-        let menuAtBoundaryX = false;
-        let menuAtBoundaryY = false;
-
-        menus.forEach(menu => {
-            const menuRect = menu.getBoundingClientRect();
-
-            // Check for X direction
-            if (
-                menuRect.left + menuRect.width >= windowWidth &&
-                toolbarLeft < potentialNewX // Moving to the right
-            ) {
-                menuAtBoundaryX = true;
-            }
-
-            // Check for Y direction
-            if (
-                menuRect.top + menuRect.height >= windowHeight &&
-                toolbarTop < potentialNewY // Moving down
-            ) {
-                menuAtBoundaryY = true;
-            }
-        });
-
-        // Update the toolbar position based on menu positions
-        if (!menuAtBoundaryX) {
-            toolbar.style.left = potentialNewX + 'px';
-        }
-        if (!menuAtBoundaryY) {
-            toolbar.style.top = potentialNewY + 'px';
-        }
-
-        // Update the position of the menus
-        adjustMenuPosition(fontAlterationMenu);
-        adjustMenuPosition(PSFontMenu);
-        adjustMenuPosition(PSAGEMenu);
-        adjustMenuPosition(PBMenu);
-        adjustMenuPosition(timerMenu);
-        adjustMenuPosition(addTaskMenu);
-        adjustMenuPosition(taskListMenu);
-        adjustMenuPosition(viewAllTasksMenu);
-        adjustMenuPosition(FDMenu);
+      
+        toolbar.style.left = potentialNewX + 'px';
+        toolbar.style.top = potentialNewY + 'px';
+        
+        toolbarLeft = toolbar.getBoundingClientRect().left;
+        toolbarTop = toolbar.getBoundingClientRect().top;
     }
-    const circleSize = 30; //size of the circle
-    tempDisplayCircle.style.left = `${e.clientX - circleSize / 2}px`; //ajust position to center the circle horizontally
-    tempDisplayCircle.style.top = `${e.clientY - circleSize / 2}px`; //adjust position to center the circle vertically
 });
 
-function adjustMenuPosition(menu) {
-    const menuRect = menu.getBoundingClientRect();
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-
-    let newX = menuRect.left;
-    let newY = menuRect.top;
-
-    // Ensure menu stays within window bounds
-    if (newX + menuRect.width > windowWidth) {
-        newX = windowWidth - menuRect.width;
-    }
-    if (newY + menuRect.height > windowHeight) {
-        newY = windowHeight - menuRect.height;
-    }
-
-    if (newX < 0) newX = 0;
-    if (newY < 0) newY = 0;
-
-    // Adjust menu position relative to toolbar
-    const toolbarRect = toolbar.getBoundingClientRect();
-
-    menu.style.left = toolbarRect.right + 10 + 'px';
-    menu.style.top = toolbarRect.top + 'px';
-}
-
-document.addEventListener('mouseup', () => {	//changed to include PS stuff and in chrome get thing
-    isDragging = false;
+document.addEventListener('mouseup', () => {	
     toolbar.style.cursor = 'grab';
+    isDragging = false
     chrome.storage.sync.set({
         toolbarLeftStyle: toolbarLeft,
         toolbarTopStyle: toolbarTop,
-        FontMenuLeftStyle: fontAlterationMenu.style.left,
-        FontMenuTopStyle: fontAlterationMenu.style.top,
-        PSFontMenuLeftStyle: PSFontMenu.style.left,
-        PSFontMenuTopStyle: PSFontMenu.style.top,
-        PSAGEMenuLeftStyle: PSAGEMenu.style.left,
-        PSAGEMenuTopStyle: PSAGEMenu.style.top,
-      	PBMenuLeftStyle: PBMenu.style.left,
-      	PBMenuTopStyle: PBMenu.style.top,
-      	FDMenuLeftStyle: FDMenu.style.left,
-        FDMenuTopStyle: FDMenu.style.top
     });
 
     document.body.classList.remove('disable-text-selection');
 });
 
-//End of Toolbar
- 
-//Font Alteration
-const fontAlterationButtons = shadowRoot.querySelectorAll('.fontAlterationButtons');
-const fontAlterationButton = shadowRoot.getElementById('fontAlterationButton');
 
-let bionicModeActive = false;
-let addedFAListeners = false;
-let addedFAMenuListeners = false;
+// Move Sidebar
+moveSidebarLeft.addEventListener('click', () => {
+    sidebar.classList.add('left');
+    sidebar.style.left = 0;
+    sidebar.style.right = 'auto';
+    chrome.storage.sync.set({ sidebarPosition: 'left' });
+});
+
+moveSidebarRight.addEventListener('click', () => {
+    sidebar.classList.remove('left');
+    sidebar.classList.add('show');
+    sidebar.style.left = 'auto';
+    sidebar.style.right = 0;
+    chrome.storage.sync.set({ sidebarPosition: 'right' });
+});
+
+const toDefault = shadowRoot.getElementById('defaultButton');
+toDefault.addEventListener('click', defaultAll);
+
+
+function handleKeyboardShortcuts(event) {
+    if (event.altKey && event.key === 'f') {
+        event.preventDefault();
+        toggleFocusRulerButton.click();
+    }
+
+    if (event.altKey && event.key === 's') {
+        event.preventDefault();
+        readPageButton.click();
+    }
+
+    if (event.altKey && event.key === 'd') {
+        event.preventDefault();
+        defaultAll();
+    }
+}
+
+document.addEventListener('keydown', handleKeyboardShortcuts);
+
+//Accessibility Profiles
+
+function defaultAll(){
+    currentTypeface = "arial";
+    currentSaturationIndex = 3;
+    currentContrastIndex = 3;
+    currentSizeIndex = 0;
+    currentColor = 'black'
+    currentLineHeightIndex = 2;
+    currentWordSpacingIndex = 2;
+    currentLetterSpacingIndex = 2;
+    currentAlignmentIndex = 3;
+    screenShaderOverlay.style.background = 'rgba(0, 0, 0, 0)';
+    isHighlighted = true;
+    imagesHidden = true;
+    isCursorLarge = true;
+    //focus ruller
+    arialButton.click();
+    textSizeButton.click();
+    toggleSaturation();
+    toggleContrast();
+    blackTextButton.click();
+    spaceBetweenLinesButton.click();
+    spaceBetweenWordsButton.click();
+    spaceBetweenLettersButton.click();
+    alignmentButton.click();
+    toggleButtonBackground(arialButton);
+    highlightLinksButton.click();
+    hideImagesButton.click();
+    toggleCursorSizeButton.click();
+    
+     if (focusRulerState !== 0) {
+        if (focusRulerState === 1) {
+            toggleFocusRulerButton.click();
+        }
+        toggleFocusRulerButton.click();
+    } 
+    const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
+    textElements.forEach(element => {
+        if (element.style.fontWeight === 'bold') {
+            element.style.fontWeight = element.dataset.originalFontWeight;
+            updateButtonImageMisc(boldButton, "EmboldenText", true);
+        }
+
+        if (element.style.fontStyle === 'italic') { 
+            if (element.dataset.originalFontStyle) {
+                element.style.fontStyle = element.dataset.originalFontStyle;
+                element.removeAttribute('data-original-fontStyle');
+                isItalic = true;
+                updateButtonImageMisc(italicsButton, "ItalicizeText", true);
+            } else {
+                element.style.fontStyle = 'normal';
+            }
+        }
+    });
+    currentProfile = "none";
+}
+
+const colorBlindProfile = shadowRoot.getElementById('colorBlindProfile');
+const colorBlindProfileImg = shadowRoot.getElementById('colorBlindProfileImg');
+
+const visuallyImpairedProfile = shadowRoot.getElementById('visuallyImpairedProfile');
+const visuallyImpairedProfileImg = shadowRoot.getElementById('visuallyImpairedProfileImg');
+
+const dyslexiaProfile = shadowRoot.getElementById('dyslexiaProfile');
+const dyslexiaProfileImg = shadowRoot.getElementById('dyslexiaProfileImg');
+
+const ADHDProfile = shadowRoot.getElementById('ADHDProfile');
+const ADHDProfileImg = shadowRoot.getElementById('ADHDProfileImg');
+
+const LearningProfile = shadowRoot.getElementById('LearningProfile');
+const LearningProfileImg = shadowRoot.getElementById('LearningProfileImg');
+
+let currentProfile = "none";
+
+colorBlindProfile.addEventListener('click', () => {
+    if(currentProfile != "colorBlind"){
+        defaultAll();
+        currentProfile = "colorBlind";
+        currentSaturationIndex = 1;
+        currentContrastIndex = 1;
+        toggleSaturation();
+        toggleContrast();
+    }
+    else{
+        defaultAll();
+    }
+});
+
+visuallyImpairedProfile.addEventListener('click', () => {
+    if(currentProfile != "visImpaired"){
+        defaultAll();
+        currentTypeface = "original";
+        currentSaturationIndex = 1;
+        currentSizeIndex = 1;
+
+        arialButton.click();
+        textSizeButton.click();
+        toggleSaturation();
+        currentProfile = "visImpaired";
+    }
+    else{
+        defaultAll();
+    }
+});
+
+dyslexiaProfile.addEventListener('click', () => {
+    if(currentProfile != "dyslexiaProfile"){
+        defaultAll();
+        openDyslexiaButton.click();
+        currentProfile = "dyslexiaProfile";
+    }
+    else{
+        defaultAll();
+    }
+});
+
+ADHDProfile.addEventListener('click', () => {
+    if(currentProfile != "ADHDProfile"){
+        defaultAll();
+
+        currentSaturationIndex = 1;
+        focusRulerState = 0;
+
+        toggleSaturation();
+        toggleFocusRulerButton.click();
+        
+        currentProfile = "ADHDProfile";
+    }
+    else{
+        defaultAll();
+    }
+});
+
+LearningProfile.addEventListener('click', () => {
+    if(currentProfile != "LaerningProfile"){
+        defaultAll();
+
+        currentContrastIndex = 1;
+        currentSizeIndex = 1;
+
+        toggleContrast();
+        textSizeButton.click();
+        
+        currentProfile = "LaerningProfile";
+    }
+    else{
+        defaultAll();
+    }
+});
+
+
+//Text to Speech Functions --------------------------------------------------------------------------
+const readPageButton = shadowRoot.getElementById('readPage');
+const readPageImg = shadowRoot.getElementById('readPageImg');
+
+
+const readSpeedButton = shadowRoot.getElementById('readSpeed');
+const readSpeedImg = shadowRoot.getElementById('readSpeedImg');
+
+const t2sHighlightButton = shadowRoot.getElementById('t2sHighlight');
+const t2sHighlightImg = shadowRoot.getElementById('t2sHighlightImg');
+
+let isReading = false;
+let isReadingHighlighted = false;
+let currentSpeedIndex = 1;
+let speechSynthesisUtterance;
+const speedValues = [0.75, 1, 1.5]; // slow, normal, fast
+const speedImages = [
+    chrome.runtime.getURL("images/SpeedSlow.svg"),
+    chrome.runtime.getURL("images/SpeedNormalGray.svg"),
+    chrome.runtime.getURL("images/SpeedFast.svg")
+];
+
+readPageButton.addEventListener('click', () => {
+
+    if (!isReading) {
+        startReadingPage();
+    } else {
+        stopReadingPage();
+    }
+    isReading = !isReading;
+});
+
+function startReadingPage() {
+    window.speechSynthesis.cancel();
+    isReadingHighlighted = false;
+    const textToRead = document.body.innerText;
+
+    speechSynthesisUtterance = new SpeechSynthesisUtterance(textToRead);
+    
+    speechSynthesisUtterance.rate = speedValues[currentSpeedIndex]; // Set the current speech rate
+    speechSynthesisUtterance.pitch = 1; // Set default pitch
+
+    window.speechSynthesis.speak(speechSynthesisUtterance);
+}
+
+function stopReadingPage() {
+    window.speechSynthesis.cancel();
+}
+
+readSpeedButton.addEventListener('click', () => {
+    // Cycle through the speed settings
+    currentSpeedIndex = (currentSpeedIndex + 1) % speedValues.length;
+
+    readSpeedImg.src = speedImages[currentSpeedIndex];
+    
+    // Adjust the reading speed
+    if (speechSynthesisUtterance) {
+        speechSynthesisUtterance.rate = speedValues[currentSpeedIndex];
+
+        if (isReading) {
+            // Restart the speech with the new rate
+            stopReadingPage();
+            startReadingPage();
+        }
+    }
+});
+
+t2sHighlightButton.addEventListener('click', () => {
+    isReadingHighlighted = !isReadingHighlighted;
+    if (isReadingHighlighted) {
+        startReadingHighlightedText();
+    } else {
+        stopReadingPage();
+    }
+});
+
+function startReadingHighlightedText() {
+    isReading = false;
+    window.speechSynthesis.cancel();
+    const highlightedText = getHighlightedText();
+    if (highlightedText) {
+        speechSynthesisUtterance = new SpeechSynthesisUtterance(highlightedText);
+        speechSynthesisUtterance.rate = speedValues[currentSpeedIndex]; // Set the current speech rate
+        speechSynthesisUtterance.pitch = 1; // Set default pitch
+
+        speechSynthesisUtterance.onend = () => {
+            isReading = false;
+        };
+
+        window.speechSynthesis.speak(speechSynthesisUtterance);
+    }
+}
+
+function stopReadingHighlightedText() {
+    window.speechSynthesis.cancel();
+}
+
+function getHighlightedText() {
+    const selection = window.getSelection();
+    if (selection.rangeCount > 0) {
+        const range = selection.getRangeAt(0);
+        return range.toString();
+    }
+    return null;
+}
+
+//Typeface Changers
+const arialButton = shadowRoot.getElementById('arialButton');
+const calibriButton = shadowRoot.getElementById('calibriButton');
+const gothicButton = shadowRoot.getElementById('centuryGothicButton');
+const comicButton = shadowRoot.getElementById('comicSansButton');
+const courierButton = shadowRoot.getElementById('courierButton');
+const helveticaButton = shadowRoot.getElementById('helveticaButton');
+const openSansButton = shadowRoot.getElementById('openSansButton');
+const openDyslexiaButton = shadowRoot.getElementById('openDyslexia');
+const tahomaButton = shadowRoot.getElementById('tahomaButton');
+const verdanaButton = shadowRoot.getElementById('verdanaButton');
+
+let currentTypeface = "original";
+let currentButton = null;
+
+
+let orignalTypeface;
+function storeOriginalTypeface() {
+    const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+    textElements.forEach(element => {
+        const typeface = window.getComputedStyle(element).fontFamily;
+        element.dataset.originalTypeface = typeface;
+    });
+}
+storeOriginalTypeface();
+
+function WrapEveryWord() {
+    const textNodesUnder = (el) => {
+        let n, a = [], walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+        while (n = walk.nextNode()) a.push(n);
+        return a;
+    };
+
+    const wrapWordsInSpan = (node) => {
+        const parent = node.parentNode;
+        const words = node.textContent.split(/(\s+)/); // Split on spaces while keeping the spaces
+        const fragment = document.createDocumentFragment();
+
+        words.forEach(word => {
+            if (word.trim() !== "") {
+                const span = document.createElement('span');
+                span.textContent = word;
+                span.classList.add('highlightConversion');
+                span.style.whiteSpace = "pre"; // Preserve spaces
+                fragment.appendChild(span);
+            } else {
+                fragment.appendChild(document.createTextNode(word)); // Add the space back
+            }
+
+        });
+        parent.replaceChild(fragment, node);
+    };
+
+    const textNodes = textNodesUnder(document.body);
+    textNodes.forEach(node => {
+        wrapWordsInSpan(node);
+    });
+}
+
+WrapEveryWord();
+
+function toggleClassOnSelection(className, classType) {
+    const selection = window.getSelection();
+    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+        const range = selection.getRangeAt(0);
+        const startContainer = range.startContainer;
+        const endContainer = range.endContainer;
+        const spans = document.querySelectorAll('span');
+        let inSelection = false;
+        let shouldToggleOff = false;
+
+        // Determine if the class should be toggled off
+        spans.forEach(span => {
+            if (span.contains(startContainer) || span === startContainer) {
+                inSelection = true;
+            }
+            if (inSelection && span.classList.contains(className)) {
+                shouldToggleOff = true;
+            }
+            if (span.contains(endContainer) || span === endContainer) {
+                inSelection = false;
+            }
+        });
+
+        inSelection = false;
+
+        // Apply or remove the class as necessary
+        spans.forEach(span => {
+            const spanRange = document.createRange();
+            spanRange.selectNodeContents(span);
+
+            if (range.compareBoundaryPoints(Range.START_TO_END, spanRange) > 0 && 
+                range.compareBoundaryPoints(Range.END_TO_START, spanRange) < 0) {
+                // The span is fully or partially within the selection
+                if (classType === "Typeface") {
+                    span.classList.remove(
+                        'highlight-typeface-arial', 'highlight-typeface-calibri', 'highlight-typeface-century-gothic',
+                        'highlight-typeface-comic-sans-ms', 'highlight-typeface-courier', 'highlight-typeface-helvetica',
+                        'highlight-typeface-open-sans', 'highlight-typeface-opendyslexic', 'highlight-typeface-tahoma',
+                        'highlight-typeface-verdana'
+                    );
+                } else if (classType === "Color") {
+                    span.classList.remove(
+                        'highlight-color-black', 'highlight-color-white', 'highlight-color-red',
+                        'highlight-color-orange', 'highlight-color-yellow', 'highlight-color-green',
+                        'highlight-color-blue', 'highlight-color-purple'
+                    );
+                }
+
+                if (shouldToggleOff) {
+                    span.classList.remove(className);
+                } else {
+                    span.classList.add(className);
+                }
+            }
+        });
+    }
+}
+
+function toggleButtonBackground(button) {
+    if (currentFontButton === button) {
+        button.style.backgroundColor = ''; // Remove background color if already clicked
+        currentFontButton = null;
+    } else {
+        if (currentFontButton) {
+            currentFontButton.style.backgroundColor = ''; // Remove background color from previous button
+        }
+        button.style.backgroundColor = 'rgba(0, 0, 255, 0.5)'; // Semi-transparent blue background
+        currentFontButton = button;
+    }
+}
+
+let isClicked = false;
+let currentFontButton = null;
+arialButton.addEventListener('click', () => {
+    const selectedFont = "Arial";
+    const selection = window.getSelection();
+
+    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+        toggleClassOnSelection('highlight-typeface-arial', "Typeface");
+    } else {
+        if(currentTypeface != "arial"){
+            currentTypeface = "arial"
+            document.body.style.fontFamily = selectedFont;
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+            textElements.forEach(element => {
+                element.style.fontFamily = selectedFont;
+            });
+            toggleButtonBackground(arialButton);
+        }
+        else{
+            currentTypeface = "original"
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+            textElements.forEach(element => {
+                if(element.hasAttribute('data-original-typeface')) {
+                    const originalTypeface = element.dataset.originalTypeface;
+                    element.style.fontFamily = originalTypeface;
+                }
+                else {
+                    const originalTypeface = element.getAttribute('data-original-typeface');
+                    element.style.fontFamily = originalTypeface;
+                }
+            });
+            toggleButtonBackground(arialButton);
+        }
+    }
+});
+/////////////
+calibriButton.addEventListener('click', () => {
+    const selectedFont = "Calibri";
+    const selection = window.getSelection();
+
+    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+        toggleClassOnSelection('highlight-typeface-calibri', "Typeface");
+    } else {
+        if(currentTypeface != "calibri"){
+            currentTypeface = "calibri"
+            document.body.style.fontFamily = selectedFont;
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+            textElements.forEach(element => {
+                element.style.fontFamily = selectedFont;
+            });
+            toggleButtonBackground(calibriButton);
+        }
+        else{
+            currentTypeface = "original"
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+            textElements.forEach(element => {
+                if(element.hasAttribute('data-original-typeface')) {
+                    const originalTypeface = element.dataset.originalTypeface;
+                    element.style.fontFamily = originalTypeface;
+                }
+                else {
+                    const originalTypeface = element.getAttribute('data-original-typeface');
+                    element.style.fontFamily = originalTypeface;
+                }
+            });
+            toggleButtonBackground(calibriButton);
+        }
+    }
+});
+////////////
+gothicButton.addEventListener('click', () => {
+    const selectedFont = "Century Gothic";
+    const selection = window.getSelection();
+
+    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+        toggleClassOnSelection('highlight-typeface-century-gothic', "Typeface");
+    } else {
+        if(currentTypeface != "gothic"){
+            currentTypeface = "gothic"
+            document.body.style.fontFamily = selectedFont;
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+            textElements.forEach(element => {
+                element.style.fontFamily = selectedFont;
+            });
+            toggleButtonBackground(gothicButton);
+        }
+        else{
+            currentTypeface = "original"
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+            textElements.forEach(element => {
+                if(element.hasAttribute('data-original-typeface')) {
+                    const originalTypeface = element.dataset.originalTypeface;
+                    element.style.fontFamily = originalTypeface;
+                }
+                else {
+                    const originalTypeface = element.getAttribute('data-original-typeface');
+                    element.style.fontFamily = originalTypeface;
+                }
+            });
+            toggleButtonBackground(gothicButton);
+        }
+    }
+});
+///////////////
+comicButton.addEventListener('click', () => {
+    const selectedFont = "Comic Sans MS";
+    const selection = window.getSelection();
+
+    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+        toggleClassOnSelection('highlight-typeface-comic-sans-ms', "Typeface");
+    } else {
+        if(currentTypeface != "comic"){
+            currentTypeface = "comic"
+            document.body.style.fontFamily = selectedFont;
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+            textElements.forEach(element => {
+                element.style.fontFamily = selectedFont;
+            });
+            toggleButtonBackground(comicButton);
+        }
+        else{
+            currentTypeface = "original"
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+            textElements.forEach(element => {
+                if(element.hasAttribute('data-original-typeface')) {
+                    const originalTypeface = element.dataset.originalTypeface;
+                    element.style.fontFamily = originalTypeface;
+                }
+                else {
+                    const originalTypeface = element.getAttribute('data-original-typeface');
+                    element.style.fontFamily = originalTypeface;
+                }
+            });
+            toggleButtonBackground(comicButton);
+        }
+    }
+});
+////////
+courierButton.addEventListener('click', () => {
+    const selectedFont = "Courier";
+    const selection = window.getSelection();
+
+    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+        toggleClassOnSelection('highlight-typeface-courier', "Typeface");
+    } else {
+        if(currentTypeface != "courier"){
+            currentTypeface = "courier"
+            document.body.style.fontFamily = selectedFont;
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+            textElements.forEach(element => {
+                element.style.fontFamily = selectedFont;
+            });
+            toggleButtonBackground(courierButton);
+        }
+        else{
+            currentTypeface = "original"
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+            textElements.forEach(element => {
+                if(element.hasAttribute('data-original-typeface')) {
+                    const originalTypeface = element.dataset.originalTypeface;
+                    element.style.fontFamily = originalTypeface;
+                }
+                else {
+                    const originalTypeface = element.getAttribute('data-original-typeface');
+                    element.style.fontFamily = originalTypeface;
+                }
+            });
+            toggleButtonBackground(courierButton);
+        }
+    }
+});
+///////////////
+helveticaButton.addEventListener('click', () => {
+    const selectedFont = "Helvetica";
+    const selection = window.getSelection();
+
+    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+        toggleClassOnSelection('highlight-typeface-helvetica', "Typeface");
+    } else {
+        if(currentTypeface != "helvetica"){
+            currentTypeface = "helvetica"
+            document.body.style.fontFamily = selectedFont;
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+            textElements.forEach(element => {
+                element.style.fontFamily = selectedFont;
+            });
+            toggleButtonBackground(helveticaButton);
+        }
+        else{
+            currentTypeface = "original"
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+            textElements.forEach(element => {
+                if(element.hasAttribute('data-original-typeface')) {
+                    const originalTypeface = element.dataset.originalTypeface;
+                    element.style.fontFamily = originalTypeface;
+                }
+                else {
+                    const originalTypeface = element.getAttribute('data-original-typeface');
+                    element.style.fontFamily = originalTypeface;
+                }
+            });
+            toggleButtonBackground(helveticaButton);
+        }
+    }
+});
+/////////////////////
+openSansButton.addEventListener('click', () => {
+    const selectedFont = "Open Sans";
+    const selection = window.getSelection();
+
+    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+        toggleClassOnSelection('highlight-typeface-open-sans', "Typeface");
+    } else {
+        if(currentTypeface != "open sans"){
+            currentTypeface = "open sans"
+            document.body.style.fontFamily = selectedFont;
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+            textElements.forEach(element => {
+                element.style.fontFamily = selectedFont;
+            });
+            toggleButtonBackground(openSansButton);
+        }
+        else{
+            currentTypeface = "original"
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+            textElements.forEach(element => {
+                if(element.hasAttribute('data-original-typeface')) {
+                    const originalTypeface = element.dataset.originalTypeface;
+                    element.style.fontFamily = originalTypeface;
+                }
+                else {
+                    const originalTypeface = element.getAttribute('data-original-typeface');
+                    element.style.fontFamily = originalTypeface;
+                }
+            });
+            toggleButtonBackground(openSansButton);
+        }
+    }
+});
+
+/////////////////
+openDyslexiaButton.addEventListener('click', () => {
+    const selectedFont = "OpenDyslexic";
+    const selection = window.getSelection();
+
+    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+        toggleClassOnSelection('highlight-typeface-opendyslexic', "Typeface");
+    } else {
+        if(currentTypeface != "dyslexia"){
+            currentTypeface = "dyslexia"
+            const selectedFont = "OpenDyslexic";
+            document.body.style.fontFamily = selectedFont;
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+            textElements.forEach(element => {
+                element.style.fontFamily = selectedFont;
+            });
+            toggleButtonBackground(openDyslexiaButton);
+        }
+        else{
+            currentTypeface = "original"
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+            textElements.forEach(element => {
+                if(element.hasAttribute('data-original-typeface')) {
+                    const originalTypeface = element.dataset.originalTypeface;
+                    element.style.fontFamily = originalTypeface;
+                }
+                else {
+                    const originalTypeface = element.getAttribute('data-original-typeface');
+                    element.style.fontFamily = originalTypeface;
+                }
+            });
+            toggleButtonBackground(openDyslexiaButton);
+        }
+    }
+});
+/////////////
+tahomaButton.addEventListener('click', () => {
+    const selectedFont = "Tahoma";
+    const selection = window.getSelection();
+
+    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+        toggleClassOnSelection('highlight-typeface-tahoma', "Typeface");
+    } else {
+        if(currentTypeface != "tahoma"){
+            currentTypeface = "tahoma"
+            document.body.style.fontFamily = selectedFont;
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+            textElements.forEach(element => {
+                element.style.fontFamily = selectedFont;
+            });
+            toggleButtonBackground(tahomaButton);
+        }
+        else{
+            currentTypeface = "original"
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+            textElements.forEach(element => {
+                if(element.hasAttribute('data-original-typeface')) {
+                    const originalTypeface = element.dataset.originalTypeface;
+                    element.style.fontFamily = originalTypeface;
+                }
+                else {
+                    const originalTypeface = element.getAttribute('data-original-typeface');
+                    element.style.fontFamily = originalTypeface;
+                }
+            });
+            toggleButtonBackground(tahomaButton);
+        }
+        
+    }
+});
+//////////////////////////
+
+verdanaButton.addEventListener('click', () => {
+    const selectedFont = "Verdana";
+    const selection = window.getSelection();
+
+    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+        toggleClassOnSelection('highlight-typeface-verdana', "Typeface");
+    } else {
+        if(currentTypeface != "verdana"){
+            currentTypeface = "verdana"
+            const selectedFont = "Verdana";
+            document.body.style.fontFamily = selectedFont;
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+            textElements.forEach(element => {
+                element.style.fontFamily = selectedFont;
+            });
+            toggleButtonBackground(verdanaButton);
+        }
+        else{
+            currentTypeface = "original"
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+            textElements.forEach(element => {
+                if(element.hasAttribute('data-original-typeface')) {
+                    const originalTypeface = element.dataset.originalTypeface;
+                    element.style.fontFamily = originalTypeface;
+                }
+                else {
+                    const originalTypeface = element.getAttribute('data-original-typeface');
+                    element.style.fontFamily = originalTypeface;
+                }
+            });
+            toggleButtonBackground(verdanaButton);
+        }
+    }
+});
+
+function updateButtonImageMisc(button, imageName, isOriginal) {
+    if(imageName == "DefaultAlign"){
+        isOriginal = true;
+    }
+    if (isOriginal) {
+        button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + "Gray.svg")}`;
+    } else {
+        button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + "Blue.svg")}`;
+    }
+}
+
+// Function to update the button image based on the current size index
+function updateButtonImageText(button, imageName, currentSizeIndex) {
+    let imageSuffix = "Gray";
+    if (currentSizeIndex === 0) {
+        imageSuffix = "BlueSmall";
+    } else if (currentSizeIndex === 2) {
+        imageSuffix = "BlueLarge";
+    } else if (currentSizeIndex === 1) {
+        imageSuffix = "Gray";
+    }
+    button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + imageSuffix + ".svg")}`;
+}
+
+// Text Styling
+const textSizeButton = shadowRoot.getElementById('textSize');
+const boldButton = shadowRoot.getElementById('emboldenText');
+const italicsButton = shadowRoot.getElementById('italicizeText');
+const alignmentButton = shadowRoot.getElementById('textAlignment');
+
+const sizeValues = [0.75, 1, 1.5];
+let currentSizeIndex = 1;
+
+const alignments = ['default', 'left', 'center', 'right'];
+let currentAlignmentIndex = 0;
 
 function storeOriginalFontSizes() {
-    const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+    const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
 
     textElements.forEach(element => {
-        if (!element.closest('#FocusUp')) {
-            const fontSize = parseFloat(window.getComputedStyle(element).fontSize);
-            element.dataset.originalFontSize = fontSize;
-        }
+        const fontSize = parseFloat(window.getComputedStyle(element).fontSize);
+        element.dataset.originalFontSize = fontSize;
     });
 }
 storeOriginalFontSizes();
 
+///////////////////////////////
+textSizeButton.addEventListener('click', () => {
+
+    const selection = window.getSelection();
+    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+        const range = selection.getRangeAt(0);
+        const spans = document.querySelectorAll('span');
+        let inSelection = false;
+
+        spans.forEach(span => {
+            if (range.intersectsNode(span)) {
+                if (!span.dataset.originalFontSize) {
+                    span.dataset.originalFontSize = window.getComputedStyle(span).fontSize;
+                }
+                // Toggle size index
+                let sizeIndex = span.dataset.currentSizeIndex ? parseInt(span.dataset.currentSizeIndex) : 0;
+                sizeIndex = (sizeIndex + 1) % sizeValues.length;
+                span.dataset.currentSizeIndex = sizeIndex;
+                const originalFontSize = parseFloat(span.dataset.originalFontSize);
+                const newSize = originalFontSize * sizeValues[sizeIndex];
+                span.style.fontSize = `${newSize}px`;
+            }
+        });
+    } else {
+        // Toggle through size values for all text elements if no selection is made
+        currentSizeIndex = (currentSizeIndex + 1) % sizeValues.length;
+        const scaleFactor = sizeValues[currentSizeIndex];
+        const textElements = document.querySelectorAll('span.highlightConversion');
+
+        textElements.forEach(element => {
+            if (!element.dataset.originalFontSize) {
+                element.dataset.originalFontSize = window.getComputedStyle(element).fontSize;
+            }
+            const originalFontSize = parseFloat(element.dataset.originalFontSize);
+            const newSize = originalFontSize * scaleFactor;
+            element.style.fontSize = `${newSize}px`;
+        });
+        updateButtonImageText(textSizeButton, "TextSize", currentSizeIndex);
+    }
+});
+//////////////////////////////
+
+
+function storeOriginalStyles() {
+    const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+
+    textElements.forEach(element => {
+        const computedStyle = window.getComputedStyle(element);
+        element.dataset.originalFontWeight = computedStyle.fontWeight;
+        element.dataset.originalFontStyle = computedStyle.fontStyle;
+    });
+}
+storeOriginalStyles();
+
+function boldHighlightConversion(selection) {
+    const range = selection.getRangeAt(0);
+    const selectedContent = range.extractContents();
+    const fragment = document.createDocumentFragment();
+
+    selectedContent.childNodes.forEach(node => {
+        if (node.nodeType === Node.TEXT_NODE) {
+            const words = node.textContent.split(/(\s+)/); // Split on spaces while keeping the spaces
+            words.forEach(word => {
+                if (word.trim() !== "") {
+                    const span = document.createElement('span');
+                    span.style.fontWeight = 'bold';
+                    span.textContent = word;
+                    fragment.appendChild(span);
+                } else {
+                    fragment.appendChild(document.createTextNode(word)); // Add the space back
+                }
+            });
+        } else if (node.nodeType === Node.ELEMENT_NODE && node.style.fontWeight === 'bold') {
+            const textNodes = node.childNodes;
+            textNodes.forEach(textNode => {
+                if (textNode.nodeType === Node.TEXT_NODE) {
+                    fragment.appendChild(document.createTextNode(textNode.textContent));
+                } else {
+                    fragment.appendChild(textNode.cloneNode(true));
+                }
+            });
+        } else {
+            const clonedNode = node.cloneNode(true);
+            clonedNode.style.fontWeight = 'bold';
+            fragment.appendChild(clonedNode);
+        }
+    });
+
+    range.insertNode(fragment);
+    selection.removeAllRanges();
+}
+
+
+boldButton.addEventListener('click', () => {
+    const selection = window.getSelection();
+
+    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+        toggleClassOnSelection('highlight-bold', "Bold");
+    } else {
+        const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
+        
+        textElements.forEach(element => {
+            if (element.style.fontWeight === 'bold') {
+                element.style.fontWeight = element.dataset.originalFontWeight;
+                isBold = true;
+                updateButtonImageMisc(boldButton, "EmboldenText", isBold);
+            } else {
+                element.style.fontWeight = 'bold';
+                isBold = false;
+                updateButtonImageMisc(boldButton, "EmboldenText", isBold);
+            }
+        });
+    }
+});
+
+function italicsHighlightConversion(selection) {
+    const range = selection.getRangeAt(0);
+    const selectedContent = range.extractContents();
+    const fragment = document.createDocumentFragment();
+
+    selectedContent.childNodes.forEach(node => {
+        if (node.nodeType === Node.TEXT_NODE) {
+            const words = node.textContent.split(/(\s+)/); // Split on spaces while keeping the spaces
+            words.forEach(word => {
+                if (word.trim() !== "") {
+                    const span = document.createElement('span');
+                    span.style.fontStyle = 'italic';
+                    span.textContent = word;
+                    fragment.appendChild(span);
+                } else {
+                    fragment.appendChild(document.createTextNode(word)); // Add the space back
+                }
+            });
+        } else if (node.nodeType === Node.ELEMENT_NODE && node.style.fontStyle === 'italic') {
+            const textNodes = node.childNodes;
+            textNodes.forEach(textNode => {
+                if (textNode.nodeType === Node.TEXT_NODE) {
+                    fragment.appendChild(document.createTextNode(textNode.textContent));
+                } else {
+                    fragment.appendChild(textNode.cloneNode(true));
+                }
+            });
+        } else {
+            const clonedNode = node.cloneNode(true);
+            clonedNode.style.fontStyle = 'italic';
+            fragment.appendChild(clonedNode);
+        }
+    });
+
+    range.insertNode(fragment);
+    selection.removeAllRanges();
+}
+
+italicsButton.addEventListener('click', () => {
+    let isItalic = false;
+    const selection = window.getSelection();
+
+    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+        toggleClassOnSelection('highlight-italics', "Italics");
+    } else {
+        const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
+        
+        textElements.forEach(element => {
+            if (element.style.fontStyle === 'italic') {
+                if (element.dataset.originalFontStyle) {
+                    element.style.fontStyle = element.dataset.originalFontStyle;
+                    element.removeAttribute('data-original-fontStyle');
+                    isItalic = true;
+                    updateButtonImageMisc(italicsButton, "ItalicizeText", isItalic);
+                } else {
+                    element.style.fontStyle = 'normal';
+                }
+            } else {
+                if (!element.dataset.originalFontStyle) {
+                    element.dataset.originalFontStyle = window.getComputedStyle(element).fontStyle;
+                }
+                element.style.fontStyle = 'italic';
+                isItalic = false;
+                updateButtonImageMisc(italicsButton, "ItalicizeText", isItalic);
+            }
+        });
+    }
+});
+
+function storeOriginalTextAlignment() {
+    const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+    
+    textElements.forEach(element => {
+        const computedStyle = window.getComputedStyle(element);
+        element.dataset.originalTextAlign = computedStyle.textAlign;
+    });
+}
+storeOriginalTextAlignment();
+
+alignmentButton.addEventListener('click', () => {
+    currentAlignmentIndex = (currentAlignmentIndex + 1) % alignments.length;
+
+    const newAlignment = alignments[currentAlignmentIndex];
+    const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
+    
+    textElements.forEach(element => {
+        if (newAlignment === 'default') {
+            element.style.textAlign = element.dataset.originalTextAlign;
+        } else {
+            element.style.textAlign = newAlignment;
+        }
+    });
+        updateButtonImageMisc(alignmentButton, "Align", false);
+        const alignmentImages = ["DefaultAlign", "AlignLeft", "AlignCenter", "AlignRight"];
+        alignmentImages.forEach((imageName, index) => {
+            if (index === currentAlignmentIndex) {
+                updateButtonImageMisc(alignmentButton, imageName, false);
+            }
+    });
+});
+
+const blackTextButton = shadowRoot.getElementById('textBlack');
+const whiteTextButton = shadowRoot.getElementById('textWhite');
+const redTextButton = shadowRoot.getElementById('textRed');
+const orangeTextButton = shadowRoot.getElementById('textOrange');
+const yellowTextButton = shadowRoot.getElementById('textYellow');
+const greenTextButton = shadowRoot.getElementById('textGreen');
+const blueTextButton = shadowRoot.getElementById('textBlue');
+const purpleTextButton = shadowRoot.getElementById('textPurple');
+const defaultTextColorButton = shadowRoot.getElementById('textColorDefault');
+
+currentColor = "original";
+
+let originalFontColor;
 function storeOriginalFontColor() {
     const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
 
@@ -567,1725 +1462,564 @@ function storeOriginalFontColor() {
 }
 storeOriginalFontColor();
 
+blackTextButton.addEventListener('click', () => {
+    const selection = window.getSelection();
 
-function storeOriginalBackgroundColor() {
-    const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+        toggleClassOnSelection('highlight-color-black', "Color");
+    } else {
+        if (currentColor !== "black") {
+            currentColor = "black";
+            const selectedColor = "black";
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, li, td, th, label, div');
 
-    textElements.forEach(element => {
-        if (!element.closest('#FocusUp')) {
-            const backColor = window.getComputedStyle(element).backgroundColor;
-            element.dataset.originalBackgroundColor = backColor;
-        }
-    });
-}
-storeOriginalBackgroundColor();
+            textElements.forEach(element => {
+                if (!element.dataset.originalFontColor) {
+                    element.dataset.originalFontColor = window.getComputedStyle(element).color;
+                }
+                element.style.color = selectedColor;
+            });
+        } else {
+            currentColor = "original";
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
 
-
-function storeOriginalTypeface() {
-    const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
-    textElements.forEach(element => {
-        if (!element.closest('#FocusUp')) {
-            const typeface = window.getComputedStyle(element).fontFamily;
-            element.dataset.originalTypeface = typeface;
-        }
-    });
-}
-storeOriginalTypeface();
-
-let notBionic = new Map();
-
-fontAlterationButton.addEventListener('click', () => {
-    //BR breaks the original font size button
-
-    for (let button of fontAlterationButtons) {
-        button.classList.toggle('show');
-    }
-
-    for (let button of MainButtons) {
-        button.classList.toggle('show');
-    }
-   
-    const backButton = shadowRoot.getElementById('backButtonFA');
-    const fontConversionButton = shadowRoot.getElementById('fontConversionButton');
-    const bionicModeButton = shadowRoot.getElementById('bionicButton');
-    const toDefaultButton = shadowRoot.getElementById('toDefaultButton');
-
-    function backButtonClickHandler() {
-        for (let button of fontAlterationButtons) {
-            button.classList.toggle('show');
-        }
-        
-        for (let button of MainButtons) {
-            button.classList.toggle('show');
-        }
-
-        for (let menu of menus) {
-            menu.classList.remove('show');
+            textElements.forEach(element => {
+                if (element.dataset.originalFontColor) {
+                    element.style.color = element.dataset.originalFontColor;
+                    element.removeAttribute('data-original-font-color');
+                } else {
+                    element.style.color = "";
+                }
+            });
         }
     }
+});
 
-    if(!addedFAListeners)
-        backButton.addEventListener('click', backButtonClickHandler);
+whiteTextButton.addEventListener('click', () => {
+    const selection = window.getSelection();
 
-    function fontConversionButtonClickHandler() {
-        fontAlterationMenu.classList.toggle('show');
+    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+        toggleClassOnSelection('highlight-color-white', "Color");
+    } else {
+        if(currentColor != "white"){
+            currentColor = "white";
 
-        const increaseFontButton = shadowRoot.getElementById('increaseFont');
-        const decreaseFontButton = shadowRoot.getElementById('decreaseFont');
-        const fontColorInput = shadowRoot.getElementById('fontColor');
-        const backgroundColorInput = shadowRoot.getElementById('backColor');
-        const originalBColorButton = shadowRoot.getElementById('originalBColor');
-        const originalFColorButton = shadowRoot.getElementById('originalFColor');
-        const originalSizeButton = shadowRoot.getElementById('originalSize');
-        const fontSelector = shadowRoot.getElementById('typeface');
-        const originalTypefaceButton = shadowRoot.getElementById('originalTypeface');
-
-        if(!addedFAMenuListeners){
-            increaseFontButton.addEventListener('click', () => {
-                const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
-                textElements.forEach(element => {
-                    if (!element.closest('#FocusUp')) {
-                        const currentFontSize = parseFloat(window.getComputedStyle(element).fontSize);
-                        const newFontSize = currentFontSize * 1.03; 
-                        element.style.fontSize = `${newFontSize}px`;
-                    }
-                });
+            const selectedColor = "white";
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, li, td, th, label, div');
+            textElements.forEach(element => {
+                element.style.color = selectedColor;
             });
         }
-
-        if(!addedFAMenuListeners){
-            decreaseFontButton.addEventListener('click', () => {
-                const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
-                textElements.forEach(element => {
-                    if (!element.closest('#FocusUp')) {
-                        const currentFontSize = parseFloat(window.getComputedStyle(element).fontSize);
-                        const newFontSize = currentFontSize * 0.96;
-                        element.style.fontSize = `${newFontSize}px`;
-                    }
-                });
-            });
-        }
-
-        if(!addedFAMenuListeners){
-            originalSizeButton.addEventListener('click', () => {
-                const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
-                textElements.forEach(element => {
-                    if (!element.closest('#FocusUp')) {
-                        let originalFontSize = null;
-                        // Traverse up to find the closest ancestor with the original font size
-                        let currentElement = element;
-                        while (currentElement && !originalFontSize && currentElement !== document.documentElement) {
-                            if (currentElement.hasAttribute('data-original-font-size')) {
-                                originalFontSize = parseFloat(currentElement.dataset.originalFontSize);
-                            }
-                            currentElement = currentElement.parentNode;
-                        }
-                        if (originalFontSize !== null) {
-                            element.style.fontSize = `${originalFontSize}px`;
-                        }
-                    }
-                });
-            });
-        }
-        if(!addedFAMenuListeners){
-            fontColorInput.addEventListener('click', () =>{
-                const selectedColor = fontColorInput.value;
-                const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, li, td, th, label, div');
-                textElements.forEach(element => {
-                    if (!element.closest('#FocusUp')) {
-                        element.style.color = selectedColor;
-                    }
-                });
-            });
-        }
-        if(!addedFAMenuListeners){
-            originalFColorButton.addEventListener('click', () =>{
-                const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
-                textElements.forEach(element => {
-                    if (!element.closest('#FocusUp')) {
-                        if(element.hasAttribute('data-original-font-color')) {
-                            const originalFontColor = element.dataset.originalFontColor;
-                            element.style.color = originalFontColor;
-                        }
-                        else {
-                            const originalFontColor = element.getAttribute('data-original-font-color');
-                            element.style.color = originalFontColor;
-                        }
-                    }
-                });
-            });
-        }
-      
-        if(!addedFAMenuListeners){
-            backgroundColorInput.addEventListener('click', () =>{
-                const backgroundColor = backgroundColorInput.value;
-                const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
-                textElements.forEach(element => {
-                    if (!element.closest('#FocusUp')) {
-                        element.style.backgroundColor = backgroundColor;
-                    }
-                });
-            });
-        }
-        if(!addedFAMenuListeners){
-            originalBColorButton.addEventListener('click', () =>{
-                const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
-                textElements.forEach(element => {
-                    if (!element.closest('#FocusUp')) {
-                        if(element.hasAttribute('data-original-background-color')) {
-                            const originalBackgroundColor = element.dataset.originalBackgroundColor;
-                            element.style.backgroundColor = originalBackgroundColor;
-                            /* if (element.classList.contains('bold-first-half')) {
-                                element.style.backgroundColor = originalBackgroundColor;
-                            } else {
-                                element.setAttribute('style', `background-color: ${originalBackgroundColor}`);
-                            } */
-                        } else {
-                            const originalBackgroundColor = element.getAttribute('data-original-background-color');
-                            element.style.backgroundColor = originalBackgroundColor;
-                        }
-                    }
-                });
-            });
-        }
-      
-        
-        fontSelector.addEventListener('change', function() {
-            const selectedFont = fontSelector.value;
-            document.body.style.fontFamily = selectedFont;
+        else{
+            currentColor = "original";
             const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
             textElements.forEach(element => {
-                if (!element.closest('#FocusUp')) {
-                    element.style.fontFamily = selectedFont;
+                if(element.hasAttribute('data-original-font-color')) {
+                    const originalFontColor = element.dataset.originalFontColor;
+                    element.style.color = originalFontColor;
+                }
+                else {
+                    const originalFontColor = element.getAttribute('data-original-font-color');
+                    element.style.color = originalFontColor;
                 }
             });
-        });
-        if(!addedFAMenuListeners){
-            originalTypefaceButton.addEventListener('click', () =>{
-                const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
-                textElements.forEach(element => {
-                    if (!element.closest('#FocusUp')) {
-                        if(element.hasAttribute('data-original-typeface')) {
-                            const originalTypeface = element.dataset.originalTypeface;
-                            element.style.fontFamily = originalTypeface;
-                        }
-                        else {
-                            const originalTypeface = element.getAttribute('data-original-typeface');
-                            element.style.fontFamily = originalTypeface;
-                        }
-                    }
-                });
-            });
         }
-        addedFAMenuListeners = true;
     }
-    if(!addedFAListeners)
-        fontConversionButton.addEventListener('click', fontConversionButtonClickHandler);
+});
 
-    function bionicModeButtonClickHandler() {
-        if (!bionicModeActive) {
-            traverseNodes(document.body);
-            bionicModeActive = true;
-        } else {
-            notBionic.forEach((content, element) => {
-                element.textContent = content;
-            });
-            bionicModeActive = false;
-        }
-    };
-    if(!addedFAListeners)
-        bionicModeButton.addEventListener('click', bionicModeButtonClickHandler);
-    
-    function boldFirstHalfOfWords(textNode) {
-        const words = textNode.nodeValue.split(/\s+/);
-        let formattedText = '';
-    
-        // Find the closest ancestor with the dataset
-        let parentWithDataset = textNode.parentNode;
-        while (parentWithDataset && !parentWithDataset.dataset.originalFontSize && parentWithDataset !== document.documentElement) {
-            parentWithDataset = parentWithDataset.parentNode;
-        }
-    
-        if (!parentWithDataset || !parentWithDataset.dataset.originalFontSize) {
-            console.error('No parent with dataset.originalFontSize found for:', textNode);
-            return; // Exit the function if no valid parent is found
-        }
-    
-        words.forEach(word => {
-            const halfLength = Math.ceil(word.length / 2);
-            const firstHalf = word.substring(0, halfLength);
-            const secondHalf = word.substring(halfLength);
-            const span = document.createElement('span');
-            span.innerHTML = `<b>${firstHalf}</b>${secondHalf}`;
-    
-            if (bionicModeActive) {
-                const currentFontColor = window.getComputedStyle(textNode.parentNode).color;
-                const currentBackColor = window.getComputedStyle(textNode.parentNode).backgroundColor;
-                const currentFontSize = window.getComputedStyle(textNode.parentNode).fontSize;
-                const currentTypeface = window.getComputedStyle(textNode.parentNode).fontFamily;
-    
-                span.style.color = currentFontColor;
-                span.style.backgroundColor = currentBackColor;
-                span.style.fontSize = currentFontSize;
-                span.style.fontFamily = currentTypeface;
-    
-                span.classList.add('bold-first-half');
-            }
-    
-            formattedText += span.outerHTML + ' ';
-        });
-    
-        const tempSpan = document.createElement('span');
-        tempSpan.innerHTML = formattedText.trim();
-    
-        // Inherit the dataset from the correct parent element
-        Object.keys(parentWithDataset.dataset).forEach(key => {
-            tempSpan.dataset[key] = parentWithDataset.dataset[key];
-        });
-    
-        // Store the original text content in the Map
-        notBionic.set(tempSpan, textNode.nodeValue);
-    
-        textNode.parentNode.replaceChild(tempSpan, textNode);
-    }
-    
-    function traverseNodes(node) {
-        if (node.nodeType === Node.TEXT_NODE) {
-            if (node.parentNode.nodeName.toLowerCase() !== 'script' && node.parentNode.nodeName.toLowerCase() !== 'style') {
-                boldFirstHalfOfWords(node);
-            }
-        } else {
-            node.childNodes.forEach(childNode => traverseNodes(childNode));
-        }
-    }
-    
-    function toDefaultButtonClickHandler() {
-        chrome.storage.sync.get(["defaultFontSize", "defaultFontColor", "defaultBackColor", "defaultTypeface"], (result) => {
-            const defaultFontSize = result.defaultFontSize + 'px';
-            const defaultFontColor = result.defaultFontColor;
-            const backColor = result.defaultBackColor;
-            const typeface = result.defaultTypeface;
+redTextButton.addEventListener('click', () => {
+    const selection = window.getSelection();
 
-            /* console.log(backColor);
-            backColor = 'red';
-            console.log(backColor); */
-    
-            let textElements = document.querySelectorAll('p, span, a, li, td, th, label, div');
+    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+        toggleClassOnSelection('highlight-color-red', "Color");
+    } else {
+        if(currentColor != "red"){
+            currentColor = "red";
+
+            const selectedColor = "red";
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, li, td, th, label, div');
             textElements.forEach(element => {
-                if (!element.closest('#FocusUp')) {
-                    element.style.fontSize = defaultFontSize;
-                }
+                element.style.color = selectedColor;
             });
-    
-            textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, li, td, th, label, div');
+        }
+        else{
+            currentColor = "original";
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
             textElements.forEach(element => {
-                if (!element.closest('#FocusUp')) {
-                    element.style.color = defaultFontColor;
+                if(element.hasAttribute('data-original-font-color')) {
+                    const originalFontColor = element.dataset.originalFontColor;
+                    element.style.color = originalFontColor;
+                }
+                else {
+                    const originalFontColor = element.getAttribute('data-original-font-color');
+                    element.style.color = originalFontColor;
                 }
             });
-    
-            textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        }
+    }
+});
+
+orangeTextButton.addEventListener('click', () => {
+    const selection = window.getSelection();
+
+    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+        toggleClassOnSelection('highlight-color-orange', "Color");
+    } else {
+            if(currentColor != "orange"){
+            currentColor = "orange";
+
+            const selectedColor = "orange";
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, li, td, th, label, div');
             textElements.forEach(element => {
-                if (!element.closest('#FocusUp')) {
-                    element.style.backgroundColor = backColor;
-                }
+                element.style.color = selectedColor;
             });
-    
-            document.body.style.fontFamily = typeface;
-            textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+        }
+        else{
+            currentColor = "original";
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
             textElements.forEach(element => {
-                if (!element.closest('#FocusUp')) {
-                    element.style.fontFamily = typeface;
+                if(element.hasAttribute('data-original-font-color')) {
+                    const originalFontColor = element.dataset.originalFontColor;
+                    element.style.color = originalFontColor;
+                }
+                else {
+                    const originalFontColor = element.getAttribute('data-original-font-color');
+                    element.style.color = originalFontColor;
                 }
             });
-        });
+        }
     }
-    if(!addedFAListeners)
-        toDefaultButton.addEventListener('click', toDefaultButtonClickHandler);
-
-    addedFAListeners = true;
 });
-//End of Font Alteration
 
-//Beginning of Task List
-const taskButtons = shadowRoot.querySelectorAll('.taskButtons');
-let numberOfTasks = 0;
-let tasksInList = 0;
+yellowTextButton.addEventListener('click', () => {
+    const selection = window.getSelection();
 
-const taskListButton = shadowRoot.getElementById('taskListButton');
-const taskListImg = taskListButton.querySelector('img');
-const addTasksButton = shadowRoot.getElementById('addTasksButton');
-const addTasksImg = addTasksButton.querySelector('img');
+    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+        toggleClassOnSelection('highlight-color-yellow', "Color");
+    } else {
+        if(currentColor != "yellow"){
+            currentColor = "yellow";
 
-let addedTaskListeners = false;
-const addTaskMenu = shadowRoot.getElementById('addTaskMenu');
-const taskListMenu = shadowRoot.getElementById('taskListMenu');
-const viewAllTasksMenu = shadowRoot.getElementById('viewAllTasksMenu');
-const allTasksButton = shadowRoot.getElementById('viewAllTasks'); // Corrected button reference
-
-function getDomain(url) {
-    const anchor = document.createElement('a');
-    anchor.href = url;
-    return anchor.hostname;
-}
-
-function getCurrentUrl() {
-    return window.location.href;
-}
-
-function getCurrentDomain() {
-    return getDomain(window.location.href);
-}
-
-function loadTasks() {
-    chrome.storage.sync.get(['tasks'], (result) => {
-        const tasks = result.tasks || [];
-        numberOfTasks = tasks.length;
-        const currentUrl = getCurrentUrl();
-        const currentDomain = getCurrentDomain();
-        
-        tasks.forEach(task => {
-            if (task.scope === 'all' || 
-                (task.scope === 'domain' && task.domain === currentDomain) || 
-                (task.scope === 'url' && task.url === currentUrl)) {
-                addTaskToUI(task.text, task.id, task.scope);
-            }
-        });
-    });
-}
-
-function addTaskToStorage(taskText, taskScope, callback) {
-    chrome.storage.sync.get(['tasks'], (result) => {
-        const tasks = result.tasks || [];
-        const newTask = {
-            text: taskText,
-            scope: taskScope,
-            url: getCurrentUrl(),
-            domain: getCurrentDomain(),
-            id: numberOfTasks
-        };
-        tasks.push(newTask);
-        chrome.storage.sync.set({ tasks }, () => {
-            console.log('Task stored:', newTask);
-            if (typeof callback === 'function') {
-                callback(); // Execute the callback function
-            }
-        });
-    });
-}
-
-function removeTaskFromStorage(text) {
-    tasksInList--;
-    updateTaskNotifications();
-    chrome.storage.sync.get(['tasks'], (result) => {
-        let tasks = result.tasks || [];
-
-        tasks = tasks.filter(task => !(task.text === text));
-
-        // Reassign IDs sequentially
-        tasks.forEach((task, index) => {
-            task.id = index;
-        });
-
-        chrome.storage.sync.set({ tasks }, () => {
-            console.log('Task removed and IDs reassigned for task:', text);
-            numberOfTasks = tasks.length;
-        });
-    });
-}
-
-
-function updateTaskInStorage(oldText, newText) {
-    chrome.storage.sync.get(['tasks'], (result) => {
-        const tasks = result.tasks || [];
-        const taskIndex = tasks.findIndex(task => task.text === oldText);
-        if (taskIndex !== -1) {
-            tasks[taskIndex].text = newText;
-            chrome.storage.sync.set({ tasks }, () => {
-                console.log('Task updated:', newText);
+            const selectedColor = "yellow";
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, li, td, th, label, div');
+            textElements.forEach(element => {
+                element.style.color = selectedColor;
             });
         }
-    });
-}
-
-function loadAllTasks() {
-    chrome.storage.sync.get(['tasks'], (result) => {
-        const tasks = result.tasks || [];
-        console.log('Loading all tasks:', tasks); // Debug log
-
-        //viewAllTasksMenu.innerHTML = '<p style="font-size: 27px;color:#EAEAEA;text-align: center; height: 9px"><strong>Saved Tasks</strong></p>';
-
-        // Create a map to store tasks by domain
-        const domainTasksMap = {};
-        const allWebsitesTasks = [];
-
-        tasks.forEach(task => {
-            if (task.scope === 'all') {
-                allWebsitesTasks.push(task);
-            } else {
-                const domain = task.domain || 'Others';
-                if (!domainTasksMap[domain]) {
-                    domainTasksMap[domain] = [];
+        else{
+            currentColor = "original";
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+            textElements.forEach(element => {
+                if(element.hasAttribute('data-original-font-color')) {
+                    const originalFontColor = element.dataset.originalFontColor;
+                    element.style.color = originalFontColor;
                 }
-                domainTasksMap[domain].push(task);
-            }
-        });
-
-        // Create a div for "All Websites" tasks
-        if (allWebsitesTasks.length > 0) {
-            const allWebsitesContainer = document.createElement('div');
-            allWebsitesContainer.classList.add('domainContainer');
-
-            // Create and append the title paragraph
-            const allWebsitesTitle = document.createElement('p');
-            allWebsitesTitle.textContent = 'All Websites';
-            allWebsitesContainer.appendChild(allWebsitesTitle);
-
-            viewAllTasksMenu.appendChild(allWebsitesContainer);
-
-            allWebsitesTasks.forEach(task => {
-                const taskItem = createTaskItem(task);
-                allWebsitesContainer.appendChild(taskItem);
-            });
-        }
-
-        // Create a div for each domain and append tasks
-        for (const [domain, tasks] of Object.entries(domainTasksMap)) {
-            const domainContainer = document.createElement('div');
-            domainContainer.classList.add('domainContainer');
-
-
-            // Create and append the domain paragraph
-            const domainTitle = document.createElement('p');
-            domainTitle.textContent = domain;
-            domainContainer.appendChild(domainTitle);
-
-
-            viewAllTasksMenu.appendChild(domainContainer);
-
-            tasks.forEach(task => {
-                const taskItem = createTaskItem(task);
-                domainContainer.appendChild(taskItem);
-            });
-        }
-    });
-}
-
-function createTaskItem(task) {
-    const taskItem = document.createElement('div');
-    taskItem.classList.add('taskItemAlpha');
-    taskItem.dataset.id = task.id.toString();
-
-    // Create the text area
-    const taskInput = document.createElement('textarea');
-    taskInput.value = task.text;
-    taskInput.classList.add('taskInput');
-    taskInput.style.height = shadowRoot.getElementById("addTaskBox").style.height;
-    taskInput.style.verticalAlign = "top";
-
-    taskInput.addEventListener('input', function() {
-        if (this.scrollHeight <= 180) {
-            this.style.height = '';
-            this.style.height = this.scrollHeight + 'px';
-        }
-        const newText = this.value;
-        updateTaskInStorage(task.text, newText);
-        task.text = newText;
-        syncTaskAcrossMenus(newText, task.id, viewAllTasksMenu, this.scrollHeight + 'px');
-    });
-    taskInput.addEventListener('click', function() {
-        if (this.scrollHeight <= 180) {
-            this.style.height = '';
-            this.style.height = this.scrollHeight + 'px';
-        } else {
-            this.style.height = '184px';
-        }
-        const newText = this.value;
-        syncTaskAcrossMenus(newText, task.id, viewAllTasksMenu, this.scrollHeight + 'px');
-    });
-
-    // Create a container for the buttons
-    const buttonContainer = document.createElement('div');
-    buttonContainer.classList.add('buttonContainer');
-
-    // Create the delete button
-    const deleteButton = document.createElement('button');
-    deleteButton.classList.add('taskButtons');
-    deleteButton.classList.add('show');
-    deleteButton.title = 'Delete Task';
-
-    const deleteText = document.createElement('span');
-    deleteText.textContent = 'Delete';
-    deleteText.style.marginRight = '2px';
-    deleteText.style.fontWeight = 'bold';
-
-    const deleteImage = document.createElement('img');
-    deleteImage.src = chrome.runtime.getURL("images/deleteTask.svg");
-    deleteImage.draggable = false;
-
-    deleteButton.appendChild(deleteText);
-    deleteButton.appendChild(deleteImage);
-
-    deleteButton.addEventListener('click', function() {
-        taskItem.remove();
-        removeTaskFromStorage(task.text);
-        taskListMenu.querySelectorAll('.taskItem').forEach(item => {
-            if (item.dataset.id === taskItem.dataset.id) {
-                item.remove();
-            }
-        });
-    });
-
-    // Create the go-to URL button
-    const goToUrlButton = document.createElement('button');
-    goToUrlButton.classList.add('taskButtons');
-    goToUrlButton.classList.add('show');
-    goToUrlButton.title = 'Go to URL';
-    
-    const linkText = document.createElement('span');
-    linkText.textContent = 'Link';
-    linkText.style.marginRight = '17px';
-    linkText.style.fontWeight = 'bold';
-    
-    const linkImage = document.createElement('img');
-    linkImage.src = chrome.runtime.getURL("images/goToLink.svg");
-    linkImage.draggable = false;
-    
-    goToUrlButton.appendChild(linkText);
-    goToUrlButton.appendChild(linkImage);
-
-    goToUrlButton.addEventListener('click', function() {
-        window.open(task.url, '_blank');
-    });
-
-    // Append buttons to the button container
-    buttonContainer.appendChild(goToUrlButton);
-    buttonContainer.appendChild(deleteButton);
-
-    // Append the text area and button container to the task item
-    taskItem.appendChild(taskInput);
-    taskItem.appendChild(buttonContainer);
-
-    return taskItem;
-}
-
-
-function addTaskToUI(taskText, id, taskScope) {
-    tasksInList++;
-    updateTaskNotifications();
-    const taskItem = document.createElement('div');
-    taskItem.classList.add('taskItem');
-    taskItem.dataset.id = id.toString();
-
-    // Create the task scope element
-    const taskScopeElement = document.createElement('span');
-    taskScopeElement.classList.add('taskScope');
-    if (taskScope === 'url')
-        taskScopeElement.textContent = "Source: This URL";
-    else if (taskScope === 'domain')
-        taskScopeElement.textContent = "Source: This Domain";
-    else
-        taskScopeElement.textContent = "Source: All Websites";
-
-    // Create a container for the text area and delete button
-    const taskContentContainer = document.createElement('div');
-    taskContentContainer.style.display = 'flex';
-    taskContentContainer.style.alignItems = 'flex-start';
-
-    // Create the task input
-    const taskInput = document.createElement('textarea');
-    taskInput.value = taskText;
-    //taskInput.style.width = '140px';
-    taskInput.classList.add('taskInput');
-    taskInput.style.height = shadowRoot.getElementById("addTaskBox").style.height;
-   // taskInput.style.maxHeight = '184px';
-
-    taskInput.addEventListener('input', function() {
-        if (this.scrollHeight <= 180) {
-            this.style.height = '';
-            this.style.height = this.scrollHeight + 'px';
-        }
-        const newText = this.value;
-        updateTaskInStorage(taskText, newText);
-        taskText = newText;
-        syncTaskAcrossMenus(newText, id, taskListMenu, this.scrollHeight + 'px');
-    });
-    taskInput.addEventListener('click', function() {
-        if (this.scrollHeight <= 180) {
-            this.style.height = '';
-            this.style.height = this.scrollHeight + 'px';
-        }
-        else
-            this.style.height = '184px'
-        const newText = this.value;
-        syncTaskAcrossMenus(newText, id, taskListMenu, this.scrollHeight + 'px');
-    });
-
-    // Create the delete button
-    const deleteButton = document.createElement('button');
-    deleteButton.classList.add('taskButtons');
-    deleteButton.classList.add('show');
-    deleteButton.title = 'Delete Task';
-    // deleteButton.style.display = 'flex';
-    // deleteButton.style.alignItems = 'center';
-    // deleteButton.style.justifyContent = 'flex-start';
-    // deleteButton.style.marginLeft = '8px';
-
-    const deleteText = document.createElement('span');
-    deleteText.textContent = 'Delete';
-    // deleteText.style.marginRight = '8px';
-
-    const deleteImage = document.createElement('img');
-    deleteImage.src = chrome.runtime.getURL("images/deleteTask.svg");
-    deleteImage.draggable = false;
-
-    deleteButton.appendChild(deleteText);
-    deleteButton.appendChild(deleteImage);
-
-    deleteButton.addEventListener('click', function() {
-        taskItem.remove();
-        removeTaskFromStorage(taskText);
-        viewAllTasksMenu.querySelectorAll('.taskItem').forEach(item => {
-            if (item.dataset.id === taskItem.dataset.id) {
-                item.remove();
-            }
-        });
-    });
-
-    // Append the text area and delete button to the container
-    taskContentContainer.appendChild(taskInput);
-    taskContentContainer.appendChild(deleteButton);
-
-    // Append the scope element and content container to the task item
-    taskItem.appendChild(taskScopeElement);
-    taskItem.appendChild(taskContentContainer);
-
-    // Append the task item to the task list menu
-    taskListMenu.appendChild(taskItem);
-}
-
-
-function syncTaskAcrossMenus(newText, id, currentMenu, height) {
-    const otherMenu = currentMenu === taskListMenu ? viewAllTasksMenu : taskListMenu;
-
-    otherMenu.querySelectorAll('.taskItem').forEach(item => {
-        const taskInput = item.querySelector('.taskInput');
-        console.log("compared", id, ' to ', item.dataset.id);
-        if (parseInt(item.dataset.id) === id) {
-            taskInput.value = newText;
-            taskInput.style.height = height;
-            return; // Exit the loop early
-        }
-    });
-}
-
-taskListButton.addEventListener("click", function() {
-    for (let button of taskButtons) {
-        button.classList.add('show');
-    }
-
-    for (let button of MainButtons) {
-        button.classList.toggle('show');
-    }
-
-    const backButton = shadowRoot.getElementById('backButtonTask');
-    const addTaskCheckButton = shadowRoot.getElementById('addTaskCheck');
-
-    function backButtonClickHandler() {
-        for (let button of taskButtons) {
-            button.classList.toggle('show');
-        }
-        
-        for (let button of MainButtons) {
-            button.classList.toggle('show');
-        }
-
-        for (let menu of menus) {
-            menu.classList.remove('show');
-        }
-    }
-    if (!addedTaskListeners)
-        backButton.addEventListener('click', backButtonClickHandler);
-
-
-    if (!addedTaskListeners) {
-        addTasksButton.addEventListener('click', function() {
-            viewAllTasksMenu.classList.remove('show');
-            taskListMenu.classList.toggle('show');
-            addTaskMenu.classList.toggle('show');
-        });
-    }
-
-
-    if (!addedTaskListeners) {
-        allTasksButton.addEventListener('click', function() {
-            viewAllTasksMenu.classList.toggle('show');
-            taskListMenu.classList.remove('show');
-            addTaskMenu.classList.remove('show');
-        });
-    }
-
-    if (!addedTaskListeners) {
-        shadowRoot.getElementById("addTaskBox").addEventListener('input', function() {
-            if (this.scrollHeight <= 180) {
-                this.style.height = '';
-                this.style.height = this.scrollHeight + 'px';
-            }
-        });
-    }
-
-    function addTaskCheckButtonClickHandler() {
-        const taskText = shadowRoot.getElementById('addTaskBox').value.trim();
-        const taskScope = shadowRoot.getElementById('taskScope').value;
-
-        if (taskText) {
-            numberOfTasks++;
-            addTaskToStorage(taskText, taskScope, () => {
-                loadAllTasks();
-            });
-            addTaskToUI(taskText, numberOfTasks, taskScope);
-
-            shadowRoot.getElementById('addTaskBox').value = '';
-            //shadowRoot.getElementById('addTaskBox').style.height = "35px";
-        }
-    }
-    if (!addedTaskListeners)
-        addTaskCheckButton.addEventListener('click', addTaskCheckButtonClickHandler);
-
-    addedTaskListeners = true;
-});
-loadTasks(); // Load tasks when the menu is opened
-loadAllTasks();
-//End of Task List
-
-//Beginning of Timers
-const timerButtons = shadowRoot.querySelectorAll('.timerButtons');
-const timerButton = shadowRoot.getElementById('timerButton');
-const timerMenu = shadowRoot.getElementById('timerMenu');
-const timeInput = shadowRoot.getElementById("timeFU");
-const setTimerButton = shadowRoot.getElementById("setTimer");
-const countdown = shadowRoot.getElementById("countdown");
-const alarmSound = new Audio(chrome.runtime.getURL("alarm.wav"));
-let timer;
-
-
-let addedTListeners = false;
-let addedTMenuListeners = false;
-
-timerButton.addEventListener("click", function() {
-    for (let button of timerButtons) {
-        button.classList.toggle('show');
-    }
-
-    for (let button of MainButtons) {
-        button.classList.toggle('show');
-    }
-   
-    const backButton = shadowRoot.getElementById('backButtonT');
-    const timerMenuButton = shadowRoot.getElementById('timerMenuButton');
-
-    function backButtonClickHandler() {
-        for (let button of timerButtons) {
-            button.classList.toggle('show');
-        }
-        
-        for (let button of MainButtons) {
-            button.classList.toggle('show');
-        }
-
-        for (let menu of menus) {
-            menu.classList.remove('show');
-        }
-    }
-    if(!addedTListeners)
-        backButton.addEventListener('click', backButtonClickHandler);
-    
-    function timerMenuButtonClickHandler() {
-        timerMenu.classList.toggle('show');
-        
-        function setTimerButtonClickHandler() {
-            const time = timeInput.value;
-            if (time) {
-                const [minutes, seconds] = time.split(":").map(Number);
-                const totalSeconds = minutes * 60 + seconds;
-                if (totalSeconds > 0) 
-                    startTimer(totalSeconds);
-            }
-        }
-        if(!addedTMenuListeners)
-            setTimerButton.addEventListener('click', setTimerButtonClickHandler);
-
-        function startTimer(totalSeconds) {
-            clearInterval(timer);
-            let remainingSeconds = totalSeconds;
-            timer = setInterval(() => {
-              if (remainingSeconds > 0) {
-                const minutes = Math.floor(remainingSeconds / 60);
-                const seconds = remainingSeconds % 60;
-                countdown.textContent = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-                remainingSeconds--;
-              }
-              else {
-                countdown.textContent = "Time's up!";
-                clearInterval(timer);
-                if (shadowRoot.getElementById("doSound").checked)
-                    alarmSound.play();
-
-                const messageElement = document.createElement("div");
-                messageElement.classList.add("motivationalMessage");
-                messageElement.textContent = "Your Timer Has Expired!";
-                /* if(!doMWM)
-                    messageElement.textContent = "Your Timer Has Expired!";
-                else
-                    messageElement.textContent = "Your Timer Has Expired!"; */
-                const messageContainer = shadowRoot.getElementById('FocusUp');
-                if (messageContainer)
-                    messageContainer.appendChild(messageElement);
-                setTimeout(() => {
-                    messageContainer.removeChild(messageElement);
-                }, 5000);
-              }
-            }, 1000);
-        }
-
-        addedTMenuListeners = true;
-    }
-    if(!addedTListeners)
-        timerMenuButton.addEventListener('click', timerMenuButtonClickHandler);
-
-    addedTListeners = true;    
-});
-//End of Timers
-//-----------------------------------------------------------------------------------------------------------
-
-//*************************************************************************************************************
-
-// const bodyBackgroundColor = getComputedStyle(document.body).backgroundColor;
-
-// // Function to invert the color
-// function invertColor(hex) {
-//     if (hex.indexOf('#') === 0) {
-//         hex = hex.slice(1);
-//     }
-//     // Convert hex to RGB
-//     const r = 255 - parseInt(hex.slice(0, 2), 16);
-//     const g = 255 - parseInt(hex.slice(2, 4), 16);
-//     const b = 255 - parseInt(hex.slice(4, 6), 16);
-//     // Convert RGB back to hex
-//     return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-// }
-
-// // Invert the background color
-// const invertedColor = invertColor(bodyBackgroundColor);
-
-// // Store the inverted color in a variable
-// let invertedBackgroundColor = invertedColor;
-
-// ^ something neat I thought of
-
-
-const PBButtons = shadowRoot.querySelectorAll('.PBButtons');
-const PBButton = shadowRoot.getElementById('PBButton');
-let PBListenersAdded = false;
-
-const startImage = shadowRoot.getElementById('start');
-const endImage = shadowRoot.getElementById('end');
-const progressBar = shadowRoot.getElementById('progress');
-const progressBarContainer = shadowRoot.getElementById('progressContainer');
-// progressBarContainer.style.backgroundColor = invertedBackgroundColor;
-let startPosition = 0;
-let endPosition = 0;
-
-let endImageExists = false;
-let startImageExists = false;
-
-let timoutReached = false;
-let milestoneReached = {
-    25: false,
-    50: false,
-    75: false,
-    100: false
-};
-
-function toggleProgressBar() {
-    if (progressBarContainer.style.display === 'none') {
-        progressBarContainer.style.display = 'flex';
-    } else {
-        progressBarContainer.style.display = 'none';
-    }
-}
-toggleProgressBar();
-
-PBButton.addEventListener('click', function () {
-    for (let button of PBButtons) {
-        button.classList.toggle('show');
-    }
-
-    for (let button of MainButtons) {
-        button.classList.toggle('show');
-    }
-
-    const backButton = shadowRoot.getElementById('backButtonPB');
-    const PBSelectStartEnd = shadowRoot.getElementById('PBSelectStartEnd');
-    const PBReset = shadowRoot.getElementById('PBReset');
-    const PBDelete = shadowRoot.getElementById('PBDelete');
-
-    function backButtonClickHandler() {
-        for (let button of PBButtons) {
-            button.classList.toggle('show');
-        }
-        
-        for (let button of MainButtons) {
-            button.classList.toggle('show');
-        }
-        if(PBMenu.classList.contains('show')){
-            PBMenu.classList.toggle('show');
-        }
-    }
-
-    if (!PBListenersAdded) backButton.addEventListener('click', backButtonClickHandler);
-
-    if (!PBListenersAdded) {
-        PBSelectStartEnd.addEventListener('click', () => {
-            //calculate the position of PBMenu relative to the toolbar
-            const toolbarRect = toolbar.getBoundingClientRect();
-            const PBMenuLeft = toolbarRect.left + toolbarRect.width + 10;
-            const PBMenuTop = toolbarRect.top;
-
-            //set the position of PBMenu
-            PBMenu.style.left = PBMenuLeft + 'px';
-            PBMenu.style.top = PBMenuTop + 'px';
-
-            //show the PBMenu
-            PBMenu.classList.toggle('show');
-            setPosition();
-            endImageExists = true;
-            startImageExists = true;
-            toggleProgressBar();
-
-            // Delay progress calculation and update to allow time for interaction
-            setTimeout(() => {
-                timoutReached = false;
-                updateProgressAfterInteraction();
-            }, 12000); // Adjust timeout to wait 12 seconds before updating progress
-        });
-    }
-
-    if (!PBListenersAdded) {
-        PBReset.addEventListener('click', () => {
-            milestoneReached = {
-                25: false,
-                50: false,
-                75: false,
-                100: false
-            };
-
-            //reset start and end images to their initial positions
-            PBMenu.appendChild(startImage);
-            PBMenu.appendChild(endImage);
-
-            resetMarkers();
-            resetProgressBar();
-            endImageExists = true;
-            startImageExists = true;
-            setTimeout(() => {
-                timoutReached = false;
-                updateProgressAfterInteraction();
-            }, 12000)
-        });
-    }
-
-    if (!PBListenersAdded) {
-        PBDelete.addEventListener('click', () => {
-            document.body.removeChild(startImage);
-            document.body.removeChild(endImage);
-
-            // Reset progress bar
-            resetProgressBar();
-
-            // Reset positions and flags
-            endImageExists = false;
-            startImageExists = false;
-            timoutReached = false;
-            toggleProgressBar();
-        });
-    }
-
-    PBListenersAdded = true;
-});
-
-function resetProgressBar() {
-    const progressBar = shadowRoot.getElementById('progress');
-    progressBar.style.height = '0';
-
-    const progressText = shadowRoot.querySelector('.progressText');
-    progressText.textContent = `0%`;
-
-
-    milestoneReached = {
-        25: false,
-        50: false,
-        75: false,
-        100: false
-    };
-}
-
-function setPosition() {
-    const toolbarRect = toolbar.getBoundingClientRect();
-    const padding = 20; // Padding from the toolbar
-    const verticalSpacing = 50; // Vertical spacing between the start and end images
-
-    // Position the start image to the left of the toolbar
-    startImage.style.left = (toolbarRect.left - startImage.offsetWidth - padding) + 'px';
-    startImage.style.top = (toolbarRect.top + padding) + 'px';
-
-    // Position the end image to the left of the toolbar, below the start image
-    endImage.style.left = (toolbarRect.left - endImage.offsetWidth - padding) + 'px';
-    endImage.style.top = (toolbarRect.top + startImage.offsetHeight + verticalSpacing) + 'px';
-
-    // Append the images to the body
-    document.body.appendChild(startImage);
-    document.body.appendChild(endImage);
-
-    // Update startPosition and endPosition
-    const startRect = startImage.getBoundingClientRect();
-    const endRect = endImage.getBoundingClientRect();
-    startPosition = startRect.top + window.scrollY;
-    endPosition = endRect.top + window.scrollY;
-}
-
-function startDrag(e) {
-    e.preventDefault();
-    const element = e.target;
-    let offsetX = e.clientX - element.offsetLeft;
-    let offsetY = e.clientY - element.offsetTop;
-
-    // Add wheel event listener for scrolling
-    document.addEventListener('wheel', onScroll);
-
-    function onDrag(e) {
-        element.classList.add('cursor-follow');
-        element.style.top = `${e.clientY - offsetY}px`;
-        element.style.left = `${e.clientX - offsetX}px`;
-    }
-
-    function onScroll(e) {
-        if (e.deltaY !== 0) {
-            // deltaY positive means scrolling down, negative means scrolling up
-            const scrollAmount = e.deltaY;
-            element.style.top = `${element.offsetTop + scrollAmount}px`;
-
-            // Update startPosition or endPosition accordingly
-            if (element.id === 'start') {
-                startPosition += scrollAmount;
-            } else if (element.id === 'end') {
-                endPosition += scrollAmount;
-            }
-        }
-    }
-
-    function stopDrag() {
-        document.removeEventListener('mousemove', onDrag);
-        document.removeEventListener('mouseup', stopDrag);
-        document.removeEventListener('wheel', onScroll);
-
-        const rect = element.getBoundingClientRect();
-        const x = rect.left + window.pageXOffset;
-        const y = rect.top + window.pageYOffset;
-
-        if (element.id === 'start') {
-            startPosition = y;
-            console.log(`Start image dropped at: x = ${x}, y = ${y}`);
-        } else if (element.id === 'end') {
-            endPosition = y;
-            console.log(`End image dropped at: x = ${x}, y = ${y}`);
-        }
-
-        element.classList.remove('cursor-follow');
-        document.body.appendChild(element); // Append the element to the body
-        
-        // Reset milestoneReached after interaction
-        milestoneReached = {
-            25: false,
-            50: false,
-            75: false,
-            100: false
-        };
-    }
-
-    // Add event listeners for dragging
-    document.addEventListener('mousemove', onDrag);
-    document.addEventListener('mouseup', stopDrag);
-}
-
-startImage.addEventListener('mousedown', startDrag);
-endImage.addEventListener('mousedown', startDrag);
-
-window.addEventListener('scroll', () => {
-    if (endImageExists || startImageExists) {
-        const scrollPosition = window.scrollY;
-        const progress = calculateProgress(scrollPosition, startPosition, endPosition);
-        updateProgressBar(progress);
-    } else {
-        updateProgressBar(0);
-    }
-});
-
-function updateProgressAfterInteraction() {
-    timoutReached = true;
-    updateProgressBar(progress);
-}
-
-function updatePositions() {
-    startPosition = startImage.getBoundingClientRect().top + window.scrollY;
-    endPosition = endImage.getBoundingClientRect().top + window.scrollY;
-}
-
-function resetMarkers() {
-    timoutReached = false;
-    setPosition();
-}
-
-function calculateProgress(scrollPosition, start, end) {
-    if (start === 0 || end === 0) return 0; // or some default value
-    const progress = (scrollPosition - start) / (end - start);
-    return Math.min(progress * 100, 100); // Ensure progress doesn't exceed 100%
-}
-
-
-function determineScrollDirection() {
-    if (window.scrollY > lastScrollY) {
-        lastScrollY = window.scrollY;
-        return 'down';
-    } else if (window.scrollY < lastScrollY) {
-        lastScrollY = window.scrollY;
-        return 'up';
-    }
-}
-
-function showMotivationalMessage(percentage, scrollDirection) {
-    if (scrollDirection === 'up') {
-        return; // Skip showing the message if scrolling up
-    }
-
-    let message = "";
-
-    if (percentage >= 20 && percentage <= 30 && !milestoneReached[25]) {
-        message = "You're making great progress! Keep it up!";
-        milestoneReached[25] = true; // Mark this milestone as reached
-    } else if (percentage >= 40 && percentage <= 60 && !milestoneReached[50]) {
-        message = "Around halfway done! You're doing amazing!";
-        milestoneReached[50] = true; // Mark this milestone as reached
-    } else if (percentage >= 65 && percentage <= 90 && !milestoneReached[75]) {
-        message = "You're almost done! Keep pushing forward!";
-        milestoneReached[75] = true; // Mark this milestone as reached
-    } else if (percentage === 100 && !milestoneReached[100]) {
-        message = "Congratulations! You've reached 100% progress!";
-        milestoneReached[100] = true; // Mark this milestone as reached
-    } else {
-        return; // Return if percentage is not a milestone or has already been reached
-    }
-
-    const messageElement = document.createElement("div");
-    messageElement.textContent = message;
-    messageElement.classList.add("motivationalMessage");
-
-    document.body.appendChild(messageElement);
-
-    setTimeout(() => {
-        document.body.removeChild(messageElement);
-    }, 3000); // Remove message after 3 seconds
-}
-
-
-function updateProgressBar(percentage) {
-    if(timoutReached){
-        if (endImageExists || startImageExists) {
-            const progressBarHeight = 230; // Adjust this value to match the actual height of your progress bar container
-
-            // Ensure percentage is within valid range [0, 100]
-            percentage = Math.max(0, Math.min(percentage, 100));
-
-            progressBar.style.height = `${percentage / 100 * progressBarHeight}px`; // Calculate height of progress bar
-
-            const progressText = shadowRoot.querySelector('.progressText');
-            progressText.textContent = `${Math.round(percentage)}%`;
-
-            // Determine scroll direction
-            const scrollDirection = determineScrollDirection();
-            if(doMWM){
-                showMotivationalMessage(percentage, scrollDirection);
-            }
-        }
-    }
-}
-
-let lastScrollY = window.scrollY;
-
-//*************************************************************************************************************
-
-shadowRoot.getElementById("AGEButton").addEventListener("click", function() {
-    const displayCircle = shadowRoot.getElementById("cursor-circle");
-
-    //toggle the 'show' class to either display or hide the circle
-    displayCircle.classList.toggle('hide');
-    console.log('clicked');
-});
-
-//personalization Settings
-const PSButton = shadowRoot.getElementById('PSButton');
-const PSButtons = shadowRoot.querySelectorAll('.PSButtons');
-let addedPSListeners = false;
-let circleFlashInterval; //interval for flashing the cursor circle
-const cursorColorInput = shadowRoot.getElementById('cursorColor');
-const cursorCircle = shadowRoot.querySelector('.cursor-circle');
-const flashFrequencyInput = shadowRoot.getElementById('flashFrequency');
-let storedFrequency;
-let storedColor;
-
-
-
-//helper function to convert hexadecimal color to RGB format
-function hexToRgb(hex) {
-    const bigint = parseInt(hex.slice(1), 16);
-    const r = (bigint >> 16) & 255;
-    const g = (bigint >> 8) & 255;
-    const b = bigint & 255;
-    return `${r}, ${g}, ${b}`;
-}
-
-//function to change cursor color and make the circle flash
-function changeCursorColor(color) {
-    clearInterval(circleFlashInterval); //clear previous interval
-    let isVisible = true;
-    circleFlashInterval = setInterval(() => {
-        if (isVisible) {
-            cursorCircle.style.backgroundColor = `rgba(${hexToRgb(color)}, 0.5)`; //change circle color with transparency
-        } else {
-            cursorCircle.style.backgroundColor = 'transparent'; //make circle transparent
-        }
-        isVisible = !isVisible; //foggle visibility
-    }, storedFrequency * 1000); //convert seconds to milliseconds
-}
-
-//function to update the color of the cursor circle
-function updateCursorColor(color) {
-    cursorCircle.style.backgroundColor = `rgba(${hexToRgb(color)}, 0.5)`; //set circle color with transparency
-    //update the circle color immediately after changing the color
-    changeCursorColor(color);
-}
-
-//function to set up flashing with the current frequency
-function setupFlashing() {
-    let isVisible = true;
-    clearInterval(circleFlashInterval); //clear previous interval
-    circleFlashInterval = setInterval(() => {
-        if (isVisible) {
-            cursorCircle.style.backgroundColor = `rgba(${hexToRgb(storedColor)}, 0.5)`; //change circle color with transparency
-        } else {
-            cursorCircle.style.backgroundColor = 'transparent'; //make circle transparent
-        }
-        isVisible = !isVisible; //toggle visibility
-    }, storedFrequency * 1000); //convert seconds to milliseconds
-}
-
-
-chrome.storage.sync.get(['flashFrequency', 'cursorColor'], (result) => {
-    storedFrequency = result.flashFrequency;
-    storedColor = result.cursorColor;
-    if (storedFrequency) {
-        console.log('Stored frequency:', storedFrequency);
-        setupFlashing(); //call setupFlashing initially
-    } else {
-        console.log('Flash frequency not found in storage.');
-        storedFrequency = 0.5;
-        setupFlashing();
-    }
-    if (storedColor) {
-        console.log('Stored color:', storedColor);
-        updateCursorColor(storedColor);
-    } else {
-        console.log('Cursor color not found in storage.');
-        storedColor = "#ff0000";
-    }
-});
-
-
-//event listener for flash frequency input
-flashFrequencyInput.addEventListener('change', () => {
-    const newFrequency = parseFloat(flashFrequencyInput.value); //get the new frequency value
-    if (isNaN(newFrequency) || newFrequency < 0 || newFrequency > 10) {
-        flashFrequencyInput.value = '0.5'; //set default value if invalid
-        return; //exit function if invalid value
-    }
-    //store the new frequency in Chrome storage
-    chrome.storage.sync.set({ flashFrequency: newFrequency }, () => {
-        console.log('New frequency stored:', newFrequency);
-        storedFrequency = newFrequency;
-        setupFlashing(); //call setupFlashing after changing the frequency
-    });
-});
-
-const inactivityMessage = "The only way to finish is to keep working! Focus Up!";   
-let inactivityTimer;
-let inactivityTime;
-
-chrome.storage.sync.get(["inactivityInterval"], (result) => {
-    if (result.inactivityInterval !== undefined)
-        inactivityTime = result.inactivityInterval;
-    else
-        inactivityTime = 999;
-});
-
-//function to reset the inactivity timer
-function resetInactivityTimer() {
-    clearTimeout(inactivityTimer); //clear previous timer
-    inactivityTimer = setTimeout(() => {
-        showInactivityMessage(inactivityMessage);
-    }, inactivityTime * 60 * 1000); //convert minutes to milliseconds }, inactivityDurationInput.value * 60 * 1000);
-}
-
-
-//event listener for mousemove to detect activity and position the cursor circle
-document.addEventListener('mousemove', (e) => {
-    resetInactivityTimer(); //reset the inactivity timer on mousemove
-    const circleSize = 30; //size of the circle
-    cursorCircle.style.left = `${e.clientX - circleSize / 2}px`; //adjust position to center the circle horizontally
-    cursorCircle.style.top = `${e.clientY - circleSize / 2}px`; //adjust position to center the circle vertically
-
-});
-
-//function to show inactivity message
-function showInactivityMessage(message) {
-    const messageElement = document.createElement("div");
-    messageElement.style.visibility = 'hidden';
-    messageElement.textContent = message;
-    messageElement.classList.add("inactivityMessage");
-    const messageContainer = shadowRoot.getElementById('FocusUp');
-        if (messageContainer)
-            messageContainer.appendChild(messageElement);
-    
-    let isVisible = true;
-    const flashInterval = setInterval(() => {
-        if (isVisible) {
-            messageElement.style.visibility = 'hidden';
-        } else {
-            messageElement.style.visibility = 'visible';
-        }
-        isVisible = !isVisible;
-    }, 500); //flash every 500 milliseconds
-
-
-    //function to stop flashing and remove the message on mousemove
-    const stopFlashing = () => {
-        clearInterval(flashInterval);
-        messageContainer.removeChild(messageElement);
-        document.removeEventListener('mousemove', stopFlashing);
-    };
-
-    //event listener to stop flashing and remove message on mousemove
-    document.addEventListener('mousemove', stopFlashing);
-}
-
-PSButton.addEventListener('click', () => {
-    for (let button of PSButtons) {
-        button.classList.toggle('show');
-    }
-
-    for (let button of MainButtons) {
-        button.classList.toggle('show');
-    }
-
-    const backButton = shadowRoot.getElementById('backButtonPS');
-    const defaultConversionButton = shadowRoot.getElementById('defaultConversionButton');
-    const AGESettingsButton = shadowRoot.getElementById('AGESettingsButton');
-    const toggleMWMButton = shadowRoot.getElementById('MWM');
-
-    if(!addedPSListeners){
-        backButton.addEventListener('click', () => {
-            for (let button of PSButtons) {
-                button.classList.toggle('show');
-            }
-            
-            for (let button of MainButtons) {
-                button.classList.toggle('show');
-            }
-
-            for (let menu of menus) {
-                menu.classList.remove('show');
-            }
-        });
-      
-        function updateChromeStorage() {
-            //get references to each HTML input/select element
-            const fontSizeSelector = shadowRoot.getElementById('defaultFontSize');
-            const fontColorSelector = shadowRoot.getElementById('defaultFontColor');
-            const backColorSelector = shadowRoot.getElementById('defaultBackColor');
-            const typefaceSelector = shadowRoot.getElementById('defaultTypeface');
-
-            //get the values from the input/select elements
-            const defaultFontSize = fontSizeSelector.value;
-            const defaultFontColor = fontColorSelector.value;
-            const defaultBackColor = backColorSelector.value;
-            const defaultTypeface = typefaceSelector.value;
-
-            //store the values in Chrome storage
-            chrome.storage.sync.set({
-                defaultFontSize: defaultFontSize,
-                defaultFontColor: defaultFontColor,
-                defaultBackColor: defaultBackColor,
-                defaultTypeface: defaultTypeface
-            });
-        }
-
-        //attach change event listeners to HTML input/select elements
-        shadowRoot.getElementById('defaultFontSize').addEventListener('change', updateChromeStorage);
-        shadowRoot.getElementById('defaultFontColor').addEventListener('change', updateChromeStorage);
-        shadowRoot.getElementById('defaultBackColor').addEventListener('change', updateChromeStorage);
-        shadowRoot.getElementById('defaultTypeface').addEventListener('change', updateChromeStorage);
-
-        
-        chrome.storage.sync.get(["defaultFontSize", "defaultFontColor", "defaultBackColor", "defaultTypeface"], (result) => {
-            const defaultFontSize = result.defaultFontSize + 'px';
-            const defaultFontColor = result.defaultFontColor;
-            const backColor = result.defaultBackColor;
-            const typeface = result.defaultTypeface;
-
-            shadowRoot.getElementById('defaultFontSize').value = defaultFontSize;
-            shadowRoot.getElementById('defaultFontColor').value = defaultFontColor;
-            shadowRoot.getElementById('defaultBackColor').value = backColor;
-            shadowRoot.getElementById('defaultTypeface').value = typeface;
-        });
-        //event listener for the defaultConversionButton
-        defaultConversionButton.addEventListener('click', () => {
-            PSFontMenu.classList.toggle('show');
-            PSAGEMenu.classList.remove('show');
-            
-            //call updateChromeStorage to ensure the latest values are stored before toggling the menu
-            //updateChromeStorage();
-        });
-
-   
-       AGESettingsButton.addEventListener('click', () => {
-            PSAGEMenu.classList.toggle('show');
-            PSFontMenu.classList.remove('show');
-            
-            const inactivityDurationInput = shadowRoot.getElementById('inactivityDuration');
-            //event listener for flash frequency input
-            flashFrequencyInput.addEventListener('change', () => {
-                const newFrequency = parseFloat(flashFrequencyInput.value); //get the new frequency value
-                if (isNaN(newFrequency) || newFrequency < 0 || newFrequency > 10) {
-                    flashFrequencyInput.value = '0.5'; //set default value if invalid
-                    return; //exit function if invalid value
+                else {
+                    const originalFontColor = element.getAttribute('data-original-font-color');
+                    element.style.color = originalFontColor;
                 }
-                //store the new frequency in Chrome storage
-                chrome.storage.sync.set({ flashFrequency: newFrequency }, () => {
-                    console.log('New frequency stored:', newFrequency);
-                });
-                 storedFrequency = newFrequency;
-
-                 setupFlashing();
             });
-        
-            //event listener for inactivity duration input
-            inactivityDurationInput.addEventListener('change', () => {
-                const newInterval = parseInt(inactivityDurationInput.value); //get the new interval value
-                if (isNaN(newInterval) || newInterval < 1 || newInterval > 20) {
-                    inactivityDurationInput.value = '10'; //set default value if invalid
-                    return; //exit function if invalid value
+        }
+    }
+});
+
+greenTextButton.addEventListener('click', () => {
+    const selection = window.getSelection();
+
+    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+        toggleClassOnSelection('highlight-color-green', "Color");
+    } else {
+        if(currentColor != "green"){
+            currentColor = "green";
+
+            const selectedColor = "green";
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, li, td, th, label, div');
+            textElements.forEach(element => {
+                element.style.color = selectedColor;
+            });
+        }
+        else{
+            currentColor = "original";
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+            textElements.forEach(element => {
+                if(element.hasAttribute('data-original-font-color')) {
+                    const originalFontColor = element.dataset.originalFontColor;
+                    element.style.color = originalFontColor;
                 }
-                inactivityTime = inactivityDurationInput.value;
-                resetInactivityTimer(); //reset the inactivity timer on input change
-                //store the new interval in Chrome storage
-                chrome.storage.sync.set({ inactivityInterval: newInterval }, () => {
-                    console.log('New inactivity detection interval stored:', newInterval);
-                });
+                else {
+                    const originalFontColor = element.getAttribute('data-original-font-color');
+                    element.style.color = originalFontColor;
+                }
             });
-                
-            //event listener for cursor color input
-            cursorColorInput.addEventListener('input', () => {
-                const newColor = cursorColorInput.value; //get the new color value
-                updateCursorColor(newColor); //update circle color immediately
-                //store the new color in Chrome storage
-                chrome.storage.sync.set({ cursorColor: newColor }, () => {
-                    console.log('New color stored:', newColor);
-                });
-                storedColor = newColor;
+        }
+    }
+});
+
+blueTextButton.addEventListener('click', () => {
+    const selection = window.getSelection();
+
+    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+        toggleClassOnSelection('highlight-color-blue', "Color");
+    } else {
+        if(currentColor != "blue"){
+            currentColor = "blue";
+
+            const selectedColor = "blue";
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, li, td, th, label, div');
+            textElements.forEach(element => {
+                element.style.color = selectedColor;
             });
-        });
-      
-        toggleMWMButton.addEventListener('click', () => {
-            doMWM = !doMWM;
-        
-            const MWMStateDiv = shadowRoot.getElementById('MWMState');
-            MWMStateDiv.textContent = doMWM ? 'MWM is ON' : 'MWM is OFF';
-        
-            MWMStateDiv.classList.add("show");
-            setTimeout(() => {
-                MWMStateDiv.classList.remove("show");
-            }, 2000);
-        
-            chrome.storage.sync.set({ doMWM: doMWM });
-        });
-    }
-
-    addedPSListeners = true;
-});
-
-const fidgetContainer = shadowRoot.getElementById('fidgetContainer');
-const moveFidget = shadowRoot.getElementById('moveFidget');
-const toggleFidgetButton = shadowRoot.getElementById('toggleFidgetButton');
-
-let isDraggingFD = false;
-let offsetXFD = 0;
-let offsetYFD = 0;
-let fidgetWidth = 0;
-let fidgetHeight = 0;
-
-// Set initial position of fidget container to center of viewport
-const initialLeft = (window.innerWidth - fidgetContainer.offsetWidth) / 2;
-const initialTop = (window.innerHeight - fidgetContainer.offsetHeight) / 2;
-fidgetContainer.style.left = initialLeft + 'px';
-fidgetContainer.style.top = initialTop + 'px';
-
-// Get the dimensions of the fidget tool image
-moveFidget.onload = () => {
-    fidgetWidth = moveFidget.offsetWidth;
-    fidgetHeight = moveFidget.offsetHeight;
-};
-
-fidgetContainer.addEventListener('mousedown', (e) => {
-    isDraggingFD = true;
-    offsetXFD = fidgetWidth / 2; // Adjust offset based on image center
-    offsetYFD = fidgetHeight / 2; // Adjust offset based on image center
-});
-
-document.addEventListener('mousemove', (e) => {
-    if (isDraggingFD) {
-        fidgetContainer.style.left = e.clientX - offsetXFD + 'px';
-        fidgetContainer.style.top = e.clientY - offsetYFD + 'px';
-    }
-});
-
-document.addEventListener('mouseup', () => {
-    isDraggingFD = false;
-});
-
-toggleFidgetButton.addEventListener('click', () => {
-    fidgetContainer.style.display = fidgetContainer.style.display === 'none' ? 'block' : 'none';
-});
-
-
-const FDButton = shadowRoot.getElementById('FDButton');
-const FDButtons = shadowRoot.querySelectorAll('.FDButtons');
-let FDListenersAdded = false;
-let FDTempFlag = false;
-
-let rotationAngle = 0; // Initial rotation angle
-
-let scrollVelocity = 0; // Initial scroll velocity
-const decelerationFactor = 0.9; // Adjust deceleration factor for smoother deceleration
-
-document.addEventListener('wheel', (event) => {
-    const rect = moveFidget.getBoundingClientRect();
-    const x = event.clientX;
-    const y = event.clientY;
-
-    if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
-        console.log('trying to move');
-        event.preventDefault(); // Prevent default scrolling behavior
-
-        // Calculate the new scroll velocity based on the scroll delta
-        const scrollDelta = event.deltaY;
-        scrollVelocity += scrollDelta;
-
-        // Update the rotation angle based on the scroll velocity
-        rotationAngle += scrollVelocity;
-        moveFidget.style.transform = `rotate(${rotationAngle}deg)`;
-
-        // Apply deceleration to the scroll velocity
-        scrollVelocity *= decelerationFactor;
-
-        // Smooth out rotation animation using requestAnimationFrame
-        requestAnimationFrame(() => {
-            moveFidget.style.transition = 'transform 0.2s ease-in-out'; // Adjust transition as needed
-            moveFidget.style.transform = `rotate(${rotationAngle}deg)`;
-        });
-    }
-}, { passive: false }); // Specify that the event listener is not passive
-
-
-
-FDButton.addEventListener('click', () => {
-    for (let button of FDButtons) {
-        button.classList.toggle('show');
-    }
-
-    for (let button of MainButtons) {
-        button.classList.toggle('show');
-    }
-
-    const backButton = shadowRoot.getElementById('backButtonFD');
-    const FDMenuButton = shadowRoot.getElementById('FDMenuStart')
-    const FDDelete = shadowRoot.getElementById('FDDelete');
-    function backButtonClickHandler() {
-        for (let button of FDButtons) {
-            button.classList.toggle('show');
         }
-        
-        for (let button of MainButtons) {
-            button.classList.toggle('show');
-        }
-        if(FDMenu.classList.contains('show')){
-            FDMenu.classList.toggle('show');
-        }
-
-        if(FDMenu.classList.contains('show')){
-            FDMenu.classList.toggle('show');
+        else{
+            currentColor = "original";
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+            textElements.forEach(element => {
+                if(element.hasAttribute('data-original-font-color')) {
+                    const originalFontColor = element.dataset.originalFontColor;
+                    element.style.color = originalFontColor;
+                }
+                else {
+                    const originalFontColor = element.getAttribute('data-original-font-color');
+                    element.style.color = originalFontColor;
+                }
+            });
         }
     }
-    if(!FDListenersAdded)
-        backButton.addEventListener('click', backButtonClickHandler);
+});
 
+purpleTextButton.addEventListener('click', () => {
+    const selection = window.getSelection();
 
-    if(!FDListenersAdded)
-        FDMenuButton.addEventListener('click', () => {
-        //calculate the position of PBMenu relative to the toolbar
-        const toolbarRect = toolbar.getBoundingClientRect();
-        const FDMenuWidth = FDMenu.offsetWidth;
-        const FDMenuHeight = FDMenu.offsetHeight;
-        
-        const FDMenuLeft = toolbarRect.left + toolbarRect.width + 10;
-        const FDMenuTop = toolbarRect.top;
+    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+        toggleClassOnSelection('highlight-color-purple', "Color");
+    } else {
+        if(currentColor != "purple"){
+            currentColor = "purple";
 
-        //set the position of FDMenu
-        FDMenu.style.left = FDMenuLeft + 'px';
-        FDMenu.style.top = FDMenuTop + 'px';
+            const selectedColor = "purple";
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, li, td, th, label, div');
+            textElements.forEach(element => {
+                element.style.color = selectedColor;
+            });
+        }
+        else{
+            currentColor = "original";
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+            textElements.forEach(element => {
+                if(element.hasAttribute('data-original-font-color')) {
+                    const originalFontColor = element.dataset.originalFontColor;
+                    element.style.color = originalFontColor;
+                }
+                else {
+                    const originalFontColor = element.getAttribute('data-original-font-color');
+                    element.style.color = originalFontColor;
+                }
+            });
+        }
+    }
+});
 
-        //show the PBMenu
-        FDMenu.classList.toggle('show');
+defaultTextColorButton.addEventListener('click', () => {
+    currentColor = "original";
+    const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+    textElements.forEach(element => {
+        if(element.hasAttribute('data-original-font-color')) {
+            const originalFontColor = element.dataset.originalFontColor;
+            element.style.color = originalFontColor;
+        }
+        else {
+            const originalFontColor = element.getAttribute('data-original-font-color');
+            element.style.color = originalFontColor;
+        }
+    });
+});
 
-        });
+// Function to update button image based on mode
+function updateButtonImageBetween(button, imageName, isOriginal) {
+    if (isOriginal) {
+        button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + "Gray.svg")}`;
+    } else {
+        button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + "Blue.svg")}`;
+    }
+}
 
-        if (!FDListenersAdded) {
-            FDDelete.addEventListener('click', () => {
-                const moveFidget = shadowRoot.getElementById('moveFidget');
-        
-                // Reset the position of the fidget container to the center of the page
-                const initialLeft = (window.innerWidth - moveFidget.offsetWidth) / 2;
-                const initialTop = (window.innerHeight - moveFidget.offsetHeight) / 2;
-                fidgetContainer.style.left = initialLeft + 'px';
-                fidgetContainer.style.top = initialTop + 'px';
-        
-                // Reset any other state or variables as needed
-                isDraggingFD = false; // Reset the dragging state
+function updateButtonImageBetweenLineAndWord(button, imageName, isOriginal, marker) {
+    if (isOriginal) {
+        button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + "Gray.svg")}`;
+    } else if (marker === 1){
+        button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + "BlueAlpha.svg")}`;
+    }
+    else if (marker === 2){
+        button.querySelector('img').src = `${chrome.runtime.getURL("images/" + imageName + "BlueBeta.svg")}`;
+    }
+}
+
+//Text Spacing
+const spaceBetweenLinesButton = shadowRoot.getElementById('spaceBetweenLines');
+const spaceBetweenWordsButton = shadowRoot.getElementById('spaceBetweenWords');
+const spaceBetweenLettersButton = shadowRoot.getElementById('spaceBetweenLetters');
+
+const lineHeightValues = [1, 1.5, 0.75];
+let currentLineHeightIndex = 0;
+
+const wordSpacingValues = [1, 3, 7];
+let currentWordSpacingIndex = 0;
+
+const letterSpacingValues = [1, 1.5, 2];
+let currentLetterSpacingIndex = 0;
+
+function storeOriginalLineHeight() {
+    const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
     
-                // Optional: If you want to remove the dragging class, do it here
-                moveFidget.classList.remove('dragging');
-        
-                // Optional: If you want to reset any other elements or state, do it here
-            });
-        }
+    textElements.forEach(element => {
+        const computedStyle = window.getComputedStyle(element);
+        element.dataset.originalLineHeight = computedStyle.lineHeight;
+    });
+}
+storeOriginalLineHeight();
 
-        FDListenersAdded = true;
+spaceBetweenLinesButton.addEventListener('click', () => {
+    currentLineHeightIndex = (currentLineHeightIndex + 1) % lineHeightValues.length;
+
+    const newLineHeight = lineHeightValues[currentLineHeightIndex];
+    const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
+    
+    textElements.forEach(element => {
+        const originalLineHeight = parseFloat(element.dataset.originalLineHeight);
+        const newLineHeightValue = originalLineHeight * newLineHeight;
+        element.style.lineHeight = `${newLineHeightValue}px`;
+    });
+    if (currentLineHeightIndex === 0) {
+        updateButtonImageBetweenLineAndWord(spaceBetweenLinesButton, "BetweenLines", true, currentLineHeightIndex);
+    } else {
+        updateButtonImageBetweenLineAndWord(spaceBetweenLinesButton, "BetweenLines", false, currentLineHeightIndex);
+    }
+    //0 -- normal, 1 --- big, 2-- small
 });
+
+function storeOriginalWordSpacing() {
+    const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+    
+    textElements.forEach(element => {
+        const computedStyle = window.getComputedStyle(element);
+        element.dataset.originalWordSpacing = computedStyle.wordSpacing;
+    });
+}
+storeOriginalWordSpacing();
+
+
+spaceBetweenWordsButton.addEventListener('click', () => {
+    currentWordSpacingIndex = (currentWordSpacingIndex + 1) % wordSpacingValues.length;
+
+    const newWordSpacing = wordSpacingValues[currentWordSpacingIndex];
+    const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
+    let newWordSpacingValue;
+    textElements.forEach(element => {
+        const originalWordSpacing = parseFloat(element.dataset.originalWordSpacing);
+        if(originalWordSpacing == 0){
+            newWordSpacingValue = 1 * newWordSpacing;
+        }
+        else{
+            newWordSpacingValue = originalWordSpacing * newWordSpacing;
+        }
+        element.style.wordSpacing = `${newWordSpacingValue}px`;
+    });
+
+    if (currentWordSpacingIndex === 0) {
+        updateButtonImageBetweenLineAndWord(spaceBetweenWordsButton, "BetweenWords", true, currentWordSpacingIndex);
+    } else {
+        updateButtonImageBetweenLineAndWord(spaceBetweenWordsButton, "BetweenWords", false, currentWordSpacingIndex);
+    }
+});
+
+function storeOriginalLetterSpacing() {
+    const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, label, div');
+    
+    textElements.forEach(element => {
+        const computedStyle = window.getComputedStyle(element);
+        element.dataset.originalLetterSpacing = computedStyle.letterSpacing;
+    });
+}
+storeOriginalLetterSpacing();
+
+spaceBetweenLettersButton.addEventListener('click', () => {
+    currentLetterSpacingIndex = (currentLetterSpacingIndex + 1) % letterSpacingValues.length;
+
+    const newLetterSpacing = letterSpacingValues[currentLetterSpacingIndex];
+    const textElements = document.querySelectorAll('body > *:not(div.STP) p, body > *:not(div.STP) h1, body > *:not(div.STP) h2, body > *:not(div.STP) h3, body > *:not(div.STP) h4, body > *:not(div.STP) h5, body > *:not(div.STP) h6, body > *:not(div.STP) span, body > *:not(div.STP) a, body > *:not(div.STP) li, body > *:not(div.STP) td, body > *:not(div.STP) th, body > *:not(div.STP) label, body > *:not(div.STP) div');
+    let newLetterSpacingValue;
+
+    textElements.forEach(element => {
+        const originalLetterSpacing = element.dataset.originalLetterSpacing;
+        
+        if(originalLetterSpacing == "normal"){
+            if(newLetterSpacing == 1){
+                element.style.letterSpacing = `normal`;
+            }
+            else{
+                newLetterSpacingValue = 1 * newLetterSpacing;
+                element.style.letterSpacing = `${newLetterSpacingValue}px`;
+            }
+        }
+        else{
+            newLetterSpacingValue = originalLetterSpacing * newLetterSpacing;
+            element.style.letterSpacing = `${newLetterSpacingValue}px`;
+        }
+    });
+    if (currentLetterSpacingIndex === 0) {
+        updateButtonImageBetweenLineAndWord(spaceBetweenLettersButton, "BetweenLetters", true, currentLetterSpacingIndex);
+    } else {
+        updateButtonImageBetweenLineAndWord(spaceBetweenLettersButton, "BetweenLetters", false, currentLetterSpacingIndex);
+    }
+}); 
+
+// Get the toggle button and sliders
+const toggleFocusRulerButton = shadowRoot.getElementById('toggleFocusRuler');
+const lineHeightSlider = shadowRoot.getElementById('lineHeightSlider');
+const brightnessSlider = shadowRoot.getElementById('brightnessSliderBeta');
+let focusRulerState = 0; // 0 = off, 1 = on, 2 = inverted
+let focusOverlayTop, focusRulerStrip, focusOverlayBottom;
+let maskColor = '0, 0, 0'; // Default mask color
+
+// Function to change mask color
+function changeMaskColor(color) {
+  maskColor = color;
+  updateOverlayBrightness();
+}
+
+// Function to move focus ruler strip
+function moveFocusRulerStrip(event) {
+    let y = event.clientY;
+    if (focusRulerState === 2) {
+      y += document.documentElement.scrollTop; // Add scroll top only for inverted state
+    }
+    focusRulerStrip.style.top = `${y - focusRulerStrip.offsetHeight / 2}px`; // Center the strip around the cursor
+    focusOverlayTop.style.height = `${y - focusRulerStrip.offsetHeight / 2}px`; // Adjust the top overlay height
+    focusOverlayBottom.style.top = `${y + focusRulerStrip.offsetHeight / 2}px`; // Adjust the bottom overlay position
+    focusOverlayBottom.style.height = `calc(100% - ${y + focusRulerStrip.offsetHeight / 2}px)`; // Adjust the bottom overlay height
+  }
+// Function to update overlay brightness
+function updateOverlayBrightness() {
+  const brightness = brightnessSlider.value / 100;
+  if (focusRulerState === 1) {
+    focusOverlayTop.style.background = `rgba(${maskColor}, ${brightness})`;
+    focusOverlayBottom.style.background = `rgba(${maskColor}, ${brightness})`;
+  } else if (focusRulerState === 2) {
+    focusRulerStrip.style.background = `rgba(${maskColor}, ${brightness})`;
+  }
+}
+
+function toggleFocusRuler() {
+    if (focusRulerState === 0) {
+        // Logic for when focus ruler is turned on
+        // Update button image to MaskTypeBlue
+        updateButtonImage(toggleFocusRulerButton, "MaskTypeGray");
+    } else {
+        // Logic for when focus ruler is turned off or inverted
+        // Update button image to MaskTypeGray
+        updateButtonImage(toggleFocusRulerButton, "MaskTypeBlue");
+    }
+}
+
+// Add event listener to the toggle button
+toggleFocusRulerButton.addEventListener('click', () => {
+  if (focusRulerState === 0) {
+    // Create the top overlay element
+    focusOverlayTop = document.createElement('div');
+    focusOverlayTop.id = 'focusOverlayTop';
+    document.body.appendChild(focusOverlayTop); // Append to body
+
+    // Create the strip element
+    focusRulerStrip = document.createElement('div');
+    focusRulerStrip.id = 'focusRulerStrip';
+    document.body.appendChild(focusRulerStrip); // Append to body
+
+    // Create the bottom overlay element
+    focusOverlayBottom = document.createElement('div');
+    focusOverlayBottom.id = 'focusOverlayBottom';
+    document.body.appendChild(focusOverlayBottom); // Append to body
+
+    // Add event listener to move the strip with the cursor
+    document.addEventListener('mousemove', moveFocusRulerStrip);
+
+    // Add event listener to the lineHeightSlider to adjust the strip height
+    lineHeightSlider.addEventListener('input', () => {
+      const newHeight = lineHeightSlider.value + 'px';
+      focusRulerStrip.style.height = newHeight;
+      moveFocusRulerStrip({ clientY: focusRulerStrip.offsetTop + focusRulerStrip.offsetHeight / 2 });
+    });
+
+    // Add event listener to the brightnessSlider to adjust the overlay brightness
+    brightnessSlider.addEventListener('input', updateOverlayBrightness);
+
+    // Set initial brightness
+    updateOverlayBrightness();
+
+    focusRulerState = 1; // Set state to on
+    toggleFocusRuler();
+  } else if (focusRulerState === 1) {
+    // Invert the focus ruler and overlay
+    focusRulerStrip.style.background = `rgba(0, 0, 0, ${brightnessSlider.value / 100})`;
+    focusOverlayTop.style.background = 'transparent';
+    focusOverlayBottom.style.background = 'transparent';
+
+    focusRulerState = 2; // Set state to inverted
+    toggleFocusRuler();
+  } else if (focusRulerState === 2) {
+    // Remove the overlay and strip elements
+    focusOverlayTop.parentNode.removeChild(focusOverlayTop);
+    focusRulerStrip.parentNode.removeChild(focusRulerStrip);
+    focusOverlayBottom.parentNode.removeChild(focusOverlayBottom);
+
+    // Remove the event listener
+    document.removeEventListener('mousemove', moveFocusRulerStrip);
+
+    // Remove slider event listeners
+    brightnessSlider.removeEventListener('input', updateOverlayBrightness);
+
+    focusRulerState = 0; // Set state to off
+    toggleFocusRuler();
+  }
+});
+
+// Add event listeners for color buttons
+const colorButtons = shadowRoot.querySelectorAll('.color-button');
+colorButtons.forEach(button => {
+  button.addEventListener('click', (event) => {
+    const color = event.target.getAttribute('data-color');
+    changeMaskColor(color);
+  });
+});
+
+// Initialize contrast and saturation levels
+const contrastLevels = ['default', 'light', 'dark', 'invert'];
+let currentContrastIndex = 0; // Start with default contrast mode
+
+const saturationLevels = ['default', 'low', 'high', 'desaturate']; // Added 'desaturate' option
+let currentSaturationIndex = 0; // Start with default saturation
+
+// Get the elements
+const changeContrastBtn = shadowRoot.getElementById('changeContrast');
+const changeSaturationBtn = shadowRoot.getElementById('changeSaturation');
+
+// Add click event listeners
+changeContrastBtn.addEventListener('click', toggleContrast);
+changeSaturationBtn.addEventListener('click', toggleSaturation);
+
+// Function to toggle contrast mode
+function toggleContrast() {
+    currentContrastIndex = (currentContrastIndex + 1) % contrastLevels.length;
+    applyContrast(contrastLevels[currentContrastIndex]);
+}
+
+// Function to apply contrast mode
+function applyContrast(contrastMode) {
+    document.body.style.filter = getFilterValue(contrastMode);
+    updateButtonImage(changeContrastBtn, contrastMode + "Contrast");
+}
+
+// Function to toggle saturation level
+function toggleSaturation() {
+    currentSaturationIndex = (currentSaturationIndex + 1) % saturationLevels.length;
+    applySaturation(saturationLevels[currentSaturationIndex]);
+}

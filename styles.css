@@ -1,21 +1,14 @@
-#FocusUp{
-    line-height: normal;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #000;
-    font-size: 14px;
-}
-
 .toolbar {
     position: fixed;
     right: 10px;
     top: 10px;
-    width: 70px;
-    height: 115px;
+    width: 50px;
+    height: 50px;
     background-color: #333333;
-    border-top-right-radius: 50px;
-    border-bottom-right-radius: 50px;
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -26,238 +19,165 @@
     background-color: transparent;
     border: none;
     padding: 0;
-    height: 30px;
+    height: 50px;
+    width: 50px;
     border-radius: 100%;
     z-index: 9999;
     display: fixed;
-    margin: 25px;
     position: relative;
 }
 
-.toolbar .buttonText {
-    color: white;
-    font-size: 12px;
-}
-
 .toolbar button:hover {
-    background-color: #333333;
+    box-shadow: 0 0 10px 2px blue; /* Blue highlight on hover */
 }
 
-#addTaskBox{
-    border-radius: 10px;
-}
-
-.fontAlterationButtons {
-    display: none;
-}
-
-.PBButtons {
-    display: none;
-}
-
-.FDButtons {
-    display: none;
-}
-
-.mainButtons{
-    display: none;
-}
-
-.PSButtons{
-    display: none;
-}
-
-.timerButtons{
-    display: none;
-}
-
-.taskButtons{
-    display: none;
-}
-
-.menu {
+#sidebar {
     display: none; 
     position: fixed;
-    background-color: #333333;
-    padding: 10px;
-    width: 191px;
-    height: auto;
-    left: 59px;
-    flex-shrink: 0;
+    top: 0;
+    right: 0;
+    width: 30%;
+    height: 100%;
+    background-color:rgba(239,241,245,255);
+    padding: 1px;
+    box-sizing: border-box;
     z-index: 9999;
-    border-radius: 15px;
+    overflow-y: auto; /* Add vertical scrollbar */
+    border: 1px solid rgb(0, 0, 0);   
 }
 
-#PSFontMenu {
-    height: auto;
+#sidebar.left {
+    left: 0;
+    right: auto;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.5);
 }
 
-#taskListListStyled{
-    border: 1px solid black;
-    border-radius: 5px;
-}
-
-.taskItem{
-    margin-bottom: 8px; 
-}
-
-.taskItemAlpha{
-    margin-bottom: 20px;
-    display: flex; /* Enable flexbox layout */
-    flex-direction: row; /* Arrange children in a row */
-    align-items: flex-start; /* Align items to the top */
-}
-
-.taskItemAlpha .taskInput {
-    flex: 1; /* Allow the text area to take up available space */
-    margin-right: 10px; /* Space between the text area and the button container */
-    min-width: 0; /* Prevent overflow if content is too wide */
-}
-
-.taskItemAlpha .buttonContainer {
-    display: flex; /* Enable flexbox layout for buttons */
-    flex-direction: column; /* Stack buttons vertically */
-    align-items: flex-start; /* Align buttons to the start (left) */
-}
-
-.taskItemAlpha .buttonContainer button {
-    width: 80px; /* Fit the button content */
-    margin-bottom: 5px; /* Space between stacked buttons */
-}
-
-.taskScope {
-    color: #EAEAEA;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-#taskListMenu textarea {
-    width: 280px;
-    resize: none;
-    font-size: 18px;
-    max-height: 100px;
-    height: 70px;
-    overflow-y: auto;
-
-    align-items: center;
-    justify-content: center;
-    margin: 0px;
-    padding-right: 5px;
-    align-self: center;
-
+#menu{
+    background-color: rgba(33,37,41,255);
+    font-size: 30px;
     border-radius: 10px;
+    color: white;
+    width: 97%;
+    height: 10%;
+    padding-left: 2%;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 5%;
+    margin-bottom: 4%;
+    margin-left: 1%;
+    padding-bottom: 4%;
 }
 
-#taskListMenu button{
-    width: 80px;
-    height: 30px;
-    display: flex;
+.myButtons{
+    background-color: rgb(255, 255, 255);
+    text-align: center;
     align-items: center;
-    justify-content: center;
-    margin: 0px;
-    padding-right: 5px;
-    align-self: center;
+    border: 1px solid rgb(0, 0, 0); 
+    border-radius: 10px; /* Increase the border-radius to round all corners */
+    font-size: 30px;
+    width: 97%; /* Make the buttons take up the full width of the grid cell */
+    height: 100%; /* Make the buttons take up the full height of the grid cell */
     font-weight: bold;
+}
+
+#button-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Define two columns of equal width */
+    gap: 1%; /* Add a gap between the columns */
+    background-color: rgba(255, 255, 255, 0);
+    padding-left: 1.5%;
+    margin-bottom: 10px;
+}
+
+#button-container-alpha {
+    background-color: rgba(255, 255, 255, 0);
+    padding-left: 1.5%;
+    margin-bottom: 10px;
+}
+
+.gridSetUp {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr)); /* Adjust minmax as needed */
+    grid-template-rows: repeat(10, minmax(0, 1fr)); /* Create 10 rows */
+    grid-auto-rows: minmax(100px, auto); /* Adjust row height */
+    gap: 1%; /* Adjust gap as needed */
+    justify-content: center;
+    padding: 1%; /* Add padding around the grid */
+}
+
+.grid-item {
+    padding: 1%; /* Adjust padding as needed*/
+}
+
+.grid-item img {
+    max-width: 100%; /* Adjust max-width as needed */
+    max-height: 50%; /* Adjust max-height as needed */
+    margin-bottom: 10px; /* Space between image and text */
+}
+
+#brightnessAlpha{
+    padding-right: 15%;
+}
+
+#brightnessBeta{
+    padding-right: 15%;
+}
+
+#lineHeightIMG{
+    padding-right: 15%;
+}
+
+.grid-item p {
+    font-family: Arial, sans-serif;
     font-size: 16px;
-    margin-left: 5px;
+    color: #000000;
+    text-align: center;
+    margin: 0; /* Remove default margin */
+    font-weight: bold;
 }
 
-
-#viewAllTasksMenu textarea {
-    width: 280px;
-    resize: none;
-    font-size: 18px;
-    max-height: 142px;
-    height: 70px;
-
+.grid-item button {
+    display: block; /* Add this */
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    text-align: center; /* Add this */
     align-items: center;
-    justify-content: center;
-    margin: 0px;
-    padding-right: 5px;
-    align-self: center;
-
-    border-radius: 10px;
+    border: 1px solid rgb(0, 0, 0); 
+    border-radius: 10px; /* Add border-radius if needed */
 }
 
-#viewAllTasksMenu button{
-    width: 80px;
-    float: right;
-    font-size: larger;
-    margin-right: 5px;
-}
-
-.domainContainer{
-    font-size: 14px; 
-    color:#EAEAEA;
-    text-align: left;
-    font-weight: bold;
-}
-
-.buttonContainer{
-    align-items: right;
-    margin-left: 5px;
-    height: 42px;
-}
-
-#SavedTasksStyled{
-    height: 9px;
-    font-size: 27px;
-    font-weight: bold;
-    color:#EAEAEA;
-    text-align: center
-}
-#savedTasksP {
-    font-size: 19px !important;
-    color:#EAEAEA;
-    text-align: center !important;
-}
-
-#timerMenu label{
-    background-color: #FFD700;
-    border-radius: 15px;
-    font-size: 14px;
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-.PBPopUp {
-    display: none;
-    position: fixed;
-    background-color: #333333;
+#closeSidebar {
+    background-color: #ffffff;
+    border-radius: 50%;
     padding: 10px;
-    width: 220px;
-    height: 220x;
-    left: 59px;
-    flex-shrink: 0;
-    z-index: 9999;
-    border-radius: 15px;
+    width: auto;
+    height: auto;
 }
 
-.FDPopUp {
-    display: none;
-    position: fixed;
-    background-color: #333333;
-    padding: 10px;
-    width: 220px;
-    height: 220x;
-    left: 59px;
-    flex-shrink: 0;
-    z-index: 9999;
-    border-radius: 15px;
+button:hover {
+    box-shadow: 0 0 10px 2px blue; /* Blue highlight on hover */
 }
 
-.menu button {
-    background-color: #FFD700;
-    border: none;
-    border-radius: 15px;
+#closeSidebar {
+    position: absolute;
+    top: 10px; /* Adjust the top position as needed */ 
+    right: 10px; /* Adjust the right position as needed */
+    cursor: pointer;
+}
+
+#textOptions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns, each taking 1 fractional unit */
+    column-gap: 1px; /* Adjust gap as needed */
 }
 
 .show {
-    display: block;
+    display: block !important;
 }
 
 .hide {
-    display: none;
+    display: none !important;
 }
 
 .disable-text-selection {
@@ -267,209 +187,158 @@
     -ms-user-select: none;
 }
 
-.progressBar {
-    right: 25px;
-    bottom: 40px;
-    width: 30px;
-    height: 230px;
-    background-color: #777777;
-    margin-top: 55px;
-
-    border-top-right-radius: 50px;
-    border-bottom-right-radius: 50px;
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-}
-
-#progressContainer {
-    position: fixed;
-    right: 25px;
-    bottom: 40px;
-    width: 30px;
-    height: 230px;
-    background-color: #000000;
-    border-radius: 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.progress {
-    width: 30px;
-    height: 0px;
-    background-color: #FFD700;
-    border-top-right-radius: 50px;
-    border-bottom-right-radius: 50px;
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.progressText {
-    position: absolute;
+.centered-heading {
+    text-align: center; /* Center-align the heading */
+    margin-bottom: 10px; /* Add some space below the heading */
     color: #000000;
-    background: #eaf3ff;
-    font-size: 12px;
-    font-weight: bold;
-    text-align: center;
-    width: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 9999;
-    font-weight: bold;
 }
-
-#start, #end {
-    cursor: grab;
-    position: absolute; /* Ensure position is absolute */
-}
-
-.cursor-follow {
-    position: fixed;
-    z-index: 1000;
-    pointer-events: none;
-}
-
-.motivationalMessage {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #333333;
-    color: white;
-    padding: 10px;
-    width: 300px;
-    height: 100px;
-    z-index: 9999;
-
-    border-radius: 10px; /* Use a single property for border radius */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Improved shadow effect */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    text-align: center; /* Center text horizontally */
-    border-top-right-radius: 50px;
-    border-bottom-right-radius: 50px;
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
-
-}
-
-
-.inactivityMessage {
-   position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #333333;
-    color: white;
-    padding: 20px;
-    z-index: 9999;
-    border-top-right-radius: 50px;
-    border-bottom-right-radius: 50px;
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    text-shadow: -1px -1px 0 #000,  
-                  1px -1px 0 #000,
-                 -1px  1px 0 #000,
-                  1px  1px 0 #000;
+.color-grid-container {
+    text-align: center; /* Center the title */
+    box-sizing: border-box;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 10%;
+    background-color: rgb(255, 255, 255);
     
-
-    font-size: 75px; 
-    line-height: 1.2; 
-    width: 500px;
-    height: 500px;
 }
 
-.cursor-circle {
-    position: fixed;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: rgba(243, 4, 4, 0.5); 
-    pointer-events: none; 
-    z-index: 9999; 
-}
-
-#MWMState {
-    position: fixed;
-    top: 50px; 
-    left: 50%;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 23px;
-    font-size: 16px;
-    font-weight: bold;
-    z-index: 1000;
-    padding: 10px;
-    width: 100px;
-    height: 30px;
-    text-align: center;
-    z-index: 9999; 
-}
-
-.popUpText {
-    font-size: 15px;
-    color: #EAEAEA;
-}
-
-.highlightText {
-    text-decoration: underline;
-    font-weight: bold;
-}
-
-.alternativeText {
-    text-decoration: underline;
-    font-style: italic;
-}
-
-.fidgetContainer {
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-}
-
-#moveFidget {
-    pointer-events: all;
-}
-
-.instructions {
-    color: white;
+.color-grid-title {
+    font-family: Arial, sans-serif;
     font-size: 20px;
-    text-align: center;
+    color: #000000;
+    margin-bottom: 0px; /* Add some space between the title and the grid */
     font-weight: bold;
+    padding-bottom: 10%;
 }
 
-ul.whiteBullets {
-list-style-type: none;
-padding-left: 1em;
+.color-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, .2fr));
+    column-gap: 2%;
+    row-gap: 2%;
+    align-items: center;
+    justify-content: center;
 }
 
-ul.whiteBullets li::before {
-content: '•';
-color: white;
-display: inline-block;
-width: 0.7em;
-margin-left: -1em;
+.color-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.color-button {
+    width: 100%; /* Set a fixed width for the buttons */
+    height: 20px; /* Set a fixed height for the buttons */
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
+    border: 1px solid rgb(0, 0, 0); 
+}
+
+.color-button:hover {
+    box-shadow: 0 0 10px 2px blue; /* Blue highlight on hover */
+}
+
+.color-button[style*="background-color: white;"] {
+    border: 1px solid #ccc; /* Add border to make white button visible */
+}
+
+.color-button-alpha {
+    width: 100%; /* Set a fixed width for the buttons */
+    height: 20px; /* Set a fixed height for the buttons */
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
+    border: 1px solid rgb(0, 0, 0); 
+}
+
+.color-button-alpha:hover {
+    box-shadow: 0 0 10px 2px blue; /* Blue highlight on hover */
+}
+
+.color-button-aplha[style*="background-color: white;"] {
+    border: 1px solid #ccc; /* Add border to make white button visible */
+}
+
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-left: 20px; /* Add margin to separate from color buttons */
+}
+
+#slider-beta{
+    border: 1px solid rgb(0, 0, 0); 
+    border-radius: 10%; /* Add border-radius if needed */
+    background-color: rgb(255, 255, 255);
+}
+
+#slider-alpha{
+    border: 1px solid rgb(0, 0, 0); 
+    border-radius: 10%; /* Add border-radius if needed */
+    background-color: rgb(255, 255, 255);
+}
+
+#Line-Height-Border{
+    border: 1px solid rgb(0, 0, 0); 
+    border-radius: 10%; /* Add border-radius if needed */
+    background-color: rgb(255, 255, 255);
+}
+
+#brightnessSliderAlpha {
+    width: 85%;
+}
+
+#brightnessSliderBeta {
+    width: 85%;
+}
+
+#lineHeightSlider{
+    width: 85%;
+}
+
+.left-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.right-content {
+    display: flex;
+    align-items: center; /* Align items vertically center */
+}
+
+#focusOverlayTop, #focusOverlayBottom {
+    position: fixed;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Darken the background */
+    z-index: 1000; /* Ensure it's on top of everything else */
+    pointer-events: none; /* Allow clicks to pass through */
+}
+
+#focusOverlayTop {
+    top: 0;
+    height: 0; /* Initial height */
+}
+
+#focusOverlayBottom {
+    height: 0; /* Initial height */
+}
+
+#focusRulerStrip {
+    position: absolute;
+    width: 100%;
+    height: 50px; /* Initial height */
+    background: transparent; /* Make the strip clear */
+    z-index: 1001; /* Ensure it's on top of the overlay */
 }
 
 @font-face {
-    font-family: 'Verdana';
-    src: url('chrome-extension://__MSG_@@extension_id__/fonts/verdana.ttf') format('truetype');
+    font-family: 'OpenDyslexic';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/OpenDyslexic3-Regular.ttf') format('truetype');
 }
 
 @font-face {
@@ -478,11 +347,95 @@ margin-left: -1em;
 }
 
 @font-face {
+    font-family: 'Open Sans';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/OpenSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
     font-family: 'Tahoma';
     src: url('chrome-extension://__MSG_@@extension_id__/fonts/Tahoma.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Verdana';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/verdana.ttf') format('truetype');
+}
+
+#screenShaderOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1005;
+    pointer-events: none;
+    background: rgba(0, 0, 0, 0); /* Initial background color with opacity */
+    transition: background-color 0.3s ease; /* Optional: Add transition effect */
+}
+
+.image-slider-pair {
+    display: flex;
+    flex-direction: column;
+    gap: 1px; /* Adjust gap to control the space between the image and the slider */
+}
+  
+ .font-button{
+    padding: 1px;
+    font-size: 12px;
+
+}
+
+.font-button.active {
+    background-color: lightblue; /* or any shade of blue you prefer */
 }
 
 @font-face {
     font-family: 'OpenDyslexic';
     src: url('chrome-extension://__MSG_@@extension_id__/fonts/OpenDyslexic3-Regular.ttf') format('truetype');
 }
+
+@font-face {
+    font-family: 'Helvetica';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/Helvetica.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/OpenSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Tahoma';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/Tahoma.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Verdana';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/verdana.ttf') format('truetype');
+}
+
+
+.fontAlterationButtons {
+    display: none;
+}
+
+.highlight-bold { font-weight: bold !important;}
+.highlight-italics { font-style: italic !important; }
+.highlight-typeface-arial { font-family: Arial; }
+.highlight-typeface-calibri { font-family: 'Calibri'; }
+.highlight-typeface-century-gothic { font-family: 'Century Gothic'; }
+.highlight-typeface-comic-sans-ms { font-family: 'Comic Sans MS'; }
+.highlight-typeface-courier { font-family: Courier; }
+.highlight-typeface-helvetica { font-family: Helvetica; }
+.highlight-typeface-open-sans { font-family: 'Open Sans'; }
+.highlight-typeface-opendyslexic { font-family: 'OpenDyslexic'; }
+.highlight-typeface-tahoma { font-family: Tahoma; }
+.highlight-typeface-verdana { font-family: Verdana; }
+.highlight-color-black { color: black; }
+.highlight-color-white { color: white; }
+.highlight-color-red { color: red; }
+.highlight-color-orange { color: orange; }
+.highlight-color-yellow { color: yellow; }
+.highlight-color-green { color: green; }
+.highlight-color-blue { color: blue; }
+.highlight-color-purple { color: purple; }
