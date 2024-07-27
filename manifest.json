@@ -1,9 +1,9 @@
 {
-    "name": "STP",
+    "name": "FocusUp",
     "version": "1.0.0",
     "description": "This is a Google Chrome extension aimed at helping those with attention-defecit disorders focus.",
     "manifest_version": 3,
-    "author": "Weston Leonard",
+    "author": "Weston Leonard, Hector Ruiz",
     "permissions": [
         "activeTab",
         "scripting",
@@ -14,15 +14,20 @@
         "<all_urls>"
       ],
       "content_scripts": [
-        {
-          "matches": ["<all_urls>"],
+      {
+          "matches": [
+              "*://*/*"
+          ],
           "js": ["script.js"],
-          "css": ["styles.css"]
-        }
-      ],
+          "css": ["styles.css"],
+          "exclude_matches": [
+              "*://www.google.com/*"
+          ]
+      }
+  ],
       "web_accessible_resources": [ {
         "matches": [ "<all_urls>" ],
-        "resources": [ "styles.css", "images/*.svg", "alarm.wav"]
+        "resources": [ "styles.css", "images/*.svg", "alarm.wav", "fonts/*.ttf"]
      } ]
       
 }
