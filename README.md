@@ -1,2 +1,2 @@
 # STP
-A repository for out CSCE 4460 project. 
+A Chrome extension aimed at providing various accessibility features.  
